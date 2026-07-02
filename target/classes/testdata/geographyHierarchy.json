@@ -1,0 +1,43 @@
+[
+	{
+	  "nationalName": "India",
+	  "circles": [
+	    {
+	      "circleName": "South East",
+	      "clusters": [
+	        {
+	          "clusterName": "Andhra Pradesh",
+	          "districts": [
+	            {
+	              "districtName": "Visakhapatnam",
+	              "sites": [
+	                {
+	                  "siteName": "Visakhapatnam"
+	                }
+	              ]
+	            }
+	          ]
+	        }
+	      ]
+	    },
+		{
+		   "circleName": "North East",
+		   "clusters": [
+		     {
+		       "clusterName": "Assam",
+		       "districts": [
+		          {
+		            "districtName": "Dibrugarh",
+		            "sites": [
+		              {
+		                "siteName": "Dibrugarh"
+		             }
+				  ]
+				 }
+		       ]
+		     }
+		   ]
+		 }
+	  ]
+	}
+]

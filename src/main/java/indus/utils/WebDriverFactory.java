@@ -1,0 +1,62 @@
+package indus.utils;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.time.Duration;
+import java.util.Properties;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.events.EventFiringDecorator;
+
+import indus.selenium.listener.SeleniumListener;
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class WebDriverFactory {
+	private static ThreadLocal<WebDriver> driver =
+            new ThreadLocal<>();
+	
+	public WebDriver initializeDriver() throws IOException {
+		Properties prop = new Properties();
+		String path = System.getProperty("user.dir")
+                + "/src/main/resources/testdata/GlobalData.properties";
+
+        FileInputStream fis = new FileInputStream(path);
+
+        prop.load(fis);
+
+        String browserName = ConfigReader.getBrowser();
+        if (browserName.equalsIgnoreCase("chrome")) {
+
+            WebDriverManager.chromedriver().setup();
+
+            driver.set(new ChromeDriver());
+        }
+        SeleniumListener listener = new SeleniumListener();
+        EventFiringDecorator<WebDriver> decorator =
+                new EventFiringDecorator<>(listener);
+
+        WebDriver decoratedDriver = decorator.decorate(driver.get());
+        driver.set(decoratedDriver);
+        
+        getDriver().manage().window().maximize();
+
+        getDriver().manage().timeouts()
+                .implicitlyWait(Duration.ofSeconds(2));
+        return decorator.decorate(driver.get());
+	}
+	
+	public static WebDriver getDriver() {
+        return driver.get();
+    }
+
+    public static void quitDriver() {
+
+        if (driver.get() != null) {
+
+            driver.get().quit();
+
+            driver.remove();
+        }
+    }
+}

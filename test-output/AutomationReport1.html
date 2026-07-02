@@ -1,0 +1,3524 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Smoke Report</title>
+<link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@b00a2d0486596e73dd7326beacf352c639623a0e/commons/img/logo.png">
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@b00a2d0486596e73dd7326beacf352c639623a0e/commons/img/logo.png">
+<link href="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@ce8b10435bcbae260c334c0d0c6b61d2c19b6168/spark/css/spark-style.css" rel="stylesheet" />
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@7cc78ce/spark/js/jsontree.js"></script>
+<style type="text/css">.logo { display:block; margin-bottom:10px; }</style></head><body class="spa -report standard">
+  <div class="app">
+    <div class="layout">
+<div class="header navbar">
+<div class="vheader">
+<div class="nav-logo">
+<a href="#">
+<div class="logo" style="background-image: url('https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@b00a2d0486596e73dd7326beacf352c639623a0e/commons/img/logo.png')"></div>
+</a>
+</div>
+<ul class="nav-left">
+<li class="search-box">
+<a class="search-toggle" href="#">
+<i class="search-icon fa fa-search"></i>
+<i class="search-icon-close fa fa-close"></i>
+</a>
+</li>
+<li class="search-input"><input id="search-tests" class="form-control" type="text" placeholder="Search..."></li>
+</ul>
+<ul class="nav-right">
+<li class="m-r-10">
+<a href="#"><span class="badge badge-primary">ESH Portal Automation Report</span></a>
+</li>
+<li class="m-r-10">
+<a href="#"><span class="badge badge-primary">Jul 1, 2026 05:33:09 pm</span></a>
+</li>
+</ul>
+</div>
+</div><div class="side-nav">
+<div class="side-nav-inner">
+<ul class="side-nav-menu">
+<li class="nav-item dropdown" onclick="toggleView('test-view')">
+<a id="nav-test" class="dropdown-toggle" href="#">
+<span class="ico"><i class="fa fa-list"></i></span>
+</a>
+</li>
+<li class="nav-item dropdown" onclick="toggleView('category-view')">
+<a id="nav-category" class="dropdown-toggle" href="#">
+<span class="ico"><i class="fa fa-tag"></i></span>
+</a>
+</li>
+<li class="nav-item dropdown" onclick="toggleView('author-view')">
+<a id="nav-author" class="dropdown-toggle" href="#">
+<span class="ico"><i class="fa fa-user"></i></span>
+</a>
+</li>
+<li class="nav-item dropdown" onclick="toggleView('dashboard-view')">
+<a id="nav-dashboard" class="dropdown-toggle" href="#">
+<span class="ico"><i class="fa fa-bar-chart"></i></span>
+</a>
+</li>
+</ul>
+</div>
+</div>      <div class="vcontainer">
+        <div class="main-content">
+<div class="test-wrapper row view test-view">
+  <div class="test-list">
+    <div class="test-list-tools">
+<ul class="tools pull-left">
+<li><a href="#"><span class="font-size-14">Tests</span></a></li>
+</ul>
+<ul class="tools text-right">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-exclamation-circle"></i></a>
+<ul id="status-toggle" class="dropdown-menu dropdown-md p-v-0">
+<a class="dropdown-item" status="pass" href="#"><span>Pass</span><span class="status success"></span></a>
+<div class="dropdown-divider"></div>
+<a status="clear" class="dropdown-item" href="#"><span>Clear</span><span class="pull-right"><i class="fa fa-close"></i></span></a>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i></a>
+<ul id="author-toggle" class="dropdown-menu dropdown-md p-v-0">
+<a class="dropdown-item" href="#">Shiva</a>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-tag"></i></a>
+<ul id="tag-toggle" class="dropdown-menu dropdown-md p-v-0">
+<a class="dropdown-item" href="#">Smoke</a><a class="dropdown-item" href="#">Regression</a>
+</ul>
+</li>
+</ul>
+</div>    <div class="test-list-wrapper scrollable">
+      <ul class="test-list-item">
+        <li class="test-item"  status="pass" test-id="1"
+          author="Shiva"
+          tag="Regression Smoke"
+          device="">
+          <div class="test-detail">
+            <p class="name">Login using valid Email and Password</p>
+            <p class="text-sm">
+              <span>5:33:13 pm</span> / <span>00:00:06:512</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Login using valid Email and Password</h5>
+<span class='badge badge-success'>07.01.2026 5:33:13 pm</span>
+<span class='badge badge-danger'>07.01.2026 5:33:19 pm</span>
+<span class='badge badge-default'>00:00:06:512</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=1</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+<div class="m-t-15"><span class="badge badge-pill badge-default">Shiva</span>
+<span class="badge badge-pill badge-default">Regression</span>
+<span class="badge badge-pill badge-default">Smoke</span></div>
+</div>
+</div>    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/login_20260701_173319.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/login_20260701_173319.png">
+  
+    
+
+    </div></div>
+<div class="detail-body mt-4">
+<table class="table table-sm">
+  <thead><tr><th class="status-col">Status</th><th class="timestamp-col">Timestamp</th><th class="details-col">Details</th></tr></thead>
+  <tbody>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:13 pm</td>
+        <td>
+          Login using valid Email and Password
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:13 pm</td>
+        <td>
+          Module : Login
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:13 pm</td>
+        <td>
+          Priority : Critical
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:13 pm</td>
+        <td>
+          Browser: chrome
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:13 pm</td>
+        <td>
+          Version: 149.0.7827.114
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:13 pm</td>
+        <td>
+          <b>Click Email & Password for login through email</b><br>Time : 17:33:13.804213800
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Click Email & Password for login through email_20260701_173313.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Click Email & Password for login through email_20260701_173313.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:14 pm</td>
+        <td>
+          <b>Click Email & Password for login through email</b><br>Time : 17:33:14.042191300
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Click Email & Password for login through email_20260701_173313.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Click Email & Password for login through email_20260701_173313.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:14 pm</td>
+        <td>
+          <b>Enter User Email Address</b><br>Time : 17:33:14.575502300
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Enter User Email Address_20260701_173314.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Enter User Email Address_20260701_173314.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:14 pm</td>
+        <td>
+          <b>Enter User Email Address</b><br>Time : 17:33:14.798945800
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Enter User Email Address_20260701_173314.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Enter User Email Address_20260701_173314.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:15 pm</td>
+        <td>
+          <b>Enter User Password</b><br>Time : 17:33:15.212345300
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Enter User Password_20260701_173314.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Enter User Password_20260701_173314.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:15 pm</td>
+        <td>
+          <b>Enter User Password</b><br>Time : 17:33:15.443072500
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Enter User Password_20260701_173315.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Enter User Password_20260701_173315.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:15 pm</td>
+        <td>
+          <b>Click Sign In Button to Login in Portal</b><br>Time : 17:33:15.729513
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Click Sign In Button to Login in Portal_20260701_173315.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Click Sign In Button to Login in Portal_20260701_173315.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:15 pm</td>
+        <td>
+          <b>Click Sign In Button to Login in Portal</b><br>Time : 17:33:15.949825400
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Click Sign In Button to Login in Portal_20260701_173315.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Click Sign In Button to Login in Portal_20260701_173315.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:19 pm</td>
+        <td>
+          Execution Time : 6.381 sec
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:19 pm</td>
+        <td>
+          Test Passed
+        </td>
+      </tr>
+  </tbody>
+</table>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="2"
+          author="Shiva"
+          tag="Regression Smoke"
+          device="">
+          <div class="test-detail">
+            <p class="name">Verify a department can be created with valid data</p>
+            <p class="text-sm">
+              <span>5:33:19 pm</span> / <span>00:00:00:694</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Verify a department can be created with valid data</h5>
+<span class='badge badge-success'>07.01.2026 5:33:19 pm</span>
+<span class='badge badge-danger'>07.01.2026 5:33:20 pm</span>
+<span class='badge badge-default'>00:00:00:694</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=2</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+<div class="m-t-15"><span class="badge badge-pill badge-default">Shiva</span>
+<span class="badge badge-pill badge-default">Regression</span>
+<span class="badge badge-pill badge-default">Smoke</span></div>
+</div>
+</div>    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/department_Creation_20260701_173320.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/department_Creation_20260701_173320.png">
+  
+    
+
+    </div></div>
+<div class="detail-body mt-4">
+<table class="table table-sm">
+  <thead><tr><th class="status-col">Status</th><th class="timestamp-col">Timestamp</th><th class="details-col">Details</th></tr></thead>
+  <tbody>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:19 pm</td>
+        <td>
+          Verify a department can be created with valid data
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:19 pm</td>
+        <td>
+          Module : Department
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:19 pm</td>
+        <td>
+          Priority : Critical
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:19 pm</td>
+        <td>
+          Browser: chrome
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:19 pm</td>
+        <td>
+          Version: 149.0.7827.114
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:20 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:20.094086
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173319.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173319.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:20 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:20.283458800
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173320.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173320.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:20 pm</td>
+        <td>
+          Execution Time : 0.572 sec
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:20 pm</td>
+        <td>
+          Test Passed
+        </td>
+      </tr>
+  </tbody>
+</table>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="3"
+          author="Shiva"
+          tag="Regression Smoke"
+          device="">
+          <div class="test-detail">
+            <p class="name">Verify a Designation can be created with valid data</p>
+            <p class="text-sm">
+              <span>5:33:20 pm</span> / <span>00:00:00:624</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Verify a Designation can be created with valid data</h5>
+<span class='badge badge-success'>07.01.2026 5:33:20 pm</span>
+<span class='badge badge-danger'>07.01.2026 5:33:21 pm</span>
+<span class='badge badge-default'>00:00:00:624</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=3</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+<div class="m-t-15"><span class="badge badge-pill badge-default">Shiva</span>
+<span class="badge badge-pill badge-default">Regression</span>
+<span class="badge badge-pill badge-default">Smoke</span></div>
+</div>
+</div>    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/designation_Creation_20260701_173321.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/designation_Creation_20260701_173321.png">
+  
+    
+
+    </div></div>
+<div class="detail-body mt-4">
+<table class="table table-sm">
+  <thead><tr><th class="status-col">Status</th><th class="timestamp-col">Timestamp</th><th class="details-col">Details</th></tr></thead>
+  <tbody>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:20 pm</td>
+        <td>
+          Verify a Designation can be created with valid data
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:20 pm</td>
+        <td>
+          Module : Designation
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:20 pm</td>
+        <td>
+          Priority : Critical
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:20 pm</td>
+        <td>
+          Browser: chrome
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:20 pm</td>
+        <td>
+          Version: 149.0.7827.114
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:20 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:20.776304500
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173320.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173320.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:20 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:20.949546700
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173320.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173320.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:21 pm</td>
+        <td>
+          Execution Time : 0.52 sec
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:21 pm</td>
+        <td>
+          Test Passed
+        </td>
+      </tr>
+  </tbody>
+</table>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="4"
+          author="Shiva"
+          tag="Regression Smoke"
+          device="">
+          <div class="test-detail">
+            <p class="name">Verify a Tower Type can be created with valid data</p>
+            <p class="text-sm">
+              <span>5:33:21 pm</span> / <span>00:00:00:623</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Verify a Tower Type can be created with valid data</h5>
+<span class='badge badge-success'>07.01.2026 5:33:21 pm</span>
+<span class='badge badge-danger'>07.01.2026 5:33:21 pm</span>
+<span class='badge badge-default'>00:00:00:623</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=4</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+<div class="m-t-15"><span class="badge badge-pill badge-default">Shiva</span>
+<span class="badge badge-pill badge-default">Regression</span>
+<span class="badge badge-pill badge-default">Smoke</span></div>
+</div>
+</div>    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/tower_Type_Creation_20260701_173321.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/tower_Type_Creation_20260701_173321.png">
+  
+    
+
+    </div></div>
+<div class="detail-body mt-4">
+<table class="table table-sm">
+  <thead><tr><th class="status-col">Status</th><th class="timestamp-col">Timestamp</th><th class="details-col">Details</th></tr></thead>
+  <tbody>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:21 pm</td>
+        <td>
+          Verify a Tower Type can be created with valid data
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:21 pm</td>
+        <td>
+          Module : Tower Type
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:21 pm</td>
+        <td>
+          Priority : Critical
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:21 pm</td>
+        <td>
+          Browser: chrome
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:21 pm</td>
+        <td>
+          Version: 149.0.7827.114
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:21 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:21.426452600
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173321.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173321.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:21 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:21.586352900
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173321.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173321.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:21 pm</td>
+        <td>
+          Execution Time : 0.518 sec
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:21 pm</td>
+        <td>
+          Test Passed
+        </td>
+      </tr>
+  </tbody>
+</table>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="5"
+          author="Shiva"
+          tag="Regression Smoke"
+          device="">
+          <div class="test-detail">
+            <p class="name">Verify a National can be created with valid data</p>
+            <p class="text-sm">
+              <span>5:33:21 pm</span> / <span>00:00:00:637</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Verify a National can be created with valid data</h5>
+<span class='badge badge-success'>07.01.2026 5:33:21 pm</span>
+<span class='badge badge-danger'>07.01.2026 5:33:22 pm</span>
+<span class='badge badge-default'>00:00:00:637</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=5</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+<div class="m-t-15"><span class="badge badge-pill badge-default">Shiva</span>
+<span class="badge badge-pill badge-default">Regression</span>
+<span class="badge badge-pill badge-default">Smoke</span></div>
+</div>
+</div>    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/national_Creation_20260701_173322.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/national_Creation_20260701_173322.png">
+  
+    
+
+    </div></div>
+<div class="detail-body mt-4">
+<table class="table table-sm">
+  <thead><tr><th class="status-col">Status</th><th class="timestamp-col">Timestamp</th><th class="details-col">Details</th></tr></thead>
+  <tbody>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:21 pm</td>
+        <td>
+          Verify a National can be created with valid data
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:21 pm</td>
+        <td>
+          Module : National
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:21 pm</td>
+        <td>
+          Priority : Critical
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:21 pm</td>
+        <td>
+          Browser: chrome
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:21 pm</td>
+        <td>
+          Version: 149.0.7827.114
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:22 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:22.078018200
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173321.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173321.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:22 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:22.240759700
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173322.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173322.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:22 pm</td>
+        <td>
+          Execution Time : 0.527 sec
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:22 pm</td>
+        <td>
+          Test Passed
+        </td>
+      </tr>
+  </tbody>
+</table>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="6"
+          author="Shiva"
+          tag="Regression Smoke"
+          device="">
+          <div class="test-detail">
+            <p class="name">Verify a Circle can be created with valid data</p>
+            <p class="text-sm">
+              <span>5:33:22 pm</span> / <span>00:00:01:383</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Verify a Circle can be created with valid data</h5>
+<span class='badge badge-success'>07.01.2026 5:33:22 pm</span>
+<span class='badge badge-danger'>07.01.2026 5:33:23 pm</span>
+<span class='badge badge-default'>00:00:01:383</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=6</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+<div class="m-t-15"><span class="badge badge-pill badge-default">Shiva</span>
+<span class="badge badge-pill badge-default">Regression</span>
+<span class="badge badge-pill badge-default">Smoke</span></div>
+</div>
+</div>    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/circle_Creation_20260701_173323.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/circle_Creation_20260701_173323.png">
+  
+    
+
+    </div></div>
+<div class="detail-body mt-4">
+<table class="table table-sm">
+  <thead><tr><th class="status-col">Status</th><th class="timestamp-col">Timestamp</th><th class="details-col">Details</th></tr></thead>
+  <tbody>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:22 pm</td>
+        <td>
+          Verify a Circle can be created with valid data
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:22 pm</td>
+        <td>
+          Module : Circle
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:22 pm</td>
+        <td>
+          Priority : Critical
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:22 pm</td>
+        <td>
+          Browser: chrome
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:22 pm</td>
+        <td>
+          Version: 149.0.7827.114
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:22 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:22.630143200
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173322.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173322.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:22 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:22.739954200
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173322.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173322.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:22 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:22.935185900
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173322.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173322.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:23 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:23.063286500
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173322.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173322.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:23 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:23.385237100
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173323.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173323.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:23 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:23.585476
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173323.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173323.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:23 pm</td>
+        <td>
+          Execution Time : 1.274 sec
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:23 pm</td>
+        <td>
+          Test Passed
+        </td>
+      </tr>
+  </tbody>
+</table>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="7"
+          author="Shiva"
+          tag="Regression Smoke"
+          device="">
+          <div class="test-detail">
+            <p class="name">Verify a Circle can be created with valid data</p>
+            <p class="text-sm">
+              <span>5:33:23 pm</span> / <span>00:00:01:348</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Verify a Circle can be created with valid data</h5>
+<span class='badge badge-success'>07.01.2026 5:33:23 pm</span>
+<span class='badge badge-danger'>07.01.2026 5:33:25 pm</span>
+<span class='badge badge-default'>00:00:01:348</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=7</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+<div class="m-t-15"><span class="badge badge-pill badge-default">Shiva</span>
+<span class="badge badge-pill badge-default">Regression</span>
+<span class="badge badge-pill badge-default">Smoke</span></div>
+</div>
+</div>    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/circle_Creation_20260701_173325.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/circle_Creation_20260701_173325.png">
+  
+    
+
+    </div></div>
+<div class="detail-body mt-4">
+<table class="table table-sm">
+  <thead><tr><th class="status-col">Status</th><th class="timestamp-col">Timestamp</th><th class="details-col">Details</th></tr></thead>
+  <tbody>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:23 pm</td>
+        <td>
+          Verify a Circle can be created with valid data
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:23 pm</td>
+        <td>
+          Module : Circle
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:23 pm</td>
+        <td>
+          Priority : Critical
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:23 pm</td>
+        <td>
+          Browser: chrome
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:23 pm</td>
+        <td>
+          Version: 149.0.7827.114
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:24 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:24.091185500
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173323.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173323.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:24 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:24.254107500
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173324.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173324.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:24 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:24.423189600
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173324.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173324.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:24 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:24.536007100
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173324.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173324.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:24 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:24.815275
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173324.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173324.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:24 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:24.978402500
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173324.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173324.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:25 pm</td>
+        <td>
+          Execution Time : 1.234 sec
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:25 pm</td>
+        <td>
+          Test Passed
+        </td>
+      </tr>
+  </tbody>
+</table>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="8"
+          author="Shiva"
+          tag="Regression Smoke"
+          device="">
+          <div class="test-detail">
+            <p class="name">Verify a Cluster can be created with valid data</p>
+            <p class="text-sm">
+              <span>5:33:25 pm</span> / <span>00:00:01:894</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Verify a Cluster can be created with valid data</h5>
+<span class='badge badge-success'>07.01.2026 5:33:25 pm</span>
+<span class='badge badge-danger'>07.01.2026 5:33:27 pm</span>
+<span class='badge badge-default'>00:00:01:894</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=8</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+<div class="m-t-15"><span class="badge badge-pill badge-default">Shiva</span>
+<span class="badge badge-pill badge-default">Regression</span>
+<span class="badge badge-pill badge-default">Smoke</span></div>
+</div>
+</div>    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/cluster_Creation_20260701_173326.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/cluster_Creation_20260701_173326.png">
+  
+    
+
+    </div></div>
+<div class="detail-body mt-4">
+<table class="table table-sm">
+  <thead><tr><th class="status-col">Status</th><th class="timestamp-col">Timestamp</th><th class="details-col">Details</th></tr></thead>
+  <tbody>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:25 pm</td>
+        <td>
+          Verify a Cluster can be created with valid data
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:25 pm</td>
+        <td>
+          Module : Cluster
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:25 pm</td>
+        <td>
+          Priority : Critical
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:25 pm</td>
+        <td>
+          Browser: chrome
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:25 pm</td>
+        <td>
+          Version: 149.0.7827.114
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:25 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:25.408374700
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173325.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173325.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:25 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:25.517112100
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173325.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173325.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:25 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:25.795438600
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173325.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173325.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:25 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:25.971055400
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173325.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173325.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:26 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:26.287159400
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173326.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173326.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:26 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:26.454826800
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173326.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173326.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:26 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:26.749075100
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173326.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173326.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:26 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:26.907756600
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173326.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173326.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:26 pm</td>
+        <td>
+          Execution Time : 1.783 sec
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:26 pm</td>
+        <td>
+          Test Passed
+        </td>
+      </tr>
+  </tbody>
+</table>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="9"
+          author="Shiva"
+          tag="Regression Smoke"
+          device="">
+          <div class="test-detail">
+            <p class="name">Verify a Cluster can be created with valid data</p>
+            <p class="text-sm">
+              <span>5:33:27 pm</span> / <span>00:00:01:860</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Verify a Cluster can be created with valid data</h5>
+<span class='badge badge-success'>07.01.2026 5:33:27 pm</span>
+<span class='badge badge-danger'>07.01.2026 5:33:28 pm</span>
+<span class='badge badge-default'>00:00:01:860</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=9</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+<div class="m-t-15"><span class="badge badge-pill badge-default">Shiva</span>
+<span class="badge badge-pill badge-default">Regression</span>
+<span class="badge badge-pill badge-default">Smoke</span></div>
+</div>
+</div>    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/cluster_Creation_20260701_173328.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/cluster_Creation_20260701_173328.png">
+  
+    
+
+    </div></div>
+<div class="detail-body mt-4">
+<table class="table table-sm">
+  <thead><tr><th class="status-col">Status</th><th class="timestamp-col">Timestamp</th><th class="details-col">Details</th></tr></thead>
+  <tbody>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:27 pm</td>
+        <td>
+          Verify a Cluster can be created with valid data
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:27 pm</td>
+        <td>
+          Module : Cluster
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:27 pm</td>
+        <td>
+          Priority : Critical
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:27 pm</td>
+        <td>
+          Browser: chrome
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:27 pm</td>
+        <td>
+          Version: 149.0.7827.114
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:27 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:27.303025400
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173327.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173327.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:27 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:27.475672300
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173327.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173327.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:27 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:27.708674600
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173327.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173327.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:27 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:27.871185200
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173327.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173327.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:28 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:28.128730700
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173327.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173327.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:28 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:28.260144200
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173328.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173328.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:28 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:28.601227100
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173328.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173328.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:28 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:28.752798
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173328.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173328.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:28 pm</td>
+        <td>
+          Execution Time : 1.755 sec
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:28 pm</td>
+        <td>
+          Test Passed
+        </td>
+      </tr>
+  </tbody>
+</table>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="10"
+          author="Shiva"
+          tag="Regression Smoke"
+          device="">
+          <div class="test-detail">
+            <p class="name">Verify a District can be created with valid data</p>
+            <p class="text-sm">
+              <span>5:33:28 pm</span> / <span>00:00:02:310</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Verify a District can be created with valid data</h5>
+<span class='badge badge-success'>07.01.2026 5:33:28 pm</span>
+<span class='badge badge-danger'>07.01.2026 5:33:31 pm</span>
+<span class='badge badge-default'>00:00:02:310</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=10</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+<div class="m-t-15"><span class="badge badge-pill badge-default">Shiva</span>
+<span class="badge badge-pill badge-default">Regression</span>
+<span class="badge badge-pill badge-default">Smoke</span></div>
+</div>
+</div>    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/district_Creation_20260701_173331.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/district_Creation_20260701_173331.png">
+  
+    
+
+    </div></div>
+<div class="detail-body mt-4">
+<table class="table table-sm">
+  <thead><tr><th class="status-col">Status</th><th class="timestamp-col">Timestamp</th><th class="details-col">Details</th></tr></thead>
+  <tbody>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:28 pm</td>
+        <td>
+          Verify a District can be created with valid data
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:28 pm</td>
+        <td>
+          Module : District
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:28 pm</td>
+        <td>
+          Priority : Critical
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:28 pm</td>
+        <td>
+          Browser: chrome
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:28 pm</td>
+        <td>
+          Version: 149.0.7827.114
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:29 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:29.141513100
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173329.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173329.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:29 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:29.257728300
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173329.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173329.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:29 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:29.481719900
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173329.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173329.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:29 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:29.653510800
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173329.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173329.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:29 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:29.948217300
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173329.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173329.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:30 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:30.113011700
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173329.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173329.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:30 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:30.433592800
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173330.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173330.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:30 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:30.607091400
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173330.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173330.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:30 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:30.892311600
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173330.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173330.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:31 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:31.037291900
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173330.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173330.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:31 pm</td>
+        <td>
+          Execution Time : 2.214 sec
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:31 pm</td>
+        <td>
+          Test Passed
+        </td>
+      </tr>
+  </tbody>
+</table>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="11"
+          author="Shiva"
+          tag="Regression Smoke"
+          device="">
+          <div class="test-detail">
+            <p class="name">Verify a District can be created with valid data</p>
+            <p class="text-sm">
+              <span>5:33:31 pm</span> / <span>00:00:02:365</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Verify a District can be created with valid data</h5>
+<span class='badge badge-success'>07.01.2026 5:33:31 pm</span>
+<span class='badge badge-danger'>07.01.2026 5:33:33 pm</span>
+<span class='badge badge-default'>00:00:02:365</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=11</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+<div class="m-t-15"><span class="badge badge-pill badge-default">Shiva</span>
+<span class="badge badge-pill badge-default">Regression</span>
+<span class="badge badge-pill badge-default">Smoke</span></div>
+</div>
+</div>    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/district_Creation_20260701_173333.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/district_Creation_20260701_173333.png">
+  
+    
+
+    </div></div>
+<div class="detail-body mt-4">
+<table class="table table-sm">
+  <thead><tr><th class="status-col">Status</th><th class="timestamp-col">Timestamp</th><th class="details-col">Details</th></tr></thead>
+  <tbody>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:31 pm</td>
+        <td>
+          Verify a District can be created with valid data
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:31 pm</td>
+        <td>
+          Module : District
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:31 pm</td>
+        <td>
+          Priority : Critical
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:31 pm</td>
+        <td>
+          Browser: chrome
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:31 pm</td>
+        <td>
+          Version: 149.0.7827.114
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:31 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:31.512938100
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173331.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173331.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:31 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:31.681323800
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173331.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173331.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:31 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:31.901252300
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173331.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173331.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:32 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:32.041070500
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173331.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173331.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:32 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:32.338784300
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173332.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173332.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:32 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:32.508855300
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173332.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173332.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:32 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:32.813135900
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173332.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173332.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:32 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:32.987671400
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173332.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173332.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:33 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:33.279694200
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173333.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173333.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:33 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:33.462034800
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173333.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173333.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:33 pm</td>
+        <td>
+          Execution Time : 2.268 sec
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:33 pm</td>
+        <td>
+          Test Passed
+        </td>
+      </tr>
+  </tbody>
+</table>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="12"
+          author="Shiva"
+          tag="Regression Smoke"
+          device="">
+          <div class="test-detail">
+            <p class="name">Verify a Site can be created with valid data</p>
+            <p class="text-sm">
+              <span>5:33:33 pm</span> / <span>00:00:02:849</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Verify a Site can be created with valid data</h5>
+<span class='badge badge-success'>07.01.2026 5:33:33 pm</span>
+<span class='badge badge-danger'>07.01.2026 5:33:36 pm</span>
+<span class='badge badge-default'>00:00:02:849</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=12</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+<div class="m-t-15"><span class="badge badge-pill badge-default">Shiva</span>
+<span class="badge badge-pill badge-default">Regression</span>
+<span class="badge badge-pill badge-default">Smoke</span></div>
+</div>
+</div>    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/site_Creation_20260701_173336.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/site_Creation_20260701_173336.png">
+  
+    
+
+    </div></div>
+<div class="detail-body mt-4">
+<table class="table table-sm">
+  <thead><tr><th class="status-col">Status</th><th class="timestamp-col">Timestamp</th><th class="details-col">Details</th></tr></thead>
+  <tbody>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:33 pm</td>
+        <td>
+          Verify a Site can be created with valid data
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:33 pm</td>
+        <td>
+          Module : Site
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:33 pm</td>
+        <td>
+          Priority : Critical
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:33 pm</td>
+        <td>
+          Browser: chrome
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:33 pm</td>
+        <td>
+          Version: 149.0.7827.114
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:33 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:33.827641900
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173333.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173333.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:33 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:33.954739300
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173333.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173333.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:34 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:34.205628300
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173334.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173334.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:34 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:34.370041500
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173334.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173334.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:34 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:34.642824400
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173334.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173334.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:34 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:34.783095700
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173334.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173334.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:35 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:35.077550900
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173334.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173334.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:35 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:35.234979600
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173335.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173335.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:35 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:35.548991500
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173335.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173335.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:35 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:35.728229700
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173335.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173335.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:36 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:36.039613800
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173335.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173335.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:36 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:36.193051600
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173336.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173336.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:36 pm</td>
+        <td>
+          Execution Time : 2.712 sec
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:36 pm</td>
+        <td>
+          Test Passed
+        </td>
+      </tr>
+  </tbody>
+</table>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="13"
+          author="Shiva"
+          tag="Regression Smoke"
+          device="">
+          <div class="test-detail">
+            <p class="name">Verify a Site can be created with valid data</p>
+            <p class="text-sm">
+              <span>5:33:36 pm</span> / <span>00:00:02:909</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Verify a Site can be created with valid data</h5>
+<span class='badge badge-success'>07.01.2026 5:33:36 pm</span>
+<span class='badge badge-danger'>07.01.2026 5:33:39 pm</span>
+<span class='badge badge-default'>00:00:02:909</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=13</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+<div class="m-t-15"><span class="badge badge-pill badge-default">Shiva</span>
+<span class="badge badge-pill badge-default">Regression</span>
+<span class="badge badge-pill badge-default">Smoke</span></div>
+</div>
+</div>    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/site_Creation_20260701_173339.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/site_Creation_20260701_173339.png">
+  
+    
+
+    </div></div>
+<div class="detail-body mt-4">
+<table class="table table-sm">
+  <thead><tr><th class="status-col">Status</th><th class="timestamp-col">Timestamp</th><th class="details-col">Details</th></tr></thead>
+  <tbody>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:36 pm</td>
+        <td>
+          Verify a Site can be created with valid data
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:36 pm</td>
+        <td>
+          Module : Site
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:36 pm</td>
+        <td>
+          Priority : Critical
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:36 pm</td>
+        <td>
+          Browser: chrome
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:36 pm</td>
+        <td>
+          Version: 149.0.7827.114
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:36 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:36.756077900
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173336.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173336.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:36 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:36.922890500
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173336.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173336.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:37 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:37.171307200
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173337.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173337.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:37 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:37.337921
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173337.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173337.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:37 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:37.641914200
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173337.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173337.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:37 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:37.826106
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173337.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173337.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:38 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:38.111797200
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173337.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173337.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:38 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:38.276322800
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173338.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173338.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:38 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:38.539374500
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173338.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173338.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:38 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:38.701485900
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173338.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173338.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:39 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:39.021469800
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173338.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173338.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:39 pm</td>
+        <td>
+          <b>Executing Step</b><br>Time : 17:33:39.193804900
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173339.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Executing Step_20260701_173339.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:39 pm</td>
+        <td>
+          Execution Time : 2.785 sec
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:39 pm</td>
+        <td>
+          Test Passed
+        </td>
+      </tr>
+  </tbody>
+</table>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="14"
+          author="Shiva"
+          tag="Regression Smoke"
+          device="">
+          <div class="test-detail">
+            <p class="name">Verify Sign Out from Portal</p>
+            <p class="text-sm">
+              <span>5:33:39 pm</span> / <span>00:00:01:597</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Verify Sign Out from Portal</h5>
+<span class='badge badge-success'>07.01.2026 5:33:39 pm</span>
+<span class='badge badge-danger'>07.01.2026 5:33:41 pm</span>
+<span class='badge badge-default'>00:00:01:597</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=14</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+<div class="m-t-15"><span class="badge badge-pill badge-default">Shiva</span>
+<span class="badge badge-pill badge-default">Regression</span>
+<span class="badge badge-pill badge-default">Smoke</span></div>
+</div>
+</div>    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/logout_from_Portal_20260701_173340.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/logout_from_Portal_20260701_173340.png">
+  
+    
+
+    </div></div>
+<div class="detail-body mt-4">
+<table class="table table-sm">
+  <thead><tr><th class="status-col">Status</th><th class="timestamp-col">Timestamp</th><th class="details-col">Details</th></tr></thead>
+  <tbody>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:39 pm</td>
+        <td>
+          Verify Sign Out from Portal
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:39 pm</td>
+        <td>
+          Module : Login
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:39 pm</td>
+        <td>
+          Priority : Critical
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:39 pm</td>
+        <td>
+          Browser: chrome
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:39 pm</td>
+        <td>
+          Version: 149.0.7827.114
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:39 pm</td>
+        <td>
+          <b>Click on the Profile Name for Signout</b><br>Time : 17:33:39.639977200
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Click on the Profile Name for Signout_20260701_173339.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Click on the Profile Name for Signout_20260701_173339.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:39 pm</td>
+        <td>
+          <b>Click on the Profile Name for Signout</b><br>Time : 17:33:39.790826400
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Click on the Profile Name for Signout_20260701_173339.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Click on the Profile Name for Signout_20260701_173339.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:40 pm</td>
+        <td>
+          <b>Click Sign out Button to Logout from Portal</b><br>Time : 17:33:40.033970
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Click Sign out Button to Logout from Portal_20260701_173339.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Click Sign out Button to Logout from Portal_20260701_173339.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:40 pm</td>
+        <td>
+          <b>Click Sign out Button to Logout from Portal</b><br>Time : 17:33:40.196701600
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Click Sign out Button to Logout from Portal_20260701_173340.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Click Sign out Button to Logout from Portal_20260701_173340.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:40 pm</td>
+        <td>
+          <b>Click Confirm Sign out Button to Logout from Portal</b><br>Time : 17:33:40.538771800
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Click Confirm Sign out Button to Logout from Portal_20260701_173340.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Click Confirm Sign out Button to Logout from Portal_20260701_173340.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:40 pm</td>
+        <td>
+          <b>Click Confirm Sign out Button to Logout from Portal</b><br>Time : 17:33:40.771531
+    <div class="row mb-3"><div class="col-md-3">
+    
+
+<img data-featherlight='D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Click Confirm Sign out Button to Logout from Portal_20260701_173340.png' src="D:\eclipseworkspace\Indus_Towers_ESH_Training_Portal/reports/screenshots/Click Confirm Sign out Button to Logout from Portal_20260701_173340.png">
+  
+    
+
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:40 pm</td>
+        <td>
+          Execution Time : 1.368 sec
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:33:40 pm</td>
+        <td>
+          Test Passed
+        </td>
+      </tr>
+  </tbody>
+</table>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="15"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">Execution Dashboard</p>
+            <p class="text-sm">
+              <span>5:33:41 pm</span> / <span>00:00:00:000</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Execution Dashboard</h5>
+<span class='badge badge-success'>07.01.2026 5:33:41 pm</span>
+<span class='badge badge-danger'>07.01.2026 5:33:41 pm</span>
+<span class='badge badge-default'>00:00:00:000</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=15</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+</div>
+</div><div class="detail-body mt-4">
+<table class="table table-sm">
+  <thead><tr><th class="status-col">Status</th><th class="timestamp-col">Timestamp</th><th class="details-col">Details</th></tr></thead>
+  <tbody>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:41 pm</td>
+        <td>
+          <h2>Execution Dashboard</h2><table border='1' style='border-collapse:collapse;width:50%'><tr><th>Suite</th><th>Result</th></tr><tr><td>Smoke</td><td>14/14</td></tr><tr><td>Regression</td><td>14/14</td></tr><tr><td>Sanity</td><td>0/0</td></tr><tr><td>Critical</td><td>0/0</td></tr></table>
+        </td>
+      </tr>
+  </tbody>
+</table>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="16"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">Execution Module Dashboard</p>
+            <p class="text-sm">
+              <span>5:33:41 pm</span> / <span>00:00:00:000</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Execution Module Dashboard</h5>
+<span class='badge badge-success'>07.01.2026 5:33:41 pm</span>
+<span class='badge badge-danger'>07.01.2026 5:33:41 pm</span>
+<span class='badge badge-default'>00:00:00:000</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=16</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+</div>
+</div><div class="detail-body mt-4">
+<table class="table table-sm">
+  <thead><tr><th class="status-col">Status</th><th class="timestamp-col">Timestamp</th><th class="details-col">Details</th></tr></thead>
+  <tbody>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:33:41 pm</td>
+        <td>
+          <h2>Module Execution Dashboard</h2><table border='1' style='border-collapse:collapse;width:60%'><tr><th>Module</th><th>Passed</th><th>Failed</th><th>Total</th><th>Pass %</th></tr><tr><td>Circle</td><td style='color:green'>2</td><td style='color:red'>0</td><td>2</td><td>100.00%</td></tr><tr><td>Cluster</td><td style='color:green'>2</td><td style='color:red'>0</td><td>2</td><td>100.00%</td></tr><tr><td>Department</td><td style='color:green'>1</td><td style='color:red'>0</td><td>1</td><td>100.00%</td></tr><tr><td>Designation</td><td style='color:green'>1</td><td style='color:red'>0</td><td>1</td><td>100.00%</td></tr><tr><td>District</td><td style='color:green'>2</td><td style='color:red'>0</td><td>2</td><td>100.00%</td></tr><tr><td>Login</td><td style='color:green'>2</td><td style='color:red'>0</td><td>2</td><td>100.00%</td></tr><tr><td>National</td><td style='color:green'>1</td><td style='color:red'>0</td><td>1</td><td>100.00%</td></tr><tr><td>Site</td><td style='color:green'>2</td><td style='color:red'>0</td><td>2</td><td>100.00%</td></tr><tr><td>Tower Type</td><td style='color:green'>1</td><td style='color:red'>0</td><td>1</td><td>100.00%</td></tr></table>
+        </td>
+      </tr>
+  </tbody>
+</table>
+</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+<div class="test-content scrollable">
+<div class="test-content-tools">
+<ul><li><a class="back-to-test" href="#"><i class="fa fa-arrow-left"></i></a></li></ul>
+</div>
+<div class="test-content-detail"><div class="detail-body"></div></div>
+</div></div>
+<div class="test-wrapper row view category-view attributes-view">
+<div class="test-list">
+<div class="test-list-tools">
+<ul class="tools pull-left"><li><a href=""><span class="font-size-14">Category</span></a></li></ul>
+<ul class="tools text-right"><li><a href="#"><span class="badge badge-primary">2</span></a></li></ul>
+</div>
+<div class="test-list-wrapper scrollable">
+<ul class="test-list-item">
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>14</span>
+</span>
+<p class="name">Smoke</p>
+<p class="duration text-sm">14 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>Smoke</h4>
+<span status="pass" class='badge log pass-bg'>14 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:13 pm</td>
+<td>
+<a href="#" class="linked" test-id='1' id='1'>Login using valid Email and Password</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:19 pm</td>
+<td>
+<a href="#" class="linked" test-id='2' id='2'>Verify a department can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:20 pm</td>
+<td>
+<a href="#" class="linked" test-id='3' id='3'>Verify a Designation can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:21 pm</td>
+<td>
+<a href="#" class="linked" test-id='4' id='4'>Verify a Tower Type can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:21 pm</td>
+<td>
+<a href="#" class="linked" test-id='5' id='5'>Verify a National can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:22 pm</td>
+<td>
+<a href="#" class="linked" test-id='6' id='6'>Verify a Circle can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:23 pm</td>
+<td>
+<a href="#" class="linked" test-id='7' id='7'>Verify a Circle can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:25 pm</td>
+<td>
+<a href="#" class="linked" test-id='8' id='8'>Verify a Cluster can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:27 pm</td>
+<td>
+<a href="#" class="linked" test-id='9' id='9'>Verify a Cluster can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:28 pm</td>
+<td>
+<a href="#" class="linked" test-id='10' id='10'>Verify a District can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:31 pm</td>
+<td>
+<a href="#" class="linked" test-id='11' id='11'>Verify a District can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:33 pm</td>
+<td>
+<a href="#" class="linked" test-id='12' id='12'>Verify a Site can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:36 pm</td>
+<td>
+<a href="#" class="linked" test-id='13' id='13'>Verify a Site can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:39 pm</td>
+<td>
+<a href="#" class="linked" test-id='14' id='14'>Verify Sign Out from Portal</a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>14</span>
+</span>
+<p class="name">Regression</p>
+<p class="duration text-sm">14 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>Regression</h4>
+<span status="pass" class='badge log pass-bg'>14 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:13 pm</td>
+<td>
+<a href="#" class="linked" test-id='1' id='1'>Login using valid Email and Password</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:19 pm</td>
+<td>
+<a href="#" class="linked" test-id='2' id='2'>Verify a department can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:20 pm</td>
+<td>
+<a href="#" class="linked" test-id='3' id='3'>Verify a Designation can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:21 pm</td>
+<td>
+<a href="#" class="linked" test-id='4' id='4'>Verify a Tower Type can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:21 pm</td>
+<td>
+<a href="#" class="linked" test-id='5' id='5'>Verify a National can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:22 pm</td>
+<td>
+<a href="#" class="linked" test-id='6' id='6'>Verify a Circle can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:23 pm</td>
+<td>
+<a href="#" class="linked" test-id='7' id='7'>Verify a Circle can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:25 pm</td>
+<td>
+<a href="#" class="linked" test-id='8' id='8'>Verify a Cluster can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:27 pm</td>
+<td>
+<a href="#" class="linked" test-id='9' id='9'>Verify a Cluster can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:28 pm</td>
+<td>
+<a href="#" class="linked" test-id='10' id='10'>Verify a District can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:31 pm</td>
+<td>
+<a href="#" class="linked" test-id='11' id='11'>Verify a District can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:33 pm</td>
+<td>
+<a href="#" class="linked" test-id='12' id='12'>Verify a Site can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:36 pm</td>
+<td>
+<a href="#" class="linked" test-id='13' id='13'>Verify a Site can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:39 pm</td>
+<td>
+<a href="#" class="linked" test-id='14' id='14'>Verify Sign Out from Portal</a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="test-content scrollable">
+<div class="test-content-detail">
+<div class="detail-body"></div>
+</div>
+</div>
+</div><div class="test-wrapper row view author-view attributes-view">
+<div class="test-list">
+<div class="test-list-tools">
+<ul class="tools pull-left"><li><a href=""><span class="font-size-14">Author</span></a></li></ul>
+<ul class="tools text-right"><li><a href="#"><span class="badge badge-primary">1</span></a></li></ul>
+</div>
+<div class="test-list-wrapper scrollable">
+<ul class="test-list-item">
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>14</span>
+</span>
+<p class="name">Shiva</p>
+<p class="duration text-sm">14 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>Shiva</h4>
+<span status="pass" class='badge log pass-bg'>14 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:13 pm</td>
+<td>
+<a href="#" class="linked" test-id='1' id='1'>Login using valid Email and Password</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:19 pm</td>
+<td>
+<a href="#" class="linked" test-id='2' id='2'>Verify a department can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:20 pm</td>
+<td>
+<a href="#" class="linked" test-id='3' id='3'>Verify a Designation can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:21 pm</td>
+<td>
+<a href="#" class="linked" test-id='4' id='4'>Verify a Tower Type can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:21 pm</td>
+<td>
+<a href="#" class="linked" test-id='5' id='5'>Verify a National can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:22 pm</td>
+<td>
+<a href="#" class="linked" test-id='6' id='6'>Verify a Circle can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:23 pm</td>
+<td>
+<a href="#" class="linked" test-id='7' id='7'>Verify a Circle can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:25 pm</td>
+<td>
+<a href="#" class="linked" test-id='8' id='8'>Verify a Cluster can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:27 pm</td>
+<td>
+<a href="#" class="linked" test-id='9' id='9'>Verify a Cluster can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:28 pm</td>
+<td>
+<a href="#" class="linked" test-id='10' id='10'>Verify a District can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:31 pm</td>
+<td>
+<a href="#" class="linked" test-id='11' id='11'>Verify a District can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:33 pm</td>
+<td>
+<a href="#" class="linked" test-id='12' id='12'>Verify a Site can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:36 pm</td>
+<td>
+<a href="#" class="linked" test-id='13' id='13'>Verify a Site can be created with valid data</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>17:33:39 pm</td>
+<td>
+<a href="#" class="linked" test-id='14' id='14'>Verify Sign Out from Portal</a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="test-content scrollable">
+<div class="test-content-detail">
+<div class="detail-body"></div>
+</div>
+</div>
+</div><div class="container-fluid p-4 view dashboard-view">
+<div class="row">
+<div class="col-md-3">
+<div class="card"><div class="card-body">
+<p class="m-b-0">Started</p>
+<h3>Jul 1, 2026 05:33:09 pm</h3>
+</div></div>
+</div>
+<div class="col-md-3">
+<div class="card"><div class="card-body">
+<p class="m-b-0">Ended</p>
+<h3>Jul 1, 2026 05:33:41 pm</h3>
+</div></div>
+</div>
+<div class="col-md-3">
+<div class="card"><div class="card-body">
+<p class="m-b-0 text-pass">Tests Passed</p>
+<h3>16</h3>
+</div></div>
+</div>
+<div class="col-md-3">
+<div class="card"><div class="card-body">
+<p class="m-b-0 text-fail">Tests Failed</p>
+<h3>0</h3>
+</div></div>
+</div>
+</div>
+<div class="row">
+<div class="col-md-6">
+<div class="card">
+<div class="card-header">
+<h6 class="card-title">Tests</h6>
+</div>
+<div class="card-body">
+<div class="">
+<canvas id='parent-analysis' width='115' height='90'></canvas>
+</div>
+</div>
+<div class="card-footer">
+<div><small data-tooltip='100%'>
+<b>16</b> tests passed
+</small>
+</div>
+<div>
+<small data-tooltip='0%'><b>0</b> tests failed,
+<b>0</b> skipped, <b data-tooltip='0%'>0</b> others
+</small>
+</div>
+</div>
+</div>
+</div>
+<div class="col-md-6">
+<div class="card">
+<div class="card-header">
+<h6 class="card-title">Log events</h6>
+</div>
+<div class="card-body">
+<div class="">
+<canvas id='events-analysis' width='115' height='90'></canvas>
+</div>
+</div>
+<div class="card-footer">
+<div><small data-tooltip='55%'><b>108</b> events passed</small></div>
+<div>
+<small data-tooltip='0%'><b>0</b> events failed,
+<b data-tooltip='%'>86</b> others
+</small>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><div class="col-md-12">
+<div class="card"><div class="card-header"><p>Timeline</p></div>
+<div class="card-body pt-0"><div>
+<canvas id="timeline" height="120"></canvas>
+</div></div>
+</div>
+</div></div>
+<script>
+var timeline = {
+"Login using valid Email and Password":6.512,"Verify a department can be created with valid data":0.694,"Verify a Designation can be created with valid data":0.624,"Verify a Tower Type can be created with valid data":0.623,"Verify a National can be created with valid data":0.637,"Verify a Circle can be created with valid data":1.383,"Verify a Circle can be created with valid data":1.348,"Verify a Cluster can be created with valid data":1.894,"Verify a Cluster can be created with valid data":1.86,"Verify a District can be created with valid data":2.31,"Verify a District can be created with valid data":2.365,"Verify a Site can be created with valid data":2.849,"Verify a Site can be created with valid data":2.909,"Verify Sign Out from Portal":1.597,"Execution Dashboard":0,"Execution Module Dashboard":0
+};
+</script>
+<div class="row">
+<div class="col-lg-6 col-md-12 author-container">
+<div class="card">
+<div class="card-header"><p>Author</p></div>
+<div class="card-body pb-0 pt-0"><table class="table table-sm table-bordered">
+<thead><tr class="bg-gray"><th>Name</th><th>Passed</th><th>Failed</th><th>Skipped</th><th>Others</th><th>Passed %</th></tr></thead>
+<tbody>
+<tr>
+<td>Shiva</td>
+<td>14</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="col-lg-6 col-md-12 category-container">
+<div class="card">
+<div class="card-header"><p>Tags</p></div>
+<div class="card-body pb-0 pt-0"><table class="table table-sm table-bordered">
+<thead><tr class="bg-gray"><th>Name</th><th>Passed</th><th>Failed</th><th>Skipped</th><th>Others</th><th>Passed %</th></tr></thead><tbody>
+<tr>
+<td>Smoke</td>
+<td>14</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>Regression</td>
+<td>14</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="col-lg-6 col-md-12 sysenv-container">
+<div class="card">
+<div class="card-header"><p>System/Environment</p></div>
+<div class="card-body pb-0 pt-0"><table class="table table-sm table-bordered">
+<thead><tr class="bg-gray"><th>Name</th><th>Value</th></tr></thead>
+<tbody>
+<tr>
+<td>Project</td>
+<td>ESH Portal</td>
+</tr>
+<tr>
+<td>Release</td>
+<td>2.3.1</td>
+</tr>
+<tr>
+<td>Environment</td>
+<td>QA</td>
+</tr>
+<tr>
+<td>OS</td>
+<td>Windows 11</td>
+</tr>
+<tr>
+<td>Java</td>
+<td>21.0.10</td>
+</tr>
+<tr>
+<td>Selenium Version</td>
+<td>4.43.0</td>
+</tr>
+<tr>
+<td>Framework</td>
+<td>Selenium + TestNG</td>
+</tr>
+<tr>
+<td>Executed By</td>
+<td>QC Shiva</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+</div>
+<script>
+var statusGroup = {
+parentCount: 5,
+passParent: 16,
+failParent: 0,
+warningParent: 0,
+skipParent: 0,
+childCount: 5,
+passChild: 0,
+failChild: 0,
+warningChild: 0,
+skipChild: 0,
+infoChild: 0,
+grandChildCount: 5,
+passGrandChild: 0,
+failGrandChild: 0,
+warningGrandChild: 0,
+skipGrandChild: 0,
+infoGrandChild: 0,
+eventsCount: 5,
+passEvents: 108,
+failEvents: 0,
+warningEvents: 0,
+skipEvents: 0,
+infoEvents: 86
+};
+</script>        </div>
+      </div>
+    </div>
+  </div>
+<script src="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@c05cd28cde1617b9d0c05a831daff6cb97fd9fd5/spark/js/spark-script.js"></script>
+<script type="text/javascript">document.querySelector('.navbar-brand').innerHTML='<img src="logo.png" width="180">'</script></body>
+</html>

@@ -32,24 +32,26 @@ public class SeleniumListener implements WebDriverListener {
 		 */
 		try {
 
-			ExtentTest test = ExtentTestManager.getTest();
-
-			if (test == null) {
-				System.out.println("ExtentTest is NULL → " + stepName);
-				return;
-			}
-
-			if (driver == null) {
-				System.out.println("Driver is NULL → " + stepName);
-				return;
-			}
+//			ExtentTest test = ExtentTestManager.getTest();
+//
+//			if (test == null) {
+//				System.out.println("ExtentTest is NULL → " + stepName);
+//				return;
+//			}
+//
+//			if (driver == null) {
+//				System.out.println("Driver is NULL → " + stepName);
+//				return;
+//			}
 
 			WaitUtils.waitForPageLoad(driver);
 
-			String path = ScreenshotUtils.getScreenshot(driver, stepName);
+			//String path = ScreenshotUtils.getScreenshot(driver, stepName);
 
-			test.pass("<b>"+stepName+"</b><br>"+"Time : "+LocalTime.now(), 
-					MediaEntityBuilder.createScreenCaptureFromPath(path).build());
+			//test.pass("<b>"+stepName+"</b><br>"+"Time : "+LocalTime.now(),MediaEntityBuilder.createScreenCaptureFromPath(path).build());
+			
+			ExtentTestManager.getTest().pass(stepName, MediaEntityBuilder
+					.createScreenCaptureFromPath(ScreenshotUtils.getScreenshot(driver, stepName)).build());
 
 		} catch (Exception e) {
 			e.printStackTrace();

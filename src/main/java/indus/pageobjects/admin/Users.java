@@ -49,4 +49,87 @@ public class Users extends AbstractComponent{
 	
 	@FindBy(xpath = "//button[@type='button' and normalize-space()='Cancel']")
 	WebElement cancelAccout;
+	
+	public String usersMenu() {
+		waitElementToAppear(users);
+		return users.getText();
+	}
+
+	public void goToUsers() {
+		users.click();
+		waitElementToAppear(userManagementName);
+	}
+
+	public String userManagementScreenName() {
+		return userManagementName.getText();
+	}
+	
+	public boolean allUserTabButtonEnable() {
+		boolean isEnabled = allTab.isEnabled();
+		return isEnabled;
+	}
+	
+	public boolean learnersTabButtonEnable() {
+		boolean isEnabled = learnersTab.isEnabled();
+		return isEnabled;
+	}
+	
+	public void navigateToLearnersTab() {
+		learnersTab.click();
+	}
+	
+	public boolean managersTabButtonEnable() {
+		boolean isEnabled = managersTab.isEnabled();
+		return isEnabled;
+	}
+	
+	public void navigateToManagersTab() {
+		managersTab.click();
+	}
+	
+	public boolean adminTabButtonEnable() {
+		boolean isEnabled = adminTab.isEnabled();
+		return isEnabled;
+	}
+	
+	public void navigateToAdminTab() {
+		adminTab.click();
+	}
+	
+	public boolean inActiveTabButtonEnable() {
+		boolean isEnabled = inActiveTab.isEnabled();
+		return isEnabled;
+	}
+	
+	public void navigateToInActiveTab() {
+		inActiveTab.click();
+	}
+	
+	public boolean massEditButtonEnable() {
+		boolean isEnabled = massEdit.isEnabled();
+		return isEnabled;
+	}
+	
+	public boolean addUserEnable() {
+		boolean isEnabled = userAdd.isEnabled();
+		return isEnabled;
+	}
+	
+	public void clickAddUser() {
+		userAdd.click();
+	}
+	
+	public String addUserModel() {
+		return addUserPopupName.getText();
+	}
+	
+	public boolean createAccountButtonDisable() {
+		boolean isDisabled = createAccout.isEnabled();
+		return isDisabled;
+	}
+	
+	public void cancelAddUser() {
+		cancelAccout.click();
+	}
+
 }

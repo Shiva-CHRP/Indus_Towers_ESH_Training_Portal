@@ -24,23 +24,91 @@ public class AssignTraining extends AbstractComponent{
 	WebElement addAssignTraining;
 	
 	@FindBy(xpath = "//input[@type='checkbox' and not(@disabled)]")
-	WebElement selectCourses;
+	WebElement selectCheckbox;
 	
 	@FindBy(xpath = "//button[normalize-space()='Next']")
 	WebElement nextBtn;
 	
-	@FindBy(xpath = "//button[@type='button' and normalize-space()='Cancel']")
-	WebElement cancelCoursebtn;
-	
 	@FindBy(xpath = "//button[contains(normalize-space(),'Assign training')]")
-	WebElement assignTrainingbtn;
+	WebElement assignTrainingBtn;
 	
 	@FindBy(xpath = "//button[contains(normalize-space(),'Back to Members')]")
-	WebElement backToMembersbtn;
+	WebElement backToMembersBtn;
 	
 	@FindBy(xpath = "//button[contains(normalize-space(),'Back to Courses')]")
-	WebElement backToCoursesbtn;
+	WebElement backToCoursesBtn;
 	
 	@FindBy(xpath = "//a[@href='/admin/assign' and contains(.,'Back to Courses')]")
-	WebElement backToAssignbtn;
+	WebElement backToAssignTraining;
+	
+	@FindBy(xpath = "//button[@type='button' and contains(normalize-space(),'View Detail')]")
+	WebElement viewDetailBtn;
+	
+	@FindBy(xpath = "//button[.//span[normalize-space()='Add Individuals']]")
+	WebElement addIndividuals;
+	
+	@FindBy(xpath = "//button[.//span[normalize-space()='Add Group']]")
+	WebElement addGroups;
+	
+	
+	public String assignTrainingMenu() {
+		waitElementToAppear(assignTraining);
+		return assignTraining.getText();
+	}
+
+	public void goToAssignTraining() {
+		assignTraining.click();
+		waitElementToAppear(assignTrainingName);
+	}
+
+	public String assignTrainingName() {
+		return assignTrainingName.getText();
+	}
+	
+	public boolean addAssignTrainingButtonEnable() {
+		boolean isEnabled = addAssignTraining.isEnabled();
+		return isEnabled;
+	}
+	
+	public void clickOnAssignTraining() {
+		addAssignTraining.click();
+		waitElementToAppear(selectCheckbox);
+	}
+	
+	public void selectCheckox() {
+		selectCheckbox.click();
+	}
+	
+	public void clickNextButton() {
+		nextBtn.click();
+	}
+	
+	public boolean assignTrainingButtonEnable() {
+		boolean isEnabled = assignTrainingBtn.isEnabled();
+		return isEnabled;
+	}
+	
+	public void clickOnBackToMembers() {
+		backToMembersBtn.click();
+	}
+	public void clickOnBackToCourses() {
+		backToCoursesBtn.click();
+	}
+	public void backToCoursesPage() {
+		backToAssignTraining.click();
+	}
+	
+	public void clickOnViewDetailOnCard() {
+		viewDetailBtn.click();
+	}
+	
+	public boolean addIndividualsButton() {
+		boolean isEnabled = addIndividuals.isEnabled();
+		return isEnabled;
+	}
+	
+	public boolean addGroupsButton() {
+		boolean isEnabled = addGroups.isEnabled();
+		return isEnabled;
+	}
 }

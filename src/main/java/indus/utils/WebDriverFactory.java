@@ -43,7 +43,8 @@ public class WebDriverFactory {
 
         getDriver().manage().timeouts()
                 .implicitlyWait(Duration.ofSeconds(2));
-        return decorator.decorate(driver.get());
+        return decoratedDriver;
+        //return decorator.decorate(driver.get());
 	}
 	
 	public static WebDriver getDriver() {

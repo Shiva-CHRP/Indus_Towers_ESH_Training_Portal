@@ -26,8 +26,44 @@ public class Assessments extends AbstractComponent{
 	WebElement createAssessmentName;
 	
 	@FindBy(xpath = "//button[@type='submit' and normalize-space()='Create Assessment']")
-	WebElement createAssessmentbtn;
+	WebElement createAssessmentBtn;
 	
 	@FindBy(xpath = "//button[@type='button' and normalize-space()='Cancel']")
-	WebElement cancelAssessmentbtn;
+	WebElement cancelAssessmentBtn;
+	
+	public String assessmentMenu() {
+		waitElementToAppear(assessment);
+		return assessment.getText();
+	}
+
+	public void goToAssessments() {
+		assessment.click();
+		waitElementToAppear(assessmentName);
+	}
+
+	public String assessmentScreenName() {
+		return assessmentName.getText();
+	}
+	
+	public boolean assessmentCreateButtonEnable() {
+		boolean isEnabled = assessmentCreate.isEnabled();
+		return isEnabled;
+	}
+	
+	public void clickOnCreateAssessment() {
+		assessmentCreate.click();
+	}
+	
+	public String creatAssessmentModel() {
+		return createAssessmentName.getText();
+	}
+	
+	public boolean createAssessmentButtonDisable() {
+		boolean isDisabled = createAssessmentBtn.isEnabled();
+		return isDisabled;
+	}
+	
+	public void cancelCreateAssessment() {
+		cancelAssessmentBtn.click();
+	}
 }

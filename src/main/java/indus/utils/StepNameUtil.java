@@ -5,9 +5,9 @@ import java.lang.reflect.Method;
 import indus.annotations.StepName;
 
 public class StepNameUtil {
-public static String getStepName() {
+	
+	public static String getStepName() {
 
-		
 		StackTraceElement[] stack = Thread.currentThread().getStackTrace();
 
 		try {

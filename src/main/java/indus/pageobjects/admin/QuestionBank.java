@@ -27,8 +27,44 @@ public class QuestionBank extends AbstractComponent{
 	WebElement createQuestionName;
 	
 	@FindBy(xpath = "//button[@type='submit' and normalize-space()='Create Question']")
-	WebElement createQuestionbtn;
+	WebElement createQuestionBtn;
 	
 	@FindBy(xpath = "//button[@type='button' and normalize-space()='Cancel']")
-	WebElement cancelQuestionbtn;
+	WebElement cancelQuestionBtn;
+	
+	public String questionBankMenu() {
+		waitElementToAppear(questionBank);
+		return questionBank.getText();
+	}
+
+	public void goToQuestionBank() {
+		questionBank.click();
+		waitElementToAppear(questionBankName);
+	}
+
+	public String questionBankScreenName() {
+		return questionBankName.getText();
+	}
+	
+	public boolean questionCreateButtonEnable() {
+		boolean isEnabled = questionCreate.isEnabled();
+		return isEnabled;
+	}
+	
+	public void clickOnCreateQuestion() {
+		questionCreate.click();
+	}
+	
+	public String creatQuestionModel() {
+		return createQuestionName.getText();
+	}
+	
+	public boolean createQuestionButtonDisable() {
+		boolean isDisabled = createQuestionBtn.isEnabled();
+		return isDisabled;
+	}
+	
+	public void cancelCreateQuestion() {
+		cancelQuestionBtn.click();
+	}
 }

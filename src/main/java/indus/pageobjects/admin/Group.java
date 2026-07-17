@@ -27,8 +27,45 @@ public class Group extends AbstractComponent{
 	WebElement createGroupName;
 	
 	@FindBy(xpath = "//button[@type='button' and normalize-space()='Create Group']")
-	WebElement createGroupbtn;
+	WebElement createGroupBtn;
 	
 	@FindBy(xpath = "//button[@type='button' and normalize-space()='Cancel']")
-	WebElement cancelGroupbtn;
+	WebElement cancelGroupBtn;
+	
+	public String groupMenu() {
+		waitElementToAppear(group);
+		return group.getText();
+	}
+
+	public void goToGroupMaster() {
+		group.click();
+		waitElementToAppear(groupMasterName);
+	}
+
+	public String groupMasterScreenName() {
+		return groupMasterName.getText();
+	}
+	
+	public boolean groupCreateButtonEnable() {
+		boolean isEnabled = groupCreate.isEnabled();
+		return isEnabled;
+	}
+	
+	public void clickCreateGroup() {
+		groupCreate.click();
+	}
+	
+	public String creatGroupModel() {
+		return createGroupName.getText();
+	}
+	
+	public boolean createGroupButtonDisable() {
+		boolean isDisabled = createGroupBtn.isEnabled();
+		return isDisabled;
+	}
+	
+	public void cancelCreateGroup() {
+		cancelGroupBtn.click();
+	}
+
 }

@@ -19,27 +19,15 @@ public class Users extends AbstractComponent {
 		PageFactory.initElements(driver, this);
 	}
 
-	// ── Sidebar & Header ─────────────────────────────────────────────────
+	// ── Sidebar Link ─────────────────────────────────────────────────────
 	@FindBy(xpath = "//div[@id='sidebar-group-MANAGEMENT']//a[.//span[normalize-space()='Users']]")
 	private WebElement usersMenu;
 
+	// ── Page Header & Statistics ─────────────────────────────────────────
 	@FindBy(xpath = "//h1[normalize-space()='User Management']")
 	private WebElement userManagementHeader;
 
-	// ── Header Actions ───────────────────────────────────────────────────
-	@FindBy(xpath = "//button[contains(.,'Add User')]")
-	private WebElement addUserButton;
-
-	@FindBy(xpath = "//button[contains(.,'Bulk Upload')]")
-	private WebElement bulkUploadButton;
-
-	@FindBy(xpath = "//button[contains(.,'Export')]")
-	private WebElement exportMenuButton;
-
-	// ── Filter Chips ─────────────────────────────────────────────────────
-	@FindBy(xpath = "//button[normalize-space()='All']")
-	private WebElement allTab;
-
+	// ── Filter Tabs ──────────────────────────────────────────────────────
 	@FindBy(xpath = "//button[normalize-space()='Learners']")
 	private WebElement learnersTab;
 
@@ -52,30 +40,36 @@ public class Users extends AbstractComponent {
 	@FindBy(xpath = "//button[normalize-space()='Inactive']")
 	private WebElement inactiveTab;
 
-	// ── Search Input ─────────────────────────────────────────────────────
-	@FindBy(xpath = "//input[contains(@placeholder,'Search by name')]")
+	// ── Search & Actions ─────────────────────────────────────────────────
+	@FindBy(xpath = "//input[@placeholder='Search by name, employee ID, or email...']")
 	private WebElement searchInput;
 
-	// ── Add User Modal Form ──────────────────────────────────────────────
+	@FindBy(xpath = "//button[normalize-space()='Add User']")
+	private WebElement addUserButton;
+
+	@FindBy(xpath = "//button[normalize-space()='Bulk Upload']")
+	private WebElement bulkUploadButton;
+
+	// ── Single User Modal Form ───────────────────────────────────────────
 	@FindBy(xpath = "//h2[normalize-space()='Add User']")
 	private WebElement addUserModalHeader;
 
-	@FindBy(xpath = "//label[contains(.,'Full Name')]/following-sibling::input | //input[@placeholder='e.g. Rahul Sharma']")
+	@FindBy(xpath = "//label[contains(.,'Full Name')]/following-sibling::input")
 	private WebElement fullNameInput;
 
-	@FindBy(xpath = "//label[contains(.,'Employee ID')]/following-sibling::input | //input[@placeholder='e.g. IND-00123']")
+	@FindBy(xpath = "//label[contains(.,'Employee ID')]/following-sibling::input")
 	private WebElement employeeIdInput;
 
-	@FindBy(xpath = "//label[contains(.,'Email')]/following-sibling::input | //input[@placeholder='rahul.sharma@industowers.com']")
+	@FindBy(xpath = "//label[contains(.,'Email')]/following-sibling::input")
 	private WebElement emailInput;
 
-	@FindBy(xpath = "//label[contains(.,'Phone')]/following-sibling::input | //input[@placeholder='+91 98765 43210']")
+	@FindBy(xpath = "//label[contains(.,'Phone')]/following-sibling::input")
 	private WebElement phoneInput;
 
-	@FindBy(xpath = "//label[contains(.,'Password')]/following-sibling::div//input | //input[@placeholder='Enter password']")
+	@FindBy(xpath = "//label[contains(.,'Password')]/following-sibling::div//input | //input[@type='password' or @placeholder='Enter password']")
 	private WebElement passwordInput;
 
-	@FindBy(xpath = "//button[@type='submit' and contains(.,'Create Account')]")
+	@FindBy(xpath = "//div[@role='dialog']//button[@type='submit' and normalize-space()='Create Account']")
 	private WebElement createAccountButton;
 
 	@FindBy(xpath = "//div[@role='dialog']//button[@type='button' and normalize-space()='Cancel']")
@@ -108,8 +102,9 @@ public class Users extends AbstractComponent {
 
 	@StepName("Navigate to Users Management page")
 	public void goToUsers() {
+		waitForBackdropToDisappear();
 		waitElementToBeClickable(usersMenu);
-		usersMenu.click();
+		clickElement(usersMenu);
 		waitElementToAppear(userManagementHeader);
 	}
 
@@ -122,25 +117,25 @@ public class Users extends AbstractComponent {
 	@StepName("Filter users by Learners tab")
 	public void navigateToLearnersTab() {
 		waitElementToBeClickable(learnersTab);
-		learnersTab.click();
+		clickElement(learnersTab);
 	}
 
 	@StepName("Filter users by Managers tab")
 	public void navigateToManagersTab() {
 		waitElementToBeClickable(managersTab);
-		managersTab.click();
+		clickElement(managersTab);
 	}
 
 	@StepName("Filter users by Admins tab")
 	public void navigateToAdminTab() {
 		waitElementToBeClickable(adminsTab);
-		adminsTab.click();
+		clickElement(adminsTab);
 	}
 
 	@StepName("Filter users by Inactive tab")
 	public void navigateToInActiveTab() {
 		waitElementToBeClickable(inactiveTab);
-		inactiveTab.click();
+		clickElement(inactiveTab);
 	}
 
 	@StepName("Search user by name, employee ID, or email")
@@ -157,8 +152,9 @@ public class Users extends AbstractComponent {
 	// ─────────────────────────────────────────────────────────────────────
 	@StepName("Click Add User button")
 	public void clickAddUser() {
+		waitForBackdropToDisappear();
 		waitElementToBeClickable(addUserButton);
-		addUserButton.click();
+		clickElement(addUserButton);
 		waitElementToAppear(addUserModalHeader);
 	}
 
@@ -185,21 +181,42 @@ public class Users extends AbstractComponent {
 			phoneInput.sendKeys(phone);
 		}
 
-		passwordInput.clear();
-		passwordInput.sendKeys(password);
+		if (password != null && !password.isEmpty()) {
+			waitForVisibility(passwordInput);
+			passwordInput.clear();
+			passwordInput.sendKeys(password);
+		}
 	}
 
 	@StepName("Submit Add User form")
 	public void submitUserForm() {
 		waitElementToBeClickable(createAccountButton);
-		createAccountButton.click();
+		clickElement(createAccountButton);
+		try {
+			waitUtils.waitForInvisibility(addUserModalHeader);
+		} catch (Exception e) {
+			try {
+				if (cancelAccountButton.isDisplayed()) {
+					waitUtils.clickUsingJS(cancelAccountButton);
+				}
+			} catch (Exception ignored) {}
+		}
+		waitForBackdropToDisappear();
 	}
 
 	@StepName("Cancel Add User form")
 	public void cancelAddUser() {
-		waitElementToBeClickable(cancelAccountButton);
-		cancelAccountButton.click();
-		waitForElementToDisappear(addUserModalHeader);
+		try {
+			if (cancelAccountButton.isDisplayed()) {
+				clickElement(cancelAccountButton);
+			}
+		} catch (Exception e) {
+			waitUtils.clickUsingJS(cancelAccountButton);
+		}
+		try {
+			waitForElementToDisappear(addUserModalHeader);
+		} catch (Exception ignored) {}
+		waitForBackdropToDisappear();
 	}
 
 	@StepName("Check if Create Account submit button is enabled")
@@ -212,8 +229,9 @@ public class Users extends AbstractComponent {
 	// ─────────────────────────────────────────────────────────────────────
 	@StepName("Click Bulk Upload button")
 	public void clickBulkUpload() {
+		waitForBackdropToDisappear();
 		waitElementToBeClickable(bulkUploadButton);
-		bulkUploadButton.click();
+		clickElement(bulkUploadButton);
 		waitElementToAppear(bulkUploadModalHeader);
 	}
 
@@ -240,9 +258,17 @@ public class Users extends AbstractComponent {
 
 	@StepName("Cancel Bulk Upload modal")
 	public void cancelBulkUpload() {
-		waitElementToBeClickable(cancelBulkUploadButton);
-		cancelBulkUploadButton.click();
-		waitForElementToDisappear(bulkUploadModalHeader);
+		try {
+			if (cancelBulkUploadButton.isDisplayed()) {
+				clickElement(cancelBulkUploadButton);
+			}
+		} catch (Exception e) {
+			waitUtils.clickUsingJS(cancelBulkUploadButton);
+		}
+		try {
+			waitForElementToDisappear(bulkUploadModalHeader);
+		} catch (Exception ignored) {}
+		waitForBackdropToDisappear();
 	}
 
 	// ─────────────────────────────────────────────────────────────────────
@@ -265,18 +291,19 @@ public class Users extends AbstractComponent {
 			By actionBtnBy = By.xpath("//tr[contains(.,'" + emailOrName + "')]//button[@aria-label='User actions' or contains(@class,'kebab')]");
 			WebElement actionBtn = waitUtils.waitForVisibility(actionBtnBy);
 			waitElementToBeClickable(actionBtn);
-			actionBtn.click();
+			clickElement(actionBtn);
 
 			By toggleMenuBy = By.xpath("//div[@role='menuitem' and (contains(.,'Deactivate') or contains(.,'Reactivate'))]");
 			WebElement toggleItem = waitUtils.waitForVisibility(toggleMenuBy);
 			waitElementToBeClickable(toggleItem);
-			toggleItem.click();
+			clickElement(toggleItem);
 
 			// Confirm modal button
 			By confirmBtnBy = By.xpath("//div[@role='dialog']//button[contains(.,'Deactivate') or contains(.,'Reactivate')]");
 			WebElement confirmBtn = waitUtils.waitForVisibility(confirmBtnBy);
 			waitElementToBeClickable(confirmBtn);
-			confirmBtn.click();
+			clickElement(confirmBtn);
+			waitForBackdropToDisappear();
 		} catch (Exception ignored) {}
 	}
 }

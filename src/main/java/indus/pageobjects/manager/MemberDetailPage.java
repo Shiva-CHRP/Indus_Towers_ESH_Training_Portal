@@ -25,10 +25,10 @@ public class MemberDetailPage extends AbstractComponent {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(xpath = "//h1[contains(@class,'font-bold')]")
+    @FindBy(xpath = "//h1[contains(@class,'font-bold')] | //h2[contains(@class,'font-bold')] | //div[.//p[contains(normalize-space(),'Team Member Overview')]]//h2")
     private WebElement memberNameHeading;
 
-    @FindBy(xpath = "//button[contains(.,'Back')]")
+    @FindBy(xpath = "//nav//a[normalize-space()='Team' or contains(@href,'/manager/team')] | //button[contains(.,'Back')]")
     private WebElement backButton;
 
     @FindBy(xpath = "//div[contains(@class,'grid')]//div[contains(@class,'rounded-xl') and .//p[contains(@class,'font-semibold')]]")
@@ -81,18 +81,20 @@ public class MemberDetailPage extends AbstractComponent {
     public void openRemindModal(String courseTitle) {
         By remindBtnBy = By.xpath("//div[.//p[normalize-space()='" + courseTitle + "']]//button[contains(.,'Remind')]");
         waitUtils.waitForClickable(remindBtnBy);
-        driver.findElement(remindBtnBy).click();
+        clickElement(remindBtnBy);
         waitUtils.waitForVisibility(reminderModalTitle);
     }
 
     public void sendReminder(boolean inApp, boolean email) {
         waitUtils.waitForVisibility(reminderModalTitle);
         waitUtils.waitForClickable(sendReminderSubmitButton);
-        sendReminderSubmitButton.click();
+        clickElement(sendReminderSubmitButton);
+        waitForBackdropToDisappear();
     }
 
     public void goBack() {
         waitUtils.waitForClickable(backButton);
-        backButton.click();
+        clickElement(backButton);
+        waitForBackdropToDisappear();
     }
 }

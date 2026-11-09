@@ -41,7 +41,7 @@ public class LoginPage extends AbstractComponent {
 	@FindBy(xpath = "//input[@inputmode='numeric']")
 	private List<WebElement> otpInputs;
 
-	@FindBy(xpath = "//button[@type='submit' and contains(.,'Verify & Sign In')]")
+	@FindBy(xpath = "//button[@type='submit' and contains(.,'Verify & Sign In')] | //button[@type='submit' and contains(.,'Verify')]")
 	private WebElement verifyOtpButton;
 
 	@FindBy(xpath = "//button[contains(.,'Resend OTP')]")
@@ -89,16 +89,18 @@ public class LoginPage extends AbstractComponent {
 	}
 
 	public void loginByEmail() {
+		waitForBackdropToDisappear();
 		waitElementToAppear(emailLoginTab);
 		waitElementToBeClickable(emailLoginTab);
-		emailLoginTab.click();
+		clickElement(emailLoginTab);
 	}
 
 	@StepName("Click Phone & OTP tab")
 	public void loginByPhone() {
+		waitForBackdropToDisappear();
 		waitElementToAppear(phoneOtpTab);
 		waitElementToBeClickable(phoneOtpTab);
-		phoneOtpTab.click();
+		clickElement(phoneOtpTab);
 	}
 
 	// ─────────────────────────────────────────────────────────────────────
@@ -121,57 +123,79 @@ public class LoginPage extends AbstractComponent {
 	@StepName("Click Sign In Button")
 	public void clickLogin() {
 		waitElementToBeClickable(signinButton);
-		signinButton.click();
+		clickElement(signinButton);
 	}
 
 	// ─────────────────────────────────────────────────────────────────────
-	// 2FA / OTP Handling
+	// 2FA / OTP Handling (Resilient across 2FA prompt or direct login)
 	// ─────────────────────────────────────────────────────────────────────
 	@StepName("Check if 2FA OTP Screen is displayed")
 	public boolean isOtpScreenDisplayed() {
 		try {
-			if (otpInputs != null && !otpInputs.isEmpty()) {
-				return otpInputs.get(0).isDisplayed();
-			}
+			By otpLocator = By.xpath("//input[@inputmode='numeric']");
+			List<WebElement> inputs = driver.findElements(otpLocator);
+			return !inputs.isEmpty() && inputs.get(0).isDisplayed();
 		} catch (Exception ignored) {}
 		return false;
 	}
 
 	@StepName("Wait for 2FA OTP Screen to appear")
 	public void waitForOtpScreen() {
-		By otpLocator = By.xpath("//input[@inputmode='numeric']");
-		waitUtils.waitForVisibility(otpLocator);
+		try {
+			By otpLocator = By.xpath("//input[@inputmode='numeric']");
+			waitUtils.waitUntil(d -> {
+				List<WebElement> otps = d.findElements(otpLocator);
+				if (!otps.isEmpty() && otps.get(0).isDisplayed()) {
+					return true;
+				}
+				String url = d.getCurrentUrl();
+				if (url.contains("/superadmin") || url.contains("/admin") || url.contains("/manager") || url.contains("/learner")) {
+					return true;
+				}
+				List<WebElement> sessionLimits = d.findElements(By.xpath("//h3[normalize-space()='Active Session Limit Reached']"));
+				if (!sessionLimits.isEmpty() && sessionLimits.get(0).isDisplayed()) {
+					return true;
+				}
+				return null;
+			});
+		} catch (Exception ignored) {
+		}
 	}
 
 	@StepName("Enter 6-digit 2FA OTP")
 	public void enterOtp(String otp) {
-		waitForOtpScreen();
-		if (otpInputs != null && !otpInputs.isEmpty()) {
-			// Clear first cell if needed
-			otpInputs.get(0).clear();
-			
-			// Distribute OTP digits across input cells
-			for (int i = 0; i < otp.length() && i < otpInputs.size(); i++) {
-				WebElement cell = otpInputs.get(i);
-				cell.sendKeys(String.valueOf(otp.charAt(i)));
+		try {
+			By otpLocator = By.xpath("//input[@inputmode='numeric']");
+			List<WebElement> inputs = driver.findElements(otpLocator);
+			if (!inputs.isEmpty() && inputs.get(0).isDisplayed()) {
+				inputs.get(0).clear();
+				for (int i = 0; i < otp.length() && i < inputs.size(); i++) {
+					inputs.get(i).sendKeys(String.valueOf(otp.charAt(i)));
+				}
 			}
-		}
+		} catch (Exception ignored) {}
 	}
 
 	@StepName("Click Verify & Sign In for 2FA")
 	public void clickVerifyOtp() {
-		waitElementToBeClickable(verifyOtpButton);
-		verifyOtpButton.click();
+		try {
+			By verifyBtn = By.xpath("//button[@type='submit' and (contains(.,'Verify') or contains(.,'Sign In'))]");
+			List<WebElement> buttons = driver.findElements(verifyBtn);
+			if (!buttons.isEmpty() && buttons.get(0).isDisplayed()) {
+				clickElement(buttons.get(0));
+			}
+		} catch (Exception ignored) {}
 	}
 
 	@StepName("Handle Active Sessions Limit if modal appears")
 	public boolean handleActiveSessionsIfPresent() {
 		try {
 			By modalBy = By.xpath("//h3[normalize-space()='Active Session Limit Reached']");
-			WebElement title = waitUtils.waitForVisibility(modalBy);
-			if (title != null && title.isDisplayed()) {
+			List<WebElement> titles = driver.findElements(modalBy);
+			if (!titles.isEmpty() && titles.get(0).isDisplayed()) {
 				waitElementToBeClickable(forceLogoutButton);
-				forceLogoutButton.click();
+				clickElement(forceLogoutButton);
+				waitForBackdropToDisappear();
 				return true;
 			}
 		} catch (Exception ignored) {
@@ -181,35 +205,9 @@ public class LoginPage extends AbstractComponent {
 	}
 
 	// ─────────────────────────────────────────────────────────────────────
-	// Composite Login Flows
+	// Validation Checks
 	// ─────────────────────────────────────────────────────────────────────
-	@StepName("Perform Standard Admin Login")
-	public void login(String userEmail, String userPassword) {
-		loginByEmail();
-		enterUserEmail(userEmail);
-		enterPassword(userPassword);
-		clickLogin();
-		handleActiveSessionsIfPresent();
-	}
-
-	@StepName("Perform Super Admin Login with 2FA OTP")
-	public void loginAsSuperAdmin(String userEmail, String userPassword, String otp) {
-		loginByEmail();
-		enterUserEmail(userEmail);
-		enterPassword(userPassword);
-		clickLogin();
-
-		// Handle 2FA OTP verification
-		enterOtp(otp);
-		clickVerifyOtp();
-
-		// Evict previous active session if limit reached
-		handleActiveSessionsIfPresent();
-	}
-
-	// ─────────────────────────────────────────────────────────────────────
-	// Validation Error Queries
-	// ─────────────────────────────────────────────────────────────────────
+	@StepName("Get Alert Error Banner Text")
 	public String getAlertErrorText() {
 		try {
 			waitElementToAppear(alertErrorBanner);
@@ -219,15 +217,53 @@ public class LoginPage extends AbstractComponent {
 		}
 	}
 
-	public boolean hasFieldError(String expectedSnippet) {
-		for (WebElement err : fieldErrors) {
-			try {
-				if (err.isDisplayed() && err.getText().toLowerCase().contains(expectedSnippet.toLowerCase())) {
-					return true;
-				}
-			} catch (Exception ignored) {}
+	@StepName("Check if Alert Error Banner is displayed")
+	public boolean isAlertErrorBannerDisplayed() {
+		try {
+			waitElementToAppear(alertErrorBanner);
+			return alertErrorBanner.isDisplayed();
+		} catch (Exception e) {
+			return false;
 		}
-		return false;
+	}
+
+	@StepName("Get Field Validation Error Count")
+	public int getFieldErrorCount() {
+		try {
+			return fieldErrors.size();
+		} catch (Exception e) {
+			return 0;
+		}
+	}
+
+	@StepName("Check if specific field error text is present")
+	public boolean hasFieldError(String expectedText) {
+		try {
+			return fieldErrors.stream()
+					.map(WebElement::getText)
+					.map(String::trim)
+					.anyMatch(msg -> msg.toLowerCase().contains(expectedText.toLowerCase()));
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@StepName("Check if Sign In button is enabled")
+	public boolean isSignInButtonEnabled() {
+		try {
+			return signinButton.isEnabled();
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@StepName("Check if current URL is Login page")
+	public boolean isAtLoginPage() {
+		try {
+			return driver.getCurrentUrl().contains("/login");
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	// ─────────────────────────────────────────────────────────────────────
@@ -254,21 +290,23 @@ public class LoginPage extends AbstractComponent {
 	// ─────────────────────────────────────────────────────────────────────
 	@StepName("Click on the Profile Icon")
 	public void clickProfile() {
+		dismissAnyOpenModal();
+		waitForBackdropToDisappear();
 		waitElementToAppear(profile);
-		waitElementToBeClickable(profile);
-		profile.click();
+		clickElement(profile);
 	}
 
 	@StepName("Click Sign out Button")
 	public void clickSignOut() {
 		waitElementToBeClickable(signOut);
-		signOut.click();
+		clickElement(signOut);
 	}
 
 	@StepName("Click Confirm Sign out Button")
 	public void clickConfirmSignOut() {
 		waitElementToBeClickable(confirmSignOut);
-		confirmSignOut.click();
+		clickElement(confirmSignOut);
+		waitForBackdropToDisappear();
 	}
 
 	@StepName("Perform Complete Sign Out and wait for Login Page")

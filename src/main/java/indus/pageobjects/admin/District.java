@@ -36,7 +36,7 @@ public class District extends AbstractComponent {
 	@FindBy(xpath = "//label[contains(normalize-space(),'Description')]/following-sibling::textarea")
 	WebElement description;
 
-	@FindBy(xpath = "//div[@data-parent-picker='true']//button")
+	@FindBy(xpath = "//div[@data-parent-picker='true']//button | //div[@data-parent-picker]//button")
 	WebElement clusterDropdown;
 
 	@FindBy(xpath = "//button[@type='submit' and normalize-space()='Add District']")
@@ -53,7 +53,8 @@ public class District extends AbstractComponent {
 	}
 
 	public void goToDistrict() {
-		district.click();
+		waitForBackdropToDisappear();
+		clickElement(district);
 		waitElementToAppear(districtScreenName);
 	}
 
@@ -67,7 +68,9 @@ public class District extends AbstractComponent {
 	}
 
 	public void clickAddDistrict() {
-		districtAdd.click();
+		waitForBackdropToDisappear();
+		clickElement(districtAdd);
+		waitElementToAppear(addDistrictPopup);
 	}
 
 	public String addDistrictModel() {
@@ -80,10 +83,13 @@ public class District extends AbstractComponent {
 	}
 
 	public void inputDistrictTitle(String dtitle) {
+		waitElementToAppear(title);
+		title.clear();
 		title.sendKeys(dtitle);
 	}
 
 	public void inputDistrictDescription(String desc) {
+		description.clear();
 		description.sendKeys(desc);
 	}
 
@@ -93,15 +99,15 @@ public class District extends AbstractComponent {
 	}
 	
 	public void selectCluster(String clusterName) {
-		clusterDropdown.click();
-		By options = By.xpath("//div[@data-parent-picker='true']//button[.//span]");
+		clickElement(clusterDropdown);
+		By options = By.xpath("//div[@data-parent-picker]//button[.//span] | //div[@data-parent-picker='true']//button[.//span]");
 		waitUtils.waitForVisibility(options);
 		List<WebElement> optionList = driver.findElements(options);
 
 		for (int i = 0; i < optionList.size(); i++) {
 		    try {
 		        WebElement element = driver.findElement(
-		                By.xpath("//div[@data-parent-picker='true']//button[.//span[normalize-space()='"
+		                By.xpath("//div[contains(@data-parent-picker,'')]//button[.//span[normalize-space()='"
 		                        + clusterName + "']]"));
 
 		        if (element.isDisplayed() && element.isEnabled()) {
@@ -116,17 +122,37 @@ public class District extends AbstractComponent {
 		    }
 		}
 
-		throw new RuntimeException("National not found: " + clusterName);
+		throw new RuntimeException("Cluster not found: " + clusterName);
 	}
 
 	public void createDistrict() {
 		if (submit.isEnabled()) {
-			submit.click();
+			clickElement(submit);
+			try {
+				waitUtils.waitForInvisibility(addDistrictPopup);
+			} catch (Exception e) {
+				try {
+					if (cancel.isDisplayed()) {
+						waitUtils.clickUsingJS(cancel);
+					}
+				} catch (Exception ignored) {}
+			}
+			waitForBackdropToDisappear();
 		}
 	}
 
 	public void cancelAddDistrict() {
-		cancel.click();
+		try {
+			if (cancel.isDisplayed()) {
+				clickElement(cancel);
+			}
+		} catch (Exception e) {
+			waitUtils.clickUsingJS(cancel);
+		}
+		try {
+			waitUtils.waitForInvisibility(addDistrictPopup);
+		} catch (Exception ignored) {}
+		waitForBackdropToDisappear();
 	}
 
 	public int getColumnIndex(String columnName) {

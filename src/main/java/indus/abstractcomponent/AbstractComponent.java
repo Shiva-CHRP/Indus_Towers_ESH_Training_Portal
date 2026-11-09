@@ -1,6 +1,7 @@
 package indus.abstractcomponent;
 
 import java.util.List;
+import java.util.function.Function;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -18,96 +19,106 @@ public class AbstractComponent {
 	public ToastUtils toastUtils;
 	
 	public AbstractComponent(WebDriver driver) {
-
 		this.driver = driver;
-
 		this.waitUtils = new WaitUtils(driver);
-		toastUtils = new ToastUtils(driver);
+		this.toastUtils = new ToastUtils(driver);
 		PageFactory.initElements(driver, this);
 	}
 	
-	public void waitElementToAppear(WebElement element) {
+	public <T> T waitUntil(Function<? super WebDriver, T> isTrue) {
+		return waitUtils.waitUntil(isTrue);
+	}
 
+	public void waitForBackdropToDisappear() {
+		waitUtils.waitForBackdropToDisappear();
+	}
+
+	public void clickElement(WebElement element) {
+		waitUtils.clickElement(element);
+	}
+
+	public void clickElement(By locator) {
+		waitUtils.clickElement(locator);
+	}
+
+	public void waitElementToAppear(WebElement element) {
 		waitUtils.waitForVisibility(element);
 	}
 
 	public void waitElementToBeClickable(WebElement element) {
-
 		waitUtils.waitForClickable(element);
 	}
-	public void waitElementToBeClickable(By locator) {
 
+	public void waitElementToBeClickable(By locator) {
 		waitUtils.waitForClickable(locator);
 	}
-	public void waitForElementToDisappear(WebElement element) {
 
+	public void waitForElementToDisappear(WebElement element) {
 		waitUtils.waitForInvisibility(element);
 	}
 	
 	public WebElement waitForVisibility(By locator) {
-
 		return waitUtils.waitForVisibility(locator);
 	}
-	public void waitForVisibility(WebElement element) {
 
+	public void waitForVisibility(WebElement element) {
 		waitUtils.waitForVisibility(element);
 	}
-	public void waitForVisibility(List<WebElement> element) {
 
+	public void waitForVisibility(List<WebElement> element) {
 		waitUtils.waitForVisibility(element);
+	}
+
+	public void dismissAnyOpenModal() {
+		try {
+			By cancelBtn = By.xpath("//div[@role='dialog']//button[normalize-space()='Cancel' or ./*[name()='svg']/*[name()='line']] | //div[@role='dialog']//button[contains(@class,'hover:bg-light-grey')]");
+			List<WebElement> buttons = driver.findElements(cancelBtn);
+			if (!buttons.isEmpty() && buttons.get(0).isDisplayed()) {
+				waitUtils.clickUsingJS(buttons.get(0));
+			}
+			waitUtils.waitForBackdropToDisappear();
+		} catch (Exception ignored) {
+		}
 	}
 	
 	// Drop Downs
 	public void selectByVisibleText(WebElement element, String text) {
-
 		new Select(element).selectByVisibleText(text);
 	}
 
 	public void selectByValue(WebElement element, String value) {
-
 		new Select(element).selectByValue(value);
 	}
 
 	public void selectByIndex(WebElement element, int index) {
-
 		new Select(element).selectByIndex(index);
 	}
 
 	// Alert
 	public void acceptAlert() {
-
 		waitUtils.waitForAlert();
-
 		driver.switchTo().alert().accept();
 	}
 
 	public void dismissAlert() {
-
 		waitUtils.waitForAlert();
-
 		driver.switchTo().alert().dismiss();
 	}
 
 	public String getAlertText() {
-
 		waitUtils.waitForAlert();
-
 		return driver.switchTo().alert().getText();
 	}
 
 	// Scroll
 	public void scrollToElement(WebElement element) {
-
 		waitUtils.scrollIntoView(element);
 	}
 
 	// Window Handlers
 	public void switchToWindow(String title) {
-
 		for (String handle : driver.getWindowHandles()) {
-
 			driver.switchTo().window(handle);
-
 			if (driver.getTitle().contains(title)) {
 				break;
 			}

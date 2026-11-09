@@ -508,6 +508,7 @@ public class AdminPortalTest extends BaseTest {
 	@Test(priority = 36,groups = {"Smoke", "Sanity", "Regression", "E2E"})
 	@TestInfo(module = "District", description = "Verify District appears in the grid after creation", priority = "Critical")
 	public void district_Appears_In_Table() {
+		district.goToDistrict();
 		boolean exists = district.isDistrictPresent("Title", DistrictName);
 		softAssert.assertTrue(exists, "District Already exists in the Table");
 		softAssert.assertAll();
@@ -571,6 +572,7 @@ public class AdminPortalTest extends BaseTest {
 	@Test(priority = 41,groups = {"Smoke", "Sanity", "Regression", "E2E"})
 	@TestInfo(module = "Site", description = "Verify Site appears in the grid after creation", priority = "Critical")
 	public void site_Appears_In_Table() {
+		site.goToSite();
 		boolean exists = site.isSitePresent("Title", SiteName);
 		softAssert.assertTrue(exists, "Site Already exists in the Table");
 		softAssert.assertAll();

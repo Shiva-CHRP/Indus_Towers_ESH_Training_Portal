@@ -67,8 +67,9 @@ public class AssignTraining extends AbstractComponent {
 	}
 
 	public void goToAssignTraining() {
+		waitForBackdropToDisappear();
 		waitElementToBeClickable(assignTraining);
-		assignTraining.click();
+		clickElement(assignTraining);
 		waitElementToAppear(assignTrainingName);
 	}
 
@@ -82,43 +83,58 @@ public class AssignTraining extends AbstractComponent {
 	}
 	
 	public void clickOnAssignTraining() {
+		waitForBackdropToDisappear();
 		waitElementToBeClickable(addAssignTraining);
-		addAssignTraining.click();
+		clickElement(addAssignTraining);
 		waitElementToAppear(nextBtn);
 	}
 	
 	// ── Wizard Step 1: Courses Selection ─────────────────────────────────
 	@StepName("Select first course in Assign Wizard Step 1")
 	public void selectFirstCourse() {
-		if (selectCheckbox != null) {
-			waitElementToBeClickable(selectCheckbox);
-			selectCheckbox.click();
+		try {
+			By courseRowBy = By.xpath("//div[contains(@class,'max-h-[480px]')]//button[not(@disabled) and .//input[@type='checkbox']]");
+			WebElement courseRow = waitUtils.waitForVisibility(courseRowBy);
+			scrollToElement(courseRow);
+			clickElement(courseRow);
+		} catch (Exception e) {
+			By cb = By.xpath("//input[@type='checkbox' and not(@disabled)]");
+			WebElement checkbox = waitUtils.waitForVisibility(cb);
+			waitUtils.clickUsingJS(checkbox);
 		}
 	}
 
 	@StepName("Click Next button in wizard")
 	public void clickNextButton() {
-		waitElementToBeClickable(nextBtn);
-		nextBtn.click();
+		By nextBy = By.xpath("//button[normalize-space()='Next' or contains(.,'Next')]");
+		waitUtils.waitForClickable(nextBy);
+		WebElement btn = driver.findElement(nextBy);
+		clickElement(btn);
 	}
 
 	// ── Wizard Step 2: Audience Selection ────────────────────────────────
 	@StepName("Select first audience member / group in Step 2")
 	public void selectAudienceMember() {
 		try {
-			if (!allCheckboxes.isEmpty()) {
-				WebElement cb = allCheckboxes.get(0);
-				waitElementToBeClickable(cb);
-				cb.click();
+			By memberRowBy = By.xpath("//div[contains(@class,'max-h-[480px]')]//button[not(@disabled) and .//input[@type='checkbox']]");
+			WebElement memberRow = waitUtils.waitForVisibility(memberRowBy);
+			scrollToElement(memberRow);
+			clickElement(memberRow);
+		} catch (Exception e) {
+			By cb = By.xpath("//input[@type='checkbox' and not(@disabled)]");
+			List<WebElement> cbs = driver.findElements(cb);
+			if (!cbs.isEmpty()) {
+				waitUtils.clickUsingJS(cbs.get(0));
 			}
-		} catch (Exception ignored) {}
+		}
 	}
 
 	// ── Wizard Step 3: Deadline & Confirmation ───────────────────────────
 	@StepName("Confirm and submit training assignment in Step 3")
 	public void confirmAssignment() {
 		waitElementToBeClickable(assignTrainingBtn);
-		assignTrainingBtn.click();
+		clickElement(assignTrainingBtn);
+		waitForBackdropToDisappear();
 	}
 	
 	public boolean assignTrainingButtonEnable() {
@@ -127,22 +143,22 @@ public class AssignTraining extends AbstractComponent {
 	
 	public void clickOnBackToMembers() {
 		waitElementToBeClickable(backToMembersBtn);
-		backToMembersBtn.click();
+		clickElement(backToMembersBtn);
 	}
 
 	public void clickOnBackToCourses() {
 		waitElementToBeClickable(backToCoursesBtn);
-		backToCoursesBtn.click();
+		clickElement(backToCoursesBtn);
 	}
 
 	public void backToCoursesPage() {
 		waitElementToBeClickable(backToAssignTraining);
-		backToAssignTraining.click();
+		clickElement(backToAssignTraining);
 	}
 	
 	public void clickOnViewDetailOnCard() {
 		waitElementToBeClickable(viewDetailBtn);
-		viewDetailBtn.click();
+		clickElement(viewDetailBtn);
 	}
 	
 	public boolean addIndividualsButton() {

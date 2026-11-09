@@ -55,8 +55,9 @@ public class QuestionBank extends AbstractComponent {
 	}
 
 	public void goToQuestionBank() {
+		waitForBackdropToDisappear();
 		waitElementToBeClickable(questionBank);
-		questionBank.click();
+		clickElement(questionBank);
 		waitElementToAppear(questionBankName);
 	}
 
@@ -70,8 +71,9 @@ public class QuestionBank extends AbstractComponent {
 	}
 	
 	public void clickOnCreateQuestion() {
+		waitForBackdropToDisappear();
 		waitElementToBeClickable(questionCreate);
-		questionCreate.click();
+		clickElement(questionCreate);
 		waitElementToAppear(createQuestionName);
 	}
 	
@@ -111,7 +113,7 @@ public class QuestionBank extends AbstractComponent {
 			By radioBy = By.xpath("//button[normalize-space()='" + letter + "'] | //input[@value='" + letter + "']");
 			WebElement radio = waitUtils.waitForVisibility(radioBy);
 			waitElementToBeClickable(radio);
-			radio.click();
+			clickElement(radio);
 		} catch (Exception ignored) {}
 	}
 
@@ -138,7 +140,17 @@ public class QuestionBank extends AbstractComponent {
 	@StepName("Submit Create Question form")
 	public void submitQuestion() {
 		waitElementToBeClickable(createQuestionBtn);
-		createQuestionBtn.click();
+		clickElement(createQuestionBtn);
+		try {
+			waitUtils.waitForInvisibility(createQuestionName);
+		} catch (Exception e) {
+			try {
+				if (cancelQuestionBtn.isDisplayed()) {
+					waitUtils.clickUsingJS(cancelQuestionBtn);
+				}
+			} catch (Exception ignored) {}
+		}
+		waitForBackdropToDisappear();
 	}
 	
 	public boolean createQuestionButtonDisable() {
@@ -147,9 +159,16 @@ public class QuestionBank extends AbstractComponent {
 	
 	public void cancelCreateQuestion() {
 		try {
-			waitElementToBeClickable(cancelQuestionBtn);
-			cancelQuestionBtn.click();
+			if (cancelQuestionBtn.isDisplayed()) {
+				clickElement(cancelQuestionBtn);
+			}
+		} catch (Exception e) {
+			waitUtils.clickUsingJS(cancelQuestionBtn);
+		}
+		try {
+			waitForElementToDisappear(createQuestionName);
 		} catch (Exception ignored) {}
+		waitForBackdropToDisappear();
 	}
 
 	@StepName("Search question bank by keyword")

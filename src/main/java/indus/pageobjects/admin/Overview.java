@@ -24,7 +24,7 @@ public class Overview extends AbstractComponent {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(xpath = "//div[@id='sidebar-group-MAIN']//a[.//span[normalize-space()='Overview']]")
+    @FindBy(xpath = "//div[@id='sidebar-group-MAIN']//a[.//span[normalize-space()='Overview']] | //a[contains(@href,'/admin/dashboard')]")
     private WebElement overviewSidebarLink;
 
     @FindBy(xpath = "//h1[contains(text(),'Welcome back')]")
@@ -43,8 +43,14 @@ public class Overview extends AbstractComponent {
     private WebElement leaderboardSection;
 
     public void goToOverview() {
-        String base = driver.getCurrentUrl().split("#")[0].replaceAll("/(admin|super-admin|manager).*", "");
-        driver.get(base + "/admin/dashboard");
+        waitForBackdropToDisappear();
+        waitUtils.waitForUrlContains("/admin");
+        try {
+            clickElement(overviewSidebarLink);
+        } catch (Exception ignored) {
+            String base = driver.getCurrentUrl().split("#")[0].replaceAll("/(login|admin|super-admin|manager).*", "");
+            driver.get(base + "/admin/dashboard");
+        }
         waitForPageLoaded();
     }
 

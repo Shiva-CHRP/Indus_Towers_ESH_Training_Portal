@@ -11,12 +11,13 @@ import org.openqa.selenium.support.PageFactory;
 
 import indus.abstractcomponent.AbstractComponent;
 
-public class Cluster extends AbstractComponent{
+public class Cluster extends AbstractComponent {
 
 	public Cluster(WebDriver driver) {
 		super(driver);
 		PageFactory.initElements(driver, this);
 	}
+
 	@FindBy(xpath = "//div[@id='sidebar-group-MASTER']//a[.//span[normalize-space()='Cluster']]")
 	WebElement cluster;
 	
@@ -35,7 +36,7 @@ public class Cluster extends AbstractComponent{
 	@FindBy(xpath = "//label[contains(normalize-space(),'Description')]/following-sibling::textarea")
 	WebElement description;
 	
-	@FindBy(xpath = "//div[@data-parent-picker='true']//button")
+	@FindBy(xpath = "//div[@data-parent-picker='true']//button | //div[@data-parent-picker]//button")
 	WebElement circleDropdown;
 	
 	@FindBy(xpath = "//button[@type='submit' and normalize-space()='Add Cluster']")
@@ -52,7 +53,8 @@ public class Cluster extends AbstractComponent{
 	}
 
 	public void goToCluster() {
-		cluster.click();
+		waitForBackdropToDisappear();
+		clickElement(cluster);
 		waitElementToAppear(clusterScreenName);
 	}
 
@@ -66,7 +68,9 @@ public class Cluster extends AbstractComponent{
 	}
 
 	public void clickAddCluster() {
-		clusterAdd.click();
+		waitForBackdropToDisappear();
+		clickElement(clusterAdd);
+		waitElementToAppear(addClusterPopup);
 	}
 
 	public String addClusterModel() {
@@ -79,10 +83,13 @@ public class Cluster extends AbstractComponent{
 	}
 
 	public void inputClusterTitle(String dtitle) {
+		waitElementToAppear(title);
+		title.clear();
 		title.sendKeys(dtitle);
 	}
 
 	public void inputClusterDescription(String desc) {
+		description.clear();
 		description.sendKeys(desc);
 	}
 
@@ -92,15 +99,15 @@ public class Cluster extends AbstractComponent{
 	}
 
 	public void selectCircle(String circleName) {
-		circleDropdown.click();
-		By options = By.xpath("//div[@data-parent-picker='true']//button[.//span]");
+		clickElement(circleDropdown);
+		By options = By.xpath("//div[contains(@data-parent-picker,'')]//button[.//span] | //div[@data-parent-picker]//button[.//span]");
 		waitUtils.waitForVisibility(options);
 		List<WebElement> optionList = driver.findElements(options);
 
 		for (int i = 0; i < optionList.size(); i++) {
 		    try {
 		        WebElement element = driver.findElement(
-		                By.xpath("//div[@data-parent-picker='true']//button[.//span[normalize-space()='"
+		                By.xpath("//div[contains(@data-parent-picker,'')]//button[.//span[normalize-space()='"
 		                        + circleName + "']]"));
 
 		        if (element.isDisplayed() && element.isEnabled()) {
@@ -115,17 +122,37 @@ public class Cluster extends AbstractComponent{
 		    }
 		}
 
-		throw new RuntimeException("National not found: " + circleName);
+		throw new RuntimeException("Circle not found: " + circleName);
 	}
 	
 	public void createCluster() {
 		if (submit.isEnabled()) {
-			submit.click();
+			clickElement(submit);
+			try {
+				waitUtils.waitForInvisibility(addClusterPopup);
+			} catch (Exception e) {
+				try {
+					if (cancel.isDisplayed()) {
+						waitUtils.clickUsingJS(cancel);
+					}
+				} catch (Exception ignored) {}
+			}
+			waitForBackdropToDisappear();
 		}
 	}
 
 	public void cancelAddCluster() {
-		cancel.click();
+		try {
+			if (cancel.isDisplayed()) {
+				clickElement(cancel);
+			}
+		} catch (Exception e) {
+			waitUtils.clickUsingJS(cancel);
+		}
+		try {
+			waitUtils.waitForInvisibility(addClusterPopup);
+		} catch (Exception ignored) {}
+		waitForBackdropToDisappear();
 	}
 
 	public int getColumnIndex(String columnName) {

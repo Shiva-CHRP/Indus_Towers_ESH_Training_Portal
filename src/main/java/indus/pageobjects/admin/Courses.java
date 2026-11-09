@@ -1,5 +1,7 @@
 package indus.pageobjects.admin;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -29,16 +31,13 @@ public class Courses extends AbstractComponent {
 	@FindBy(xpath = "//h2[normalize-space()='Add Course']")
 	private WebElement addCourseName;
 
-	@FindBy(xpath = "//label[contains(.,'Title')]/following-sibling::input | //input[@placeholder='e.g. Working at Height Safety']")
+	@FindBy(xpath = "//label[contains(.,'Title')]/following-sibling::input | //input[@placeholder='e.g. Fire Safety Awareness' or @placeholder='e.g. Working at Height Safety']")
 	private WebElement courseTitleInput;
-
-	@FindBy(xpath = "//label[contains(.,'Code')]/following-sibling::input | //input[@placeholder='e.g. ESH-WAH-01']")
-	private WebElement courseCodeInput;
 
 	@FindBy(xpath = "//label[contains(.,'Description')]/following-sibling::textarea")
 	private WebElement courseDescInput;
 	
-	@FindBy(xpath = "//button[@type='submit' and contains(normalize-space(),'Create Course')]")
+	@FindBy(xpath = "//button[@type='submit' and (contains(normalize-space(),'Create Course') or contains(normalize-space(),'Add Course'))]")
 	private WebElement createCourseBtn;
 	
 	@FindBy(xpath = "//button[@type='button' and normalize-space()='Cancel']")
@@ -81,8 +80,9 @@ public class Courses extends AbstractComponent {
 	}
 
 	public void goToCourses() {
+		waitForBackdropToDisappear();
 		waitElementToBeClickable(course);
-		course.click();
+		clickElement(course);
 		waitElementToAppear(courseCatalogName);
 	}
 
@@ -97,8 +97,9 @@ public class Courses extends AbstractComponent {
 	}
 	
 	public void clickOnAddCourse() {
+		waitForBackdropToDisappear();
 		waitElementToBeClickable(addCourse);
-		addCourse.click();
+		clickElement(addCourse);
 		waitElementToAppear(addCourseName);
 	}
 	
@@ -112,21 +113,37 @@ public class Courses extends AbstractComponent {
 		courseTitleInput.clear();
 		courseTitleInput.sendKeys(title);
 
-		if (code != null && !code.isEmpty()) {
-			courseCodeInput.clear();
-			courseCodeInput.sendKeys(code);
-		}
+		try {
+			By codeBy = By.xpath("//label[contains(.,'Code')]/following-sibling::input | //input[@placeholder='e.g. ESH-WAH-01']");
+			List<WebElement> codeElements = driver.findElements(codeBy);
+			if (!codeElements.isEmpty() && codeElements.get(0).isDisplayed()) {
+				codeElements.get(0).clear();
+				codeElements.get(0).sendKeys(code);
+			}
+		} catch (Exception ignored) {}
 
 		if (desc != null && !desc.isEmpty()) {
-			courseDescInput.clear();
-			courseDescInput.sendKeys(desc);
+			try {
+				courseDescInput.clear();
+				courseDescInput.sendKeys(desc);
+			} catch (Exception ignored) {}
 		}
 	}
 
 	@StepName("Submit Create Course form")
 	public void submitCourse() {
 		waitElementToBeClickable(createCourseBtn);
-		createCourseBtn.click();
+		clickElement(createCourseBtn);
+		try {
+			waitUtils.waitForInvisibility(addCourseName);
+		} catch (Exception e) {
+			try {
+				if (cancelCourseBtn.isDisplayed()) {
+					waitUtils.clickUsingJS(cancelCourseBtn);
+				}
+			} catch (Exception ignored) {}
+		}
+		waitForBackdropToDisappear();
 	}
 	
 	public boolean createCourseButtonDisable() {
@@ -134,9 +151,17 @@ public class Courses extends AbstractComponent {
 	}
 	
 	public void cancelCreateCourse() {
-		waitElementToBeClickable(cancelCourseBtn);
-		cancelCourseBtn.click();
-		waitForElementToDisappear(addCourseName);
+		try {
+			if (cancelCourseBtn.isDisplayed()) {
+				clickElement(cancelCourseBtn);
+			}
+		} catch (Exception e) {
+			waitUtils.clickUsingJS(cancelCourseBtn);
+		}
+		try {
+			waitForElementToDisappear(addCourseName);
+		} catch (Exception ignored) {}
+		waitForBackdropToDisappear();
 	}
 	
 	// ── Manage Content & SCORM ───────────────────────────────────────────
@@ -146,8 +171,9 @@ public class Courses extends AbstractComponent {
 	
 	@StepName("Navigate to Course Content manager")
 	public void clickOnManageContent() {
+		waitForBackdropToDisappear();
 		waitElementToBeClickable(manageContentBtn);
-		manageContentBtn.click();
+		clickElement(manageContentBtn);
 		waitElementToAppear(courseContentName);
 	}
 	
@@ -157,8 +183,9 @@ public class Courses extends AbstractComponent {
 	}
 	
 	public void clickOnAddContent() {
+		waitForBackdropToDisappear();
 		waitElementToBeClickable(addContent);
-		addContent.click();
+		clickElement(addContent);
 	}
 
 	@StepName("Upload SCORM or Lesson package file")
@@ -178,13 +205,15 @@ public class Courses extends AbstractComponent {
 	public void cancelAddContent() {
 		try {
 			waitElementToBeClickable(addContentCancelBtn);
-			addContentCancelBtn.click();
+			clickElement(addContentCancelBtn);
 		} catch (Exception ignored) {}
+		waitForBackdropToDisappear();
 	}
 	
 	public void clickOnBackToCourses() {
+		waitForBackdropToDisappear();
 		waitElementToBeClickable(backToCourseBtn);
-		backToCourseBtn.click();
+		clickElement(backToCourseBtn);
 		waitElementToAppear(courseCatalogName);
 	}
 

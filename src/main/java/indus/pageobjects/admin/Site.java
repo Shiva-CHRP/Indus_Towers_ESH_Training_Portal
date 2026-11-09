@@ -11,7 +11,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import indus.abstractcomponent.AbstractComponent;
 
-public class Site extends AbstractComponent{
+public class Site extends AbstractComponent {
 
 	public Site(WebDriver driver) {
 		super(driver);
@@ -56,7 +56,8 @@ public class Site extends AbstractComponent{
 	}
 
 	public void goToSite() {
-		site.click();
+		waitForBackdropToDisappear();
+		clickElement(site);
 		waitElementToAppear(siteScreenName);
 	}
 
@@ -70,7 +71,9 @@ public class Site extends AbstractComponent{
 	}
 
 	public void clickAddSite() {
-		siteAdd.click();
+		waitForBackdropToDisappear();
+		clickElement(siteAdd);
+		waitElementToAppear(addSitePopup);
 	}
 
 	public String addSiteModel() {
@@ -83,10 +86,13 @@ public class Site extends AbstractComponent{
 	}
 
 	public void inputSiteTitle(String dtitle) {
+		waitElementToAppear(title);
+		title.clear();
 		title.sendKeys(dtitle);
 	}
 
 	public void inputSiteDescription(String desc) {
+		description.clear();
 		description.sendKeys(desc);
 	}
 
@@ -96,15 +102,15 @@ public class Site extends AbstractComponent{
 	}
 
 	public void selectCluster(String clusterName) {
-		clusterDropdown.click();
-		By options = By.xpath("//div[@data-parent-picker='true']//button[.//span]");
+		clickElement(clusterDropdown);
+		By options = By.xpath("//div[contains(@data-parent-picker,'')]//button[.//span] | //div[@data-parent-picker]//button[.//span]");
 		waitUtils.waitForVisibility(options);
 		List<WebElement> optionList = driver.findElements(options);
 
 		for (int i = 0; i < optionList.size(); i++) {
 		    try {
 		        WebElement element = driver.findElement(
-		                By.xpath("//div[@data-parent-picker='true']//button[.//span[normalize-space()='"
+		                By.xpath("//div[contains(@data-parent-picker,'')]//button[.//span[normalize-space()='"
 		                        + clusterName + "']]"));
 
 		        if (element.isDisplayed() && element.isEnabled()) {
@@ -119,19 +125,19 @@ public class Site extends AbstractComponent{
 		    }
 		}
 
-		throw new RuntimeException("National not found: " + clusterName);
+		throw new RuntimeException("Cluster not found: " + clusterName);
 	}
 	
 	public void selectDistrict(String districtName) {
-		districtDropdown.click();
-		By options = By.xpath("//div[@data-parent-picker='true']//button[.//span]");
+		clickElement(districtDropdown);
+		By options = By.xpath("//div[contains(@data-parent-picker,'')]//button[.//span] | //div[@data-parent-picker]//button[.//span]");
 		waitUtils.waitForVisibility(options);
 		List<WebElement> optionList = driver.findElements(options);
 
 		for (int i = 0; i < optionList.size(); i++) {
 		    try {
 		        WebElement element = driver.findElement(
-		                By.xpath("//div[@data-parent-picker='true']//button[.//span[normalize-space()='"
+		                By.xpath("//div[contains(@data-parent-picker,'')]//button[.//span[normalize-space()='"
 		                        + districtName + "']]"));
 
 		        if (element.isDisplayed() && element.isEnabled()) {
@@ -146,17 +152,37 @@ public class Site extends AbstractComponent{
 		    }
 		}
 
-		throw new RuntimeException("National not found: " + districtName);
+		throw new RuntimeException("District not found: " + districtName);
 	}
 	
 	public void createSite() {
 		if (submit.isEnabled()) {
-			submit.click();
+			clickElement(submit);
+			try {
+				waitUtils.waitForInvisibility(addSitePopup);
+			} catch (Exception e) {
+				try {
+					if (cancel.isDisplayed()) {
+						waitUtils.clickUsingJS(cancel);
+					}
+				} catch (Exception ignored) {}
+			}
+			waitForBackdropToDisappear();
 		}
 	}
 
 	public void cancelAddSite() {
-		cancel.click();
+		try {
+			if (cancel.isDisplayed()) {
+				clickElement(cancel);
+			}
+		} catch (Exception e) {
+			waitUtils.clickUsingJS(cancel);
+		}
+		try {
+			waitUtils.waitForInvisibility(addSitePopup);
+		} catch (Exception ignored) {}
+		waitForBackdropToDisappear();
 	}
 
 	public int getColumnIndex(String columnName) {

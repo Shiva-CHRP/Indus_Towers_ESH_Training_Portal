@@ -26,6 +26,50 @@ public class ConfigReader {
 		}
 	}
 
+	/**
+	 * Helper to resolve value with fallback hierarchy:
+	 * 1. System property (-DsysProp or -DenvVar)
+	 * 2. Environment variable (from GitHub Repository Secret)
+	 * 3. GlobalData.properties / config.properties lookup
+	 * 4. Hardcoded fallback default
+	 */
+	private static String resolve(String envVar, String sysProp, String[] propKeys, String fallback) {
+		// 1. Check System Properties (-DADMIN_USERNAME=... or -Dadmin.username=...)
+		if (sysProp != null) {
+			String val = System.getProperty(sysProp);
+			if (val != null && !val.trim().isEmpty()) {
+				return val.trim();
+			}
+		}
+		if (envVar != null) {
+			String val = System.getProperty(envVar);
+			if (val != null && !val.trim().isEmpty()) {
+				return val.trim();
+			}
+		}
+
+		// 2. Check Environment Variable (populated from GitHub Repository Secret)
+		if (envVar != null) {
+			String envVal = System.getenv(envVar);
+			if (envVal != null && !envVal.trim().isEmpty()) {
+				return envVal.trim();
+			}
+		}
+
+		// 3. Check GlobalData.properties / config.properties
+		if (propKeys != null) {
+			for (String key : propKeys) {
+				String propVal = prop.getProperty(key);
+				if (propVal != null && !propVal.trim().isEmpty()) {
+					return propVal.trim();
+				}
+			}
+		}
+
+		// 4. Hardcoded fallback default
+		return fallback;
+	}
+
 	// Get property by key with system property override
 	public static String get(String key) {
 		String sysVal = System.getProperty(key);
@@ -35,7 +79,7 @@ public class ConfigReader {
 		return prop.getProperty(key);
 	}
 
-	// Environment resolution (staging | dev | local)
+	// Environment resolution (staging | dev | local | prod)
 	public static String getEnvironment() {
 		String env = System.getProperty("env");
 		if (env == null || env.trim().isEmpty()) {
@@ -64,7 +108,13 @@ public class ConfigReader {
 			return directUrl.trim();
 		}
 
-		// 2. Resolve environment-specific URL
+		// 2. Direct environment variable override (URL / TARGET_URL)
+		String envUrlDirect = System.getenv("URL");
+		if (envUrlDirect != null && !envUrlDirect.trim().isEmpty()) {
+			return envUrlDirect.trim();
+		}
+
+		// 3. Resolve environment-specific URL
 		String env = getEnvironment();
 		String envUrlKey = "url." + env;
 		String envUrl = prop.getProperty(envUrlKey);
@@ -72,16 +122,14 @@ public class ConfigReader {
 			return envUrl.trim();
 		}
 
-		// 3. Fallback to default url property
+		// 4. Fallback to default url property
 		return prop.getProperty("url", "https://industower-ui-staging.xrdashboard.com/login");
 	}
 
+	// ── Admin Credentials ────────────────────────────────────────────────
 	public static String getUsername() {
-		String email = prop.getProperty("email");
-		if (email != null && !email.trim().isEmpty()) {
-			return email;
-		}
-		return prop.getProperty("useremail");
+		return resolve("ADMIN_USERNAME", "admin.username", 
+				new String[]{"ADMIN_USERNAME", "email", "useremail"}, "admin@industowers.com");
 	}
 
 	public static String getAdminEmail() {
@@ -89,50 +137,54 @@ public class ConfigReader {
 	}
 
 	public static String getPassword() {
-		return prop.getProperty("password");
+		return resolve("ADMIN_PASSWORD", "admin.password", 
+				new String[]{"ADMIN_PASSWORD", "password"}, "Admin@123");
 	}
 
 	public static String getAdminPassword() {
 		return getPassword();
 	}
 
-	// OTP resolution
-	public static String getStaticOtp() {
-		String sysOtp = System.getProperty("otp");
-		if (sysOtp != null && !sysOtp.trim().isEmpty()) {
-			return sysOtp.trim();
-		}
-		return prop.getProperty("superadmin.otp", "123456");
-	}
-
-	// Super Admin credentials
+	// ── Super Admin Credentials & 2FA ────────────────────────────────────
 	public static String getSuperAdminEmail() {
-		return prop.getProperty("superadmin.email", "indus.superadmin@yopmail.com");
+		return resolve("SUPER_ADMIN_USERNAME", "superadmin.email", 
+				new String[]{"SUPER_ADMIN_USERNAME", "superadmin.email"}, "superadmin@industowers.com");
 	}
 
 	public static String getSuperAdminPassword() {
-		return prop.getProperty("superadmin.password", "Smoke@12345");
+		return resolve("SUPER_ADMIN_PASSWORD", "superadmin.password", 
+				new String[]{"SUPER_ADMIN_PASSWORD", "superadmin.password"}, "SuperAdmin@123");
 	}
 
-	// Manager credentials
+	public static String getStaticOtp() {
+		return resolve("SUPER_ADMIN_OTP", "otp", 
+				new String[]{"superadmin.otp", "otp"}, "123456");
+	}
+
+	// ── Manager Credentials ──────────────────────────────────────────────
 	public static String getManagerEmail() {
-		return prop.getProperty("manager.email", "manager@industowers.com");
+		return resolve("MANAGER_USERNAME", "manager.email", 
+				new String[]{"MANAGER_USERNAME", "manager.email"}, "manager@industowers.com");
 	}
 
 	public static String getManagerPassword() {
-		return prop.getProperty("manager.password", "Manager@123");
+		return resolve("MANAGER_PASSWORD", "manager.password", 
+				new String[]{"MANAGER_PASSWORD", "manager.password"}, "Manager@123");
 	}
 
-	// Learner credentials
+	// ── Learner Credentials ──────────────────────────────────────────────
 	public static String getLearnerEmail() {
-		return prop.getProperty("learner.email", "learner@industowers.com");
+		return resolve("LEARNER_USERNAME", "learner.email", 
+				new String[]{"LEARNER_USERNAME", "learner.email"}, "learner@industowers.com");
 	}
 
 	public static String getLearnerPassword() {
-		return prop.getProperty("learner.password", "Learner@123");
+		return resolve("LEARNER_PASSWORD", "learner.password", 
+				new String[]{"LEARNER_PASSWORD", "learner.password"}, "Learner@123");
 	}
 
 	public static String getLearnerPhone() {
-		return prop.getProperty("learner.phone", "9876543210");
+		return resolve("LEARNER_PHONE", "learner.phone", 
+				new String[]{"learner.phone"}, "9876543210");
 	}
 }

@@ -8,6 +8,7 @@ name: Dynamic Test Suite Execution (UI & API)
 #     across Portals (SuperAdmin, Admin, Manager, Learner, All)
 #   - API Automation (RestAssured): Health Check, Endpoints, Latency & Security Headers
 #   - Full-Stack Dual Execution (API Health Verification followed by UI E2E)
+#   - Credential Hierarchy: Repository Secrets -> Fallback to GlobalData.properties
 # Triggers: Manual (workflow_dispatch) & CI/CD Deployment Webhooks (repository_dispatch)
 # ==============================================================================
 
@@ -124,6 +125,17 @@ jobs:
   dynamic-execution:
     name: Run ${{ github.event.inputs.test_category || 'Test' }} (${{ github.event.inputs.ui_suite || github.event.inputs.api_suite || 'Suite' }} @ ${{ github.event.inputs.environment || 'Deployment' }})
     runs-on: ubuntu-latest
+
+    # Repository secrets mapped to environment variables (with fallback to GlobalData.properties)
+    env:
+      ADMIN_USERNAME: ${{ secrets.ADMIN_USERNAME }}
+      ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+      SUPER_ADMIN_USERNAME: ${{ secrets.SUPER_ADMIN_USERNAME }}
+      SUPER_ADMIN_PASSWORD: ${{ secrets.SUPER_ADMIN_PASSWORD }}
+      MANAGER_USERNAME: ${{ secrets.MANAGER_USERNAME }}
+      MANAGER_PASSWORD: ${{ secrets.MANAGER_PASSWORD }}
+      LEARNER_USERNAME: ${{ secrets.LEARNER_USERNAME }}
+      LEARNER_PASSWORD: ${{ secrets.LEARNER_PASSWORD }}
 
     steps:
       - name: Checkout repository
@@ -301,16 +313,13 @@ jobs:
         id: run_ui_tests
         continue-on-error: true
         env:
-          STAGE_USERNAME: ${{ secrets.STAGE_USERNAME }}
-          STAGE_PASSWORD: ${{ secrets.STAGE_PASSWORD }}
-          PROD_USERNAME: ${{ secrets.PROD_USERNAME }}
-          PROD_PASSWORD: ${{ secrets.PROD_PASSWORD }}
-          SUPERADMIN_EMAIL: ${{ secrets.SUPERADMIN_EMAIL }}
-          SUPERADMIN_PASSWORD: ${{ secrets.SUPERADMIN_PASSWORD }}
-          SUPERADMIN_OTP: ${{ secrets.SUPERADMIN_OTP }}
-          MANAGER_EMAIL: ${{ secrets.MANAGER_EMAIL }}
+          ADMIN_USERNAME: ${{ secrets.ADMIN_USERNAME }}
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+          SUPER_ADMIN_USERNAME: ${{ secrets.SUPER_ADMIN_USERNAME }}
+          SUPER_ADMIN_PASSWORD: ${{ secrets.SUPER_ADMIN_PASSWORD }}
+          MANAGER_USERNAME: ${{ secrets.MANAGER_USERNAME }}
           MANAGER_PASSWORD: ${{ secrets.MANAGER_PASSWORD }}
-          LEARNER_EMAIL: ${{ secrets.LEARNER_EMAIL }}
+          LEARNER_USERNAME: ${{ secrets.LEARNER_USERNAME }}
           LEARNER_PASSWORD: ${{ secrets.LEARNER_PASSWORD }}
         run: |
           UI_SUITE_FILE="${{ steps.resolve_config.outputs.ui_suite_file }}"
@@ -323,10 +332,37 @@ jobs:
             MVN_UI_ARGS="$MVN_UI_ARGS -Durl=$CUSTOM_URL"
           fi
 
+          # Optional CLI override flags (only appended when GitHub secret is populated)
+          if [ -n "$ADMIN_USERNAME" ]; then
+            MVN_UI_ARGS="$MVN_UI_ARGS -DADMIN_USERNAME=$ADMIN_USERNAME"
+          fi
+          if [ -n "$ADMIN_PASSWORD" ]; then
+            MVN_UI_ARGS="$MVN_UI_ARGS -DADMIN_PASSWORD=$ADMIN_PASSWORD"
+          fi
+          if [ -n "$SUPER_ADMIN_USERNAME" ]; then
+            MVN_UI_ARGS="$MVN_UI_ARGS -DSUPER_ADMIN_USERNAME=$SUPER_ADMIN_USERNAME"
+          fi
+          if [ -n "$SUPER_ADMIN_PASSWORD" ]; then
+            MVN_UI_ARGS="$MVN_UI_ARGS -DSUPER_ADMIN_PASSWORD=$SUPER_ADMIN_PASSWORD"
+          fi
+          if [ -n "$MANAGER_USERNAME" ]; then
+            MVN_UI_ARGS="$MVN_UI_ARGS -DMANAGER_USERNAME=$MANAGER_USERNAME"
+          fi
+          if [ -n "$MANAGER_PASSWORD" ]; then
+            MVN_UI_ARGS="$MVN_UI_ARGS -DMANAGER_PASSWORD=$MANAGER_PASSWORD"
+          fi
+          if [ -n "$LEARNER_USERNAME" ]; then
+            MVN_UI_ARGS="$MVN_UI_ARGS -DLEARNER_USERNAME=$LEARNER_USERNAME"
+          fi
+          if [ -n "$LEARNER_PASSWORD" ]; then
+            MVN_UI_ARGS="$MVN_UI_ARGS -DLEARNER_PASSWORD=$LEARNER_PASSWORD"
+          fi
+
           echo "=========================================================================="
           echo "  Launching Indus Towers UI Automation Tests"
           echo "  Suite: $UI_SUITE_FILE"
           echo "  Browser: $BROWSER (headless)"
+          echo "  Authentication: GitHub Secrets (with fallback to GlobalData.properties)"
           echo "  Command: mvn test $MVN_UI_ARGS"
           echo "=========================================================================="
           mvn test $MVN_UI_ARGS
@@ -415,6 +451,7 @@ jobs:
               echo "* **Browser**: \`$BROWSER\` (headless)"
               echo "* **Portal Scope**: \`$UI_PORTAL\`"
               echo "* **Covered Roles**: SuperAdmin (RBAC), Admin (Taxonomies & Operations), Manager (Team Compliance), Learner (Companion App)"
+              echo "* **Credential Source**: GitHub Secrets with fallback to \`GlobalData.properties\`"
               echo ""
             fi
             if [ "$CATEGORY" = "API" ] || [ "$CATEGORY" = "BOTH" ]; then

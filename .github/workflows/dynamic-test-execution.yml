@@ -1,0 +1,459 @@
+name: Dynamic Test Suite Execution (UI & API)
+
+# ==============================================================================
+# Dynamic Test Suite Execution Workflow (GitHub Actions)
+# Indus Towers ESH Training Portal - Multi-Role Automation Framework
+# Supports:
+#   - UI Automation (Selenium + ExtentReports): Smoke, Sanity, E2E, Regression, Full
+#     across Portals (SuperAdmin, Admin, Manager, Learner, All)
+#   - API Automation (RestAssured): Health Check, Endpoints, Latency & Security Headers
+#   - Full-Stack Dual Execution (API Health Verification followed by UI E2E)
+# Triggers: Manual (workflow_dispatch) & CI/CD Deployment Webhooks (repository_dispatch)
+# ==============================================================================
+
+on:
+  workflow_dispatch:
+    inputs:
+      test_category:
+        description: 'Select Test Category (UI vs API vs Both) *'
+        required: true
+        default: 'UI'
+        type: choice
+        options:
+          - 'UI'
+          - 'API'
+          - 'Both'
+
+      # ========================================================================
+      # UI Options (Active when UI or Both is selected)
+      # ========================================================================
+      ui_suite:
+        description: '[UI] Select UI Suite'
+        required: false
+        default: 'Smoke'
+        type: choice
+        options:
+          - Smoke
+          - Sanity
+          - Regression
+          - E2E
+          - Full
+      ui_portal:
+        description: '[UI] Select Portal Scope'
+        required: false
+        default: 'All'
+        type: choice
+        options:
+          - All
+          - SuperAdmin
+          - Admin
+          - Manager
+          - Learner
+      browser:
+        description: '[UI] Select Browser'
+        required: false
+        default: 'chrome'
+        type: choice
+        options:
+          - chrome
+          - firefox
+          - edge
+          - headless-chrome
+
+      # ========================================================================
+      # API Options (Active when API or Both is selected)
+      # ========================================================================
+      api_suite:
+        description: '[API] Select API Suite / Scope'
+        required: false
+        default: 'Smoke'
+        type: choice
+        options:
+          - Smoke
+          - Sanity
+          - Regression
+          - All
+          - HealthCheck
+      api_base_url:
+        description: '[API] Base URL override (optional, e.g. http://13.127.17.90)'
+        required: false
+        default: ''
+        type: string
+
+      # ========================================================================
+      # Environment & Production Safeguard
+      # ========================================================================
+      environment:
+        description: 'Select Target Environment *'
+        required: true
+        default: 'Stage'
+        type: choice
+        options:
+          - Stage
+          - Dev
+          - Local
+          - Prod
+      prod_confirmation:
+        description: 'Production Confirmation (Mandatory if environment is Prod)'
+        required: false
+        default: false
+        type: boolean
+      custom_url:
+        description: 'Custom UI Portal URL override (optional, e.g. https://industower-ui-staging.xrdashboard.com/login)'
+        required: false
+        default: ''
+        type: string
+
+  # External deployment webhook triggers for CI/CD pipelines
+  repository_dispatch:
+    types:
+      - deploy_stage
+      - deploy_dev
+      - deploy_prod
+      - post_deployment_sanity
+      - deploy_superadmin_stage
+      - deploy_superadmin_prod
+      - deploy_admin_stage
+      - deploy_admin_prod
+      - deploy_manager_stage
+      - deploy_manager_prod
+      - deploy_learner_stage
+      - deploy_learner_prod
+
+jobs:
+  dynamic-execution:
+    name: Run ${{ github.event.inputs.test_category || 'Test' }} (${{ github.event.inputs.ui_suite || github.event.inputs.api_suite || 'Suite' }} @ ${{ github.event.inputs.environment || 'Deployment' }})
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Validate Inputs & Resolve Test Configurations
+        id: resolve_config
+        run: |
+          # 1. Determine trigger source: manual workflow_dispatch vs CI/CD repository_dispatch
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            CATEGORY="${{ github.event.inputs.test_category }}"
+            UI_SUITE="${{ github.event.inputs.ui_suite || 'Smoke' }}"
+            UI_PORTAL="${{ github.event.inputs.ui_portal || 'All' }}"
+            API_SUITE="${{ github.event.inputs.api_suite || 'Smoke' }}"
+            API_BASE_URL="${{ github.event.inputs.api_base_url }}"
+            ENV="${{ github.event.inputs.environment }}"
+            PROD_CONFIRM="${{ github.event.inputs.prod_confirmation }}"
+            BROWSER="${{ github.event.inputs.browser || 'chrome' }}"
+            CUSTOM_URL="${{ github.event.inputs.custom_url }}"
+          elif [ "${{ github.event_name }}" = "repository_dispatch" ]; then
+            ACTION="${{ github.event.action }}"
+            echo "Received repository_dispatch event with action: $ACTION"
+
+            if [[ "$ACTION" =~ "api" ]]; then
+              CATEGORY="API"
+              API_SUITE="${{ github.event.client_payload.api_suite || 'Smoke' }}"
+            else
+              CATEGORY="${{ github.event.client_payload.test_category || 'UI' }}"
+              UI_SUITE="${{ github.event.client_payload.test_suite || 'Sanity' }}"
+              API_SUITE="${{ github.event.client_payload.api_suite || 'Smoke' }}"
+            fi
+
+            if [[ "$ACTION" =~ "prod" ]]; then
+              ENV="Prod"
+              PROD_CONFIRM="true"
+            elif [[ "$ACTION" =~ "dev" ]]; then
+              ENV="Dev"
+              PROD_CONFIRM="false"
+            else
+              ENV="Stage"
+              PROD_CONFIRM="false"
+            fi
+
+            if [[ "$ACTION" =~ "superadmin" ]]; then
+              UI_PORTAL="SuperAdmin"
+            elif [[ "$ACTION" =~ "admin" ]]; then
+              UI_PORTAL="Admin"
+            elif [[ "$ACTION" =~ "manager" ]]; then
+              UI_PORTAL="Manager"
+            elif [[ "$ACTION" =~ "learner" ]]; then
+              UI_PORTAL="Learner"
+            else
+              UI_PORTAL="${{ github.event.client_payload.portal || 'All' }}"
+            fi
+
+            BROWSER="${{ github.event.client_payload.browser || 'chrome' }}"
+            CUSTOM_URL="${{ github.event.client_payload.url || '' }}"
+            API_BASE_URL="${{ github.event.client_payload.api_base_url || '' }}"
+          else
+            CATEGORY="UI"
+            UI_SUITE="Smoke"
+            UI_PORTAL="All"
+            API_SUITE="Smoke"
+            ENV="Stage"
+            PROD_CONFIRM="false"
+            BROWSER="chrome"
+            CUSTOM_URL=""
+            API_BASE_URL=""
+          fi
+
+          CATEGORY_UPPER=$(echo "$CATEGORY" | tr '[:lower:]' '[:upper:]')
+          ENV_LOWER=$(echo "$ENV" | tr '[:upper:]' '[:lower:]')
+          UI_SUITE_LOWER=$(echo "$UI_SUITE" | tr '[:upper:]' '[:lower:]')
+          UI_PORTAL_LOWER=$(echo "$UI_PORTAL" | tr '[:upper:]' '[:lower:]')
+          API_SUITE_LOWER=$(echo "$API_SUITE" | tr '[:upper:]' '[:lower:]')
+
+          echo "=========================================================================="
+          echo "  Resolved Execution Configuration (${{ github.event_name }})"
+          echo "=========================================================================="
+          echo "  Test Category      : $CATEGORY_UPPER"
+          echo "  Target Environment : $ENV"
+          echo "  UI Suite           : $UI_SUITE ($UI_PORTAL) on $BROWSER"
+          echo "  API Suite          : $API_SUITE"
+          echo "  Prod Confirmation  : $PROD_CONFIRM"
+          echo "=========================================================================="
+
+          # Production Safeguard
+          if [ "$ENV_LOWER" = "prod" ] && [ "$PROD_CONFIRM" != "true" ]; then
+            echo "::error::[SAFETY ABORT] Production execution requested without confirmation. Check 'prod_confirmation' when targeting 'Prod'."
+            exit 2
+          fi
+
+          UI_SUITE_FILE=""
+          API_SUITE_FILE=""
+
+          # Resolve UI Suite File
+          if [ "$CATEGORY_UPPER" = "UI" ] || [ "$CATEGORY_UPPER" = "BOTH" ]; then
+            if [ -f "src/test/resources/suites/${UI_SUITE_LOWER}-${UI_PORTAL_LOWER}.xml" ]; then
+              UI_SUITE_FILE="src/test/resources/suites/${UI_SUITE_LOWER}-${UI_PORTAL_LOWER}.xml"
+            elif [ -f "src/test/resources/testng-${UI_PORTAL_LOWER}.xml" ]; then
+              UI_SUITE_FILE="src/test/resources/testng-${UI_PORTAL_LOWER}.xml"
+            elif [ -f "src/test/resources/testng-${UI_SUITE_LOWER}.xml" ]; then
+              UI_SUITE_FILE="src/test/resources/testng-${UI_SUITE_LOWER}.xml"
+            elif [ -f "testng.xml" ]; then
+              UI_SUITE_FILE="testng.xml"
+            else
+              echo "::error::Resolved UI TestNG suite file not found for suite: $UI_SUITE, portal: $UI_PORTAL"
+              exit 3
+            fi
+            echo "Resolved UI Suite File: $UI_SUITE_FILE"
+          fi
+
+          # Resolve API Suite File
+          if [ "$CATEGORY_UPPER" = "API" ] || [ "$CATEGORY_UPPER" = "BOTH" ]; then
+            if [ -f "src/test/resources/suites/api-${API_SUITE_LOWER}.xml" ]; then
+              API_SUITE_FILE="src/test/resources/suites/api-${API_SUITE_LOWER}.xml"
+            elif [ -f "src/test/resources/suites/api-smoke.xml" ]; then
+              API_SUITE_FILE="src/test/resources/suites/api-smoke.xml"
+            else
+              echo "::error::Resolved API TestNG suite file not found: src/test/resources/suites/api-${API_SUITE_LOWER}.xml"
+              exit 4
+            fi
+            echo "Resolved API Suite File: $API_SUITE_FILE"
+          fi
+
+          echo "category=$CATEGORY_UPPER" >> $GITHUB_OUTPUT
+          echo "environment=$ENV_LOWER" >> $GITHUB_OUTPUT
+          echo "ui_suite=$UI_SUITE" >> $GITHUB_OUTPUT
+          echo "ui_portal=$UI_PORTAL" >> $GITHUB_OUTPUT
+          echo "ui_suite_file=$UI_SUITE_FILE" >> $GITHUB_OUTPUT
+          echo "api_suite=$API_SUITE" >> $GITHUB_OUTPUT
+          echo "api_suite_file=$API_SUITE_FILE" >> $GITHUB_OUTPUT
+          echo "browser=$BROWSER" >> $GITHUB_OUTPUT
+          echo "custom_url=$CUSTOM_URL" >> $GITHUB_OUTPUT
+          echo "api_base_url=$API_BASE_URL" >> $GITHUB_OUTPUT
+
+      # ========================================================================
+      # STEP: Run API Tests (if Category is API or Both)
+      # ========================================================================
+      - name: Execute Backend API Tests via Maven
+        if: steps.resolve_config.outputs.category == 'API' || steps.resolve_config.outputs.category == 'BOTH'
+        id: run_api_tests
+        continue-on-error: true
+        env:
+          API_BASE_URL_INPUT: ${{ steps.resolve_config.outputs.api_base_url }}
+        run: |
+          API_SUITE_FILE="${{ steps.resolve_config.outputs.api_suite_file }}"
+          ENV="${{ steps.resolve_config.outputs.environment }}"
+          API_OVERRIDE="${{ steps.resolve_config.outputs.api_base_url }}"
+
+          MVN_API_ARGS="-DsuiteXmlFile=$API_SUITE_FILE -Denv=$ENV"
+          if [ -n "$API_OVERRIDE" ]; then
+            MVN_API_ARGS="$MVN_API_ARGS -Dapi.base.url=$API_OVERRIDE"
+          fi
+
+          echo "=========================================================================="
+          echo "  Launching Backend API Tests"
+          echo "  Suite: $API_SUITE_FILE"
+          echo "  Command: mvn test $MVN_API_ARGS"
+          echo "=========================================================================="
+          mvn test $MVN_API_ARGS
+
+      # ========================================================================
+      # STEP: Run UI Tests (if Category is UI or Both)
+      # ========================================================================
+      - name: Execute UI Tests via Maven
+        if: steps.resolve_config.outputs.category == 'UI' || steps.resolve_config.outputs.category == 'BOTH'
+        id: run_ui_tests
+        continue-on-error: true
+        env:
+          STAGE_USERNAME: ${{ secrets.STAGE_USERNAME }}
+          STAGE_PASSWORD: ${{ secrets.STAGE_PASSWORD }}
+          PROD_USERNAME: ${{ secrets.PROD_USERNAME }}
+          PROD_PASSWORD: ${{ secrets.PROD_PASSWORD }}
+          SUPERADMIN_EMAIL: ${{ secrets.SUPERADMIN_EMAIL }}
+          SUPERADMIN_PASSWORD: ${{ secrets.SUPERADMIN_PASSWORD }}
+          SUPERADMIN_OTP: ${{ secrets.SUPERADMIN_OTP }}
+          MANAGER_EMAIL: ${{ secrets.MANAGER_EMAIL }}
+          MANAGER_PASSWORD: ${{ secrets.MANAGER_PASSWORD }}
+          LEARNER_EMAIL: ${{ secrets.LEARNER_EMAIL }}
+          LEARNER_PASSWORD: ${{ secrets.LEARNER_PASSWORD }}
+        run: |
+          UI_SUITE_FILE="${{ steps.resolve_config.outputs.ui_suite_file }}"
+          ENV="${{ steps.resolve_config.outputs.environment }}"
+          BROWSER="${{ steps.resolve_config.outputs.browser }}"
+          CUSTOM_URL="${{ steps.resolve_config.outputs.custom_url }}"
+
+          MVN_UI_ARGS="-DsuiteXmlFile=$UI_SUITE_FILE -Denv=$ENV -Dbrowser=$BROWSER -Dheadless=true"
+          if [ -n "$CUSTOM_URL" ]; then
+            MVN_UI_ARGS="$MVN_UI_ARGS -Durl=$CUSTOM_URL"
+          fi
+
+          echo "=========================================================================="
+          echo "  Launching Indus Towers UI Automation Tests"
+          echo "  Suite: $UI_SUITE_FILE"
+          echo "  Browser: $BROWSER (headless)"
+          echo "  Command: mvn test $MVN_UI_ARGS"
+          echo "=========================================================================="
+          mvn test $MVN_UI_ARGS
+
+      # ========================================================================
+      # STEP: Parse Results & Publish Dual UI/API Summary
+      # ========================================================================
+      - name: Parse Test Results & Publish UI/API Dashboard Summary
+        if: always()
+        id: parse_results
+        run: |
+          CATEGORY="${{ steps.resolve_config.outputs.category }}"
+          ENV="${{ steps.resolve_config.outputs.environment }}"
+          UI_SUITE="${{ steps.resolve_config.outputs.ui_suite }}"
+          UI_PORTAL="${{ steps.resolve_config.outputs.ui_portal }}"
+          UI_SUITE_FILE="${{ steps.resolve_config.outputs.ui_suite_file }}"
+          API_SUITE="${{ steps.resolve_config.outputs.api_suite }}"
+          API_SUITE_FILE="${{ steps.resolve_config.outputs.api_suite_file }}"
+          BROWSER="${{ steps.resolve_config.outputs.browser }}"
+
+          TOTAL_TESTS=0
+          TOTAL_FAILURES=0
+          TOTAL_ERRORS=0
+          TOTAL_SKIPPED=0
+
+          if [ -d "target/surefire-reports" ]; then
+            for f in target/surefire-reports/TEST-*.xml; do
+              if [ -f "$f" ]; then
+                TESTS=$(grep -oE 'tests="[0-9]+"' "$f" | head -1 | grep -oE '[0-9]+' || echo "0")
+                FAILURES=$(grep -oE 'failures="[0-9]+"' "$f" | head -1 | grep -oE '[0-9]+' || echo "0")
+                ERRORS=$(grep -oE 'errors="[0-9]+"' "$f" | head -1 | grep -oE '[0-9]+' || echo "0")
+                SKIPPED=$(grep -oE 'skipped="[0-9]+"' "$f" | head -1 | grep -oE '[0-9]+' || echo "0")
+
+                TOTAL_TESTS=$((TOTAL_TESTS + TESTS))
+                TOTAL_FAILURES=$((TOTAL_FAILURES + FAILURES + ERRORS))
+                TOTAL_SKIPPED=$((TOTAL_SKIPPED + SKIPPED))
+              fi
+            done
+          fi
+
+          TOTAL_PASSED=$((TOTAL_TESTS - TOTAL_FAILURES - TOTAL_SKIPPED))
+          if [ $TOTAL_PASSED -lt 0 ]; then TOTAL_PASSED=0; fi
+
+          if [ $TOTAL_FAILURES -eq 0 ] && [ $TOTAL_TESTS -gt 0 ]; then
+            STATUS_BADGE="PASSED"
+          elif [ $TOTAL_TESTS -eq 0 ]; then
+            STATUS_BADGE="NO TESTS"
+          else
+            STATUS_BADGE="FAILED"
+          fi
+
+          echo "=========================================================================="
+          echo "  Dynamic Execution Summary (Category: $CATEGORY)"
+          echo "=========================================================================="
+          echo "  Total: $TOTAL_TESTS | Passed: $TOTAL_PASSED | Failed: $TOTAL_FAILURES | Skipped: $TOTAL_SKIPPED | Status: $STATUS_BADGE"
+          echo "=========================================================================="
+
+          # Output Markdown Summary to GitHub Step Summary
+          {
+            echo "## 📊 Test Execution Dashboard: Category \`$CATEGORY\` (\`$ENV\`)"
+            echo ""
+            echo "| Scope | Mode | Target Suite | Status |"
+            echo "| :--- | :--- | :--- | :--- |"
+            if [ "$CATEGORY" = "UI" ] || [ "$CATEGORY" = "BOTH" ]; then
+              echo "| 🖥️ **UI Automation** | Selenium ($BROWSER) | \`$UI_SUITE ($UI_PORTAL)\` | **Active** |"
+            fi
+            if [ "$CATEGORY" = "API" ] || [ "$CATEGORY" = "BOTH" ]; then
+              echo "| ⚡ **Backend API** | RestAssured | \`$API_SUITE\` | **Active** |"
+            fi
+            echo ""
+            echo "### Cumulative Statistics"
+            echo ""
+            echo "| Metric | Count |"
+            echo "| :--- | :--- |"
+            echo "| **Total Tests Executed** | **$TOTAL_TESTS** |"
+            echo "| **Passed** | 🟢 $TOTAL_PASSED |"
+            echo "| **Failed** | 🔴 $TOTAL_FAILURES |"
+            echo "| **Skipped** | ⚪ $TOTAL_SKIPPED |"
+            echo "| **Overall Verdict** | **$STATUS_BADGE** |"
+            echo ""
+            echo "### Execution & Suite Details"
+            echo ""
+            if [ "$CATEGORY" = "UI" ] || [ "$CATEGORY" = "BOTH" ]; then
+              echo "#### 🖥️ UI Test Details"
+              echo "* **Suite File**: \`$UI_SUITE_FILE\`"
+              echo "* **Browser**: \`$BROWSER\` (headless)"
+              echo "* **Portal Scope**: \`$UI_PORTAL\`"
+              echo "* **Covered Roles**: SuperAdmin (RBAC), Admin (Taxonomies & Operations), Manager (Team Compliance), Learner (Companion App)"
+              echo ""
+            fi
+            if [ "$CATEGORY" = "API" ] || [ "$CATEGORY" = "BOTH" ]; then
+              echo "#### ⚡ Backend API Test Details"
+              echo "* **Suite File**: \`$API_SUITE_FILE\`"
+              echo "* **Target Backend**: Indus Towers ESH Portal Service"
+              echo ""
+            fi
+            echo "> HTML ExtentReports and Surefire XML reports are archived below as artifacts."
+          } >> $GITHUB_STEP_SUMMARY
+
+          echo "total_failures=$TOTAL_FAILURES" >> $GITHUB_OUTPUT
+
+      - name: Archive ExtentReports Dashboard & Test Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: TestReports-${{ steps.resolve_config.outputs.category }}-${{ steps.resolve_config.outputs.environment }}
+          path: |
+            reports/
+            test-output/
+            target/surefire-reports/
+          retention-days: 14
+
+      - name: Check Final Execution Status
+        if: always()
+        run: |
+          FAILURES="${{ steps.parse_results.outputs.total_failures || '0' }}"
+          API_OUTCOME="${{ steps.run_api_tests.outcome || 'success' }}"
+          UI_OUTCOME="${{ steps.run_ui_tests.outcome || 'success' }}"
+
+          if [ "$FAILURES" != "0" ]; then
+            echo "::error::Test execution completed with $FAILURES failure(s)."
+            exit 1
+          fi
+
+          if [ "$API_OUTCOME" = "failure" ] || [ "$UI_OUTCOME" = "failure" ]; then
+            echo "::error::Maven command reported an execution failure."
+            exit 1
+          fi
+
+          echo "All executed tests completed successfully."

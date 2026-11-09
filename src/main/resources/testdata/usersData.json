@@ -1,0 +1,14 @@
+[
+  {
+    "userName": "Ramesh Kumar",
+    "employeeId": "IND-10492",
+    "email": "ramesh.kumar@industowers.com",
+    "mobile": "9876543210",
+    "password": "Password@123",
+    "designation": "Cluster Operations Head",
+    "department": "Revenue Assurance",
+    "duplicateName": "Duplicate Ramesh",
+    "duplicateEmployeeId": "IND-DUP-10492",
+    "duplicateMobile": "9876543211"
+  }
+]

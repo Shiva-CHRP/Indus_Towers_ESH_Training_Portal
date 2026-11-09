@@ -1,0 +1,12 @@
+[
+  {
+    "questionText": "What is the mandatory PPE inspection protocol before climbing a telecom tower?",
+    "optionA": "Visual full-body harness, lanyard, and carabiner inspection",
+    "optionB": "Only check helmet buckle",
+    "optionC": "No physical check needed if used yesterday",
+    "optionD": "Annual supplier check only",
+    "correctOption": "A",
+    "marks": 5,
+    "similarityAlertExpected": true
+  }
+]

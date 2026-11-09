@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Indus Towers API - api-healthcheck.xml" verbose="1">
+    <listeners>
+        <listener class-name="indus.listener.Listener" />
+    </listeners>
+    <test thread-count="1" name="API Verification">
+        <groups>
+            <run>
+                <include name="HealthCheck" />
+            </run>
+        </groups>
+        <classes>
+            <class name="indus.api.ApiHealthCheckTest" />
+        </classes>
+    </test>
+</suite>

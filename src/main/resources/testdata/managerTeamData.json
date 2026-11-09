@@ -1,0 +1,13 @@
+[
+  {
+    "searchMemberName": "Ramesh",
+    "remindNote": "Please complete your mandatory Height Safety training before the monthly audit.",
+    "statusFilters": [
+      "Overdue",
+      "In Progress",
+      "Compliant",
+      "Not Enrolled",
+      "All"
+    ]
+  }
+]

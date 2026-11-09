@@ -1,0 +1,13 @@
+[
+  {
+    "roleName": "Regional Safety Auditor",
+    "description": "Custom role for periodic auditing of site safety checklists and compliance logs.",
+    "templateName": "Organisation",
+    "expectedDuplicateError": "A role with this name already exists",
+    "permissions": [
+      "View Assessments",
+      "Export Compliance Reports",
+      "Access Recovery Center"
+    ]
+  }
+]

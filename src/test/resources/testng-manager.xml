@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Manager Portal Test Suite" verbose="1">
+    <test name="Manager Portal Functional &amp; RBAC Tests">
+        <classes>
+            <class name="indus.tests.ManagerPortalTest" />
+        </classes>
+    </test>
+</suite>

@@ -1,5 +1,14 @@
 {
   "loginValidation": {
+    "validLogin": {
+      "useremail": "admin@industowers.com",
+      "password": "Admin@123"
+    },
+    "emptyFields": {
+      "useremail": "",
+      "password": "",
+      "expectedError": "Email is required"
+    },
     "emptyEmail": {
       "useremail": "",
       "password": "Admin@123",
@@ -10,19 +19,126 @@
       "password": "",
       "expectedPasswordError": "Password is required"
     },
+    "invalidEmailFormat": {
+      "useremail": "admin@invalid",
+      "password": "Admin@123",
+      "expectedFormatError": "valid email"
+    },
+    "invalidCredentials": {
+      "useremail": "unregistered@example.com",
+      "password": "WrongPassword123",
+      "expectedInvalidError": "Invalid"
+    },
     "invalidCredintals": {
       "useremail": "admin@example.com",
       "password": "Admin@1234",
       "expectedInvalidError": "Invalid email or password."
     },
     "passwordLength": {
-      "useremail": "admin@example.com",
+      "useremail": "admin@industowers.com",
       "password": "Adm",
       "expectedPasswordLengthError": "Password must be at least 6 characters"
     },
-    "validLogin": {
-      "useremail": "admin@industowers.com",
-      "password": "Admin@123"
+    "superAdminLogin": {
+      "useremail": "indus.superadmin@yopmail.com",
+      "password": "Smoke@12345",
+      "otp": "123456",
+      "invalidOtp": "000000"
     }
+  },
+  "userManagement": {
+    "userName": "Ramesh Kumar",
+    "employeeId": "IND-10492",
+    "email": "ramesh.kumar@industowers.com",
+    "mobile": "9876543210",
+    "password": "Password@123",
+    "designation": "Cluster Operations Head",
+    "department": "Revenue Assurance",
+    "duplicateName": "Duplicate Ramesh",
+    "duplicateEmployeeId": "IND-DUP-10492",
+    "duplicateMobile": "9876543211"
+  },
+  "courseManagement": {
+    "courseTitle": "Working at Height & Tower Climbing Safety",
+    "courseCode": "IND-ESH-001",
+    "description": "Comprehensive safety training for tower climbing, fall arrest systems, and PPE inspection protocol.",
+    "category": "ESH Mandatory",
+    "duration": "45 mins"
+  },
+  "questionBank": {
+    "questionText": "What is the mandatory PPE inspection protocol before climbing a telecom tower?",
+    "optionA": "Visual full-body harness, lanyard, and carabiner inspection",
+    "optionB": "Only check helmet buckle",
+    "optionC": "No physical check needed if used yesterday",
+    "optionD": "Annual supplier check only",
+    "correctOption": "A",
+    "marks": 5,
+    "similarityAlertExpected": true
+  },
+  "assessments": {
+    "assessmentTitle": "Annual Telecom Height Safety Assessment",
+    "description": "Standard regulatory compliance assessment requiring mandatory 10-20 questions pool.",
+    "minQuestionsThreshold": 10,
+    "invalidQuestionSelectionCount": 2,
+    "expectedMinQuestionsError": "Assessment requires a minimum of 10 questions"
+  },
+  "assignTraining": {
+    "courseName": "Working at Height & Tower Climbing Safety",
+    "audienceType": "Group",
+    "audienceMember": "Transmission Engineers",
+    "reminderNote": "Please complete your mandatory training before the quarter ends."
+  },
+  "groups": {
+    "groupName": "Transmission Engineers Hub",
+    "description": "Automated regional cluster group for transmission field operations."
+  },
+  "events": {
+    "eventTitle": "Quarterly ESH Emergency Rescue Drill",
+    "description": "Simulation drill on emergency descent and tower rescue protocols.",
+    "eventType": "Safety Drill",
+    "location": "Visakhapatnam Regional Training Center"
+  },
+  "supportTickets": {
+    "ticketSubject": "Unable to launch SCORM module on mobile",
+    "category": "Technical Issue",
+    "priority": "High",
+    "description": "Learner reports error when opening SCORM 1.2 zip file from Android app.",
+    "expectedError": "Please fill in all required fields"
+  },
+  "feedback": {
+    "searchQuery": "Height Safety",
+    "category": "Course Content",
+    "comment": "Interactive VR climbing simulations were highly practical."
+  },
+  "superAdminRoles": {
+    "roleName": "Regional Safety Auditor",
+    "description": "Custom role for periodic auditing of site safety checklists and compliance logs.",
+    "templateName": "Organisation",
+    "expectedDuplicateError": "A role with this name already exists",
+    "permissions": [
+      "View Assessments",
+      "Export Compliance Reports",
+      "Access Recovery Center"
+    ]
+  },
+  "managerTeam": {
+    "searchMemberName": "Ramesh",
+    "remindNote": "Please complete your mandatory Height Safety training before the monthly audit.",
+    "statusFilters": [
+      "Overdue",
+      "In Progress",
+      "Compliant",
+      "Not Enrolled",
+      "All"
+    ]
+  },
+  "learnerPortal": {
+    "apkFileName": "Indus_final.apk",
+    "expectedRejectionMessage": "Use the mobile app",
+    "restrictedRoutes": [
+      "/admin/dashboard",
+      "/manager/team",
+      "/super-admin/access-control"
+    ]
   }
 }

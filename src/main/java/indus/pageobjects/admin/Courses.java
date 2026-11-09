@@ -1,13 +1,16 @@
 package indus.pageobjects.admin;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import indus.abstractcomponent.AbstractComponent;
+import indus.annotations.StepName;
 
-public class Courses extends AbstractComponent{
+public class Courses extends AbstractComponent {
 
 	public Courses(WebDriver driver) {
 		super(driver);
@@ -15,137 +18,184 @@ public class Courses extends AbstractComponent{
 	}
 
 	@FindBy(xpath = "//div[@id='sidebar-group-CONTENT MANAGEMENT']//a[.//span[normalize-space()='Courses']]")
-	WebElement course;
+	private WebElement course;
 	
 	@FindBy(xpath = "//h1[normalize-space()='Course Catalog']")
-	WebElement courseCatalogName;
+	private WebElement courseCatalogName;
 	
 	@FindBy(xpath = "//button[normalize-space()='Add Course']")
-	WebElement addCourse;
+	private WebElement addCourse;
 	
 	@FindBy(xpath = "//h2[normalize-space()='Add Course']")
-	WebElement addCourseName;
+	private WebElement addCourseName;
+
+	@FindBy(xpath = "//label[contains(.,'Title')]/following-sibling::input | //input[@placeholder='e.g. Working at Height Safety']")
+	private WebElement courseTitleInput;
+
+	@FindBy(xpath = "//label[contains(.,'Code')]/following-sibling::input | //input[@placeholder='e.g. ESH-WAH-01']")
+	private WebElement courseCodeInput;
+
+	@FindBy(xpath = "//label[contains(.,'Description')]/following-sibling::textarea")
+	private WebElement courseDescInput;
 	
-	@FindBy(xpath = "//button[@type='submit' and normalize-space()='Create Course']")
-	WebElement createCourseBtn;
+	@FindBy(xpath = "//button[@type='submit' and contains(normalize-space(),'Create Course')]")
+	private WebElement createCourseBtn;
 	
 	@FindBy(xpath = "//button[@type='button' and normalize-space()='Cancel']")
-	WebElement cancelCourseBtn;
+	private WebElement cancelCourseBtn;
 	
 	@FindBy(xpath = "//button[.//text()[normalize-space()='Assign Assessment']]")
-	WebElement assignAssessmentBtn;
+	private WebElement assignAssessmentBtn;
 	
 	@FindBy(xpath = "//button[normalize-space()='Cancel']")
-	WebElement assignAssessmentCancelBtn;
+	private WebElement assignAssessmentCancelBtn;
 	
 	@FindBy(xpath = "//button[normalize-space()='Assign']")
-	WebElement assignAssessmentAssignBtn;
+	private WebElement assignAssessmentAssignBtn;
 	
-	@FindBy(xpath = "//button[.//span[contains(normalize-space(),'Manage Content')]]")
-	WebElement manageContentBtn;
+	@FindBy(xpath = "//button[.//span[contains(normalize-space(),'Manage Content')] or contains(.,'Manage Content')]")
+	private WebElement manageContentBtn;
 	
 	@FindBy(xpath = "//h1[normalize-space()='Course Content']")
-	WebElement courseContentName;
+	private WebElement courseContentName;
 	
 	@FindBy(xpath = "//button[normalize-space()='Add Content']")
-	WebElement addContent;
+	private WebElement addContent;
+
+	@FindBy(xpath = "//input[@type='file']")
+	private WebElement contentFileInput;
 	
 	@FindBy(xpath = "//button[normalize-space()='Cancel']")
-	WebElement addContentCancelBtn;
+	private WebElement addContentCancelBtn;
 	
-	@FindBy(xpath = "//button[normalize-space()='Upload All']")
-	WebElement addContentUploadAllBtn;
+	@FindBy(xpath = "//button[normalize-space()='Upload All' or contains(.,'Upload')]")
+	private WebElement addContentUploadAllBtn;
 	
 	@FindBy(xpath = "//a[@href='/admin/courses' and contains(.,'Back to Course Catalog')]")
-	WebElement backToCourseBtn;
+	private WebElement backToCourseBtn;
 	
-	
+	// ── Navigation ───────────────────────────────────────────────────────
 	public String courseMenu() {
 		waitElementToAppear(course);
-		return course.getText();
+		return course.getText().trim();
 	}
 
 	public void goToCourses() {
+		waitElementToBeClickable(course);
 		course.click();
 		waitElementToAppear(courseCatalogName);
 	}
 
 	public String courseCatalogScreenName() {
-		return courseCatalogName.getText();
+		waitElementToAppear(courseCatalogName);
+		return courseCatalogName.getText().trim();
 	}
 	
+	// ── Add Course Form ──────────────────────────────────────────────────
 	public boolean courseCreateButtonEnable() {
-		boolean isEnabled = addCourse.isEnabled();
-		return isEnabled;
+		return addCourse.isEnabled();
 	}
 	
 	public void clickOnAddCourse() {
+		waitElementToBeClickable(addCourse);
 		addCourse.click();
+		waitElementToAppear(addCourseName);
 	}
 	
 	public String addCourseModel() {
-		return addCourseName.getText();
+		return addCourseName.getText().trim();
+	}
+
+	@StepName("Fill Add Course form details")
+	public void fillCourseForm(String title, String code, String desc) {
+		waitForVisibility(courseTitleInput);
+		courseTitleInput.clear();
+		courseTitleInput.sendKeys(title);
+
+		if (code != null && !code.isEmpty()) {
+			courseCodeInput.clear();
+			courseCodeInput.sendKeys(code);
+		}
+
+		if (desc != null && !desc.isEmpty()) {
+			courseDescInput.clear();
+			courseDescInput.sendKeys(desc);
+		}
+	}
+
+	@StepName("Submit Create Course form")
+	public void submitCourse() {
+		waitElementToBeClickable(createCourseBtn);
+		createCourseBtn.click();
 	}
 	
 	public boolean createCourseButtonDisable() {
-		boolean isDisabled = createCourseBtn.isEnabled();
-		return isDisabled;
+		return !createCourseBtn.isEnabled();
 	}
 	
 	public void cancelCreateCourse() {
+		waitElementToBeClickable(cancelCourseBtn);
 		cancelCourseBtn.click();
+		waitForElementToDisappear(addCourseName);
 	}
 	
-	
-	public boolean assignAssessmentButtonEnable() {
-		boolean isEnabled = assignAssessmentBtn.isEnabled();
-		return isEnabled;
-	}
-	
-	public void clickOnAssignAssessment() {
-		assignAssessmentBtn.click();
-	}
-	
-	public boolean assignButtonDisable() {
-		boolean isDisabled = assignAssessmentAssignBtn.isEnabled();
-		return isDisabled;
-	}
-	
-	public void cancelAssignAssessment() {
-		assignAssessmentCancelBtn.click();
-	}
-	
+	// ── Manage Content & SCORM ───────────────────────────────────────────
 	public boolean manageContentButtonEnable() {
-		boolean isEnabled = manageContentBtn.isEnabled();
-		return isEnabled;
+		return manageContentBtn.isEnabled();
 	}
 	
+	@StepName("Navigate to Course Content manager")
 	public void clickOnManageContent() {
+		waitElementToBeClickable(manageContentBtn);
 		manageContentBtn.click();
 		waitElementToAppear(courseContentName);
 	}
 	
 	public String courseContentName() {
-		return courseContentName.getText();
+		waitElementToAppear(courseContentName);
+		return courseContentName.getText().trim();
 	}
 	
 	public void clickOnAddContent() {
+		waitElementToBeClickable(addContent);
 		addContent.click();
+	}
+
+	@StepName("Upload SCORM or Lesson package file")
+	public void uploadPackageFile(String filePath) {
+		try {
+			contentFileInput.sendKeys(filePath);
+		} catch (Exception e) {
+			((JavascriptExecutor) driver).executeScript("arguments[0].style.display='block';", contentFileInput);
+			contentFileInput.sendKeys(filePath);
+		}
 	}
 	
 	public boolean uploadAllButtonDisable() {
-		boolean isDisabled = addContentUploadAllBtn.isEnabled();
-		return isDisabled;
+		return !addContentUploadAllBtn.isEnabled();
 	}
 	
 	public void cancelAddContent() {
-		addContentCancelBtn.click();
-		waitElementToAppear(backToCourseBtn);
+		try {
+			waitElementToBeClickable(addContentCancelBtn);
+			addContentCancelBtn.click();
+		} catch (Exception ignored) {}
 	}
 	
 	public void clickOnBackToCourses() {
+		waitElementToBeClickable(backToCourseBtn);
 		backToCourseBtn.click();
+		waitElementToAppear(courseCatalogName);
 	}
-	
-	
+
+	@StepName("Check if course card exists in catalog")
+	public boolean isCoursePresent(String courseTitle) {
+		try {
+			By cardBy = By.xpath("//div[contains(@class,'rounded') and .//h3[contains(.,'" + courseTitle + "')]]");
+			WebElement card = waitUtils.waitForVisibility(cardBy);
+			return card != null && card.isDisplayed();
+		} catch (Exception e) {
+			return false;
+		}
+	}
 }

@@ -1,0 +1,9 @@
+[
+  {
+    "ticketSubject": "Unable to launch SCORM module on mobile",
+    "category": "Technical Issue",
+    "priority": "High",
+    "description": "Learner reports error when opening SCORM 1.2 zip file from Android app.",
+    "expectedError": "Please fill in all required fields"
+  }
+]

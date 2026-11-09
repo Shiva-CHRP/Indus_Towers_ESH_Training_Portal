@@ -1,0 +1,11 @@
+[
+  {
+    "apkFileName": "Indus_final.apk",
+    "expectedRejectionMessage": "Use the mobile app",
+    "restrictedRoutes": [
+      "/admin/dashboard",
+      "/manager/team",
+      "/super-admin/access-control"
+    ]
+  }
+]

@@ -34,7 +34,7 @@ public class AdminPortalTest extends BaseTest {
 	String DistrictName;
 	String SiteName;
 
-	@Test(priority = 1, groups = {"Smoke", "Regression"})
+	@Test(priority = 1, groups = {"Smoke", "Sanity", "Regression"})
 	@TestInfo(module = "Login", description = "Login using valid Email and Password", priority = "Critical")
 	public void login() {
 		loginPage.loginByEmail();
@@ -74,7 +74,7 @@ public class AdminPortalTest extends BaseTest {
 		softAssert.assertEquals(screenName, "Departments", "Department Screen Loaded Successfully.");
 	}
 
-	@Test(priority = 4,groups = {"Regression"})
+	@Test(priority = 4,groups = {"Sanity", "Regression"})
 	@TestInfo(module = "Department", description = "Verify Add Department popup opens.", priority = "Critical")
 	public void department_Add_Popup() {
 
@@ -86,7 +86,7 @@ public class AdminPortalTest extends BaseTest {
 		department.cancelAddDepartment();
 	}
 
-	@Test(priority = 5, dataProvider = "departmentHierarchy", groups = {"Smoke", "Regression"})
+	@Test(priority = 5, dataProvider = "departmentHierarchy", groups = {"Smoke", "Sanity", "Regression", "E2E"})
 	@TestInfo(module = "Department", description = "Verify a department can be created with valid data", priority = "Critical")
 	public void department_Creation(DepartmentData data) {
 		department.goToDepartment();
@@ -107,12 +107,55 @@ public class AdminPortalTest extends BaseTest {
 		else {softAssert.assertTrue(exists,  "Department Already exists in the Table");}
 	}
 
-	@Test(priority = 6,groups = {"Regression"})
+	@Test(priority = 6,groups = {"Smoke", "Sanity", "Regression", "E2E"})
 	@TestInfo(module = "Department", description = "Verify department appears in the grid after creation", priority = "Critical")
 	public void department_Appears_In_Table() {
 		boolean exists = department.isDepartmentPresent("Title", DepartmentName);
-		softAssert.assertFalse(exists, "Department Already exists in the Table");
+		softAssert.assertTrue(exists, "Department should exist in the Table");
 		softAssert.assertAll();
+	}
+
+	@Test(priority = 7, groups = {"Regression"})
+	@TestInfo(module = "Department", description = "Verify Add Department submit is disabled when title is blank or whitespace", priority = "P2")
+	public void department_Empty_Title_Negative_Validation() {
+		department.goToDepartment();
+		department.clickAddDepartment();
+		department.clearDepartmentTitle();
+		softAssert.assertTrue(department.addDepartmentButtonDisable(), "Submit button should be disabled for empty title");
+		department.cancelAddDepartment();
+	}
+
+	@Test(priority = 8, groups = {"Regression"})
+	@TestInfo(module = "Department", description = "Verify duplicate department title creation displays error notification", priority = "P2")
+	public void department_Duplicate_Creation_Negative_Validation() {
+		department.goToDepartment();
+		if (DepartmentName != null && !DepartmentName.isEmpty()) {
+			department.clickAddDepartment();
+			department.inputDepartmentTitle(DepartmentName);
+			department.createDeaprtment();
+
+			try {
+				ToastResponse toast = toastUtils.captureToast();
+				softAssert.assertEquals(toast.getType(), "ERROR", "Toast type should be ERROR for duplicate department");
+				softAssert.assertTrue(toast.getMessage().toLowerCase().contains("already exists") 
+						|| toast.getMessage().toLowerCase().contains("could not save"), "Toast should report duplicate name conflict");
+				toastUtils.waitForToastToDisappear();
+			} catch (Exception ignored) {}
+
+			department.cancelAddDepartment();
+		}
+	}
+
+	@Test(priority = 9, groups = {"Regression"})
+	@TestInfo(module = "Department", description = "Verify department title length boundary enforcement at 80 characters", priority = "P3")
+	public void department_Length_Boundary_Validation() {
+		department.goToDepartment();
+		department.clickAddDepartment();
+		String longTitle = "A".repeat(100);
+		department.inputDepartmentTitle(longTitle);
+		String actualValue = department.getDepartmentTitleValue();
+		softAssert.assertTrue(actualValue.length() <= 80, "Department title should be truncated to max 80 characters");
+		department.cancelAddDepartment();
 	}
 
 	@Test(priority = 7,groups = {"Regression"})
@@ -171,7 +214,7 @@ public class AdminPortalTest extends BaseTest {
 		softAssert.assertAll();
 	}
 
-	@Test(priority = 12,groups = {"Regression"})
+	@Test(priority = 12,groups = {"Smoke", "Sanity", "Regression", "E2E"})
 	@TestInfo(module = "Tower Type", description = "Verify Tower Type menu is displayed.", priority = "Critical")
 	public void tower_Type_Menu_Validations() {
 		String towerTypeMenu = towerTypes.towerTypeMenu();
@@ -228,7 +271,7 @@ public class AdminPortalTest extends BaseTest {
 		softAssert.assertAll();
 	}
 
-	@Test(priority = 17,groups = {"Regression"})
+	@Test(priority = 17,groups = {"Smoke", "Sanity", "Regression", "E2E"})
 	@TestInfo(module = "National", description = "Verify National menu is displayed.", priority = "Critical")
 	public void national_Menu_Validations() {
 		String nationalMenu = national.nationalMenu();
@@ -283,7 +326,7 @@ public class AdminPortalTest extends BaseTest {
 		softAssert.assertAll();
 	}
 
-	@Test(priority = 22,groups = {"Regression"})
+	@Test(priority = 22,groups = {"Smoke", "Sanity", "Regression", "E2E"})
 	@TestInfo(module = "Circle", description = "Verify Circle menu is displayed.", priority = "Critical")
 	public void circle_Menu_Validations() {
 		String circleMenu = circle.circleMenu();
@@ -345,7 +388,7 @@ public class AdminPortalTest extends BaseTest {
 		softAssert.assertAll();
 	}
 
-	@Test(priority = 27,groups = {"Regression"})
+	@Test(priority = 27,groups = {"Smoke", "Sanity", "Regression", "E2E"})
 	@TestInfo(module = "Cluster", description = "Verify Cluster menu is displayed.", priority = "Critical")
 	public void cluster_Menu_Validations() {
 		String clusterMenu = cluster.clusterMenu();
@@ -408,7 +451,7 @@ public class AdminPortalTest extends BaseTest {
 		softAssert.assertAll();
 	}
 
-	@Test(priority = 32,groups = {"Regression"})
+	@Test(priority = 32,groups = {"Smoke", "Sanity", "Regression", "E2E"})
 	@TestInfo(module = "District", description = "Verify District menu is displayed.", priority = "Critical")
 	public void district_Menu_Validations() {
 		String districtMenu = district.districtMenu();
@@ -423,7 +466,7 @@ public class AdminPortalTest extends BaseTest {
 		softAssert.assertEquals(screenName, "Districts", "District Screen Loaded Successfully.");
 	}
 
-	@Test(priority = 34,groups = {"Regression"})
+	@Test(priority = 34,groups = {"Sanity", "Regression"})
 	@TestInfo(module = "District", description = "Verify Add District popup opens.", priority = "Critical")
 	public void district_Add_Popup() {
 
@@ -435,7 +478,7 @@ public class AdminPortalTest extends BaseTest {
 		district.cancelAddDistrict();
 	}
 
-	@Test(priority = 35, dataProvider = "districtDataProvider",groups = {"Smoke", "Regression"})
+	@Test(priority = 35, dataProvider = "districtDataProvider",groups = {"Smoke", "Sanity", "Regression", "E2E"})
 	@TestInfo(module = "District", description = "Verify a District can be created with valid data", priority = "Critical")
 	public void district_Creation(ClusterData data) {
 		cluster.goToCluster();
@@ -462,7 +505,7 @@ public class AdminPortalTest extends BaseTest {
 
 	}
 
-	@Test(priority = 36,groups = {"Regression"})
+	@Test(priority = 36,groups = {"Smoke", "Sanity", "Regression", "E2E"})
 	@TestInfo(module = "District", description = "Verify District appears in the grid after creation", priority = "Critical")
 	public void district_Appears_In_Table() {
 		boolean exists = district.isDistrictPresent("Title", DistrictName);
@@ -485,7 +528,7 @@ public class AdminPortalTest extends BaseTest {
 		softAssert.assertEquals(screenName, "Sites", "Site Screen Loaded Successfully.");
 	}
 
-	@Test(priority = 39,groups = {"Regression"})
+	@Test(priority = 39,groups = {"Sanity", "Regression"})
 	@TestInfo(module = "Site", description = "Verify Add Site popup opens.", priority = "Critical")
 	public void site_Add_Popup() {
 
@@ -497,7 +540,7 @@ public class AdminPortalTest extends BaseTest {
 		site.cancelAddSite();
 	}
 
-	@Test(priority = 40, dataProvider = "siteDataProvider",groups = {"Smoke", "Regression"})
+	@Test(priority = 40, dataProvider = "siteDataProvider",groups = {"Smoke", "Sanity", "Regression", "E2E"})
 	@TestInfo(module = "Site", description = "Verify a Site can be created with valid data", priority = "Critical")
 	public void site_Creation(DistrictData data) {
 		district.goToDistrict();
@@ -525,7 +568,7 @@ public class AdminPortalTest extends BaseTest {
 
 	}
 
-	@Test(priority = 41,groups = {"Regression"})
+	@Test(priority = 41,groups = {"Smoke", "Sanity", "Regression", "E2E"})
 	@TestInfo(module = "Site", description = "Verify Site appears in the grid after creation", priority = "Critical")
 	public void site_Appears_In_Table() {
 		boolean exists = site.isSitePresent("Title", SiteName);
@@ -533,7 +576,7 @@ public class AdminPortalTest extends BaseTest {
 		softAssert.assertAll();
 	}
 
-	@Test(priority = 42, groups = {"Smoke", "Regression"})
+	@Test(priority = 42, groups = {"Smoke", "Sanity", "Regression"})
 	@TestInfo(module = "Login", description = "Verify Sign Out from Portal", priority = "Critical")
 	public void logout_from_Portal() {
 

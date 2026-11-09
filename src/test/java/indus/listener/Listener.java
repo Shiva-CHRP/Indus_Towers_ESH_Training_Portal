@@ -91,9 +91,10 @@ public class Listener implements ITestListener {
 		}
 		String testName = result.getMethod().getMethodName();
 
-		String path = ScreenshotUtils.getScreenshot(driver, testName);
-
-		ExtentTestManager.getTest().addScreenCaptureFromPath(path);
+		if (driver != null) {
+			String path = ScreenshotUtils.getScreenshot(driver, testName);
+			ExtentTestManager.getTest().addScreenCaptureFromPath(path);
+		}
 		String[] groups = getSuite(result);
 
 		DashboardBuilder.markPassed(groups);

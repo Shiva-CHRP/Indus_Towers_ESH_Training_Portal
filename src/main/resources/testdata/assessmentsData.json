@@ -1,0 +1,9 @@
+[
+  {
+    "assessmentTitle": "Annual Telecom Height Safety Assessment",
+    "description": "Standard regulatory compliance assessment requiring mandatory 10-20 questions pool.",
+    "minQuestionsThreshold": 10,
+    "invalidQuestionSelectionCount": 2,
+    "expectedMinQuestionsError": "Assessment requires a minimum of 10 questions"
+  }
+]

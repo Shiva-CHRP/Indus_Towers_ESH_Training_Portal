@@ -128,16 +128,6 @@ public class Cluster extends AbstractComponent {
 	public void createCluster() {
 		if (submit.isEnabled()) {
 			clickElement(submit);
-			try {
-				waitUtils.waitForInvisibility(addClusterPopup);
-			} catch (Exception e) {
-				try {
-					if (cancel.isDisplayed()) {
-						waitUtils.clickUsingJS(cancel);
-					}
-				} catch (Exception ignored) {}
-			}
-			waitForBackdropToDisappear();
 		}
 	}
 
@@ -147,7 +137,9 @@ public class Cluster extends AbstractComponent {
 				clickElement(cancel);
 			}
 		} catch (Exception e) {
-			waitUtils.clickUsingJS(cancel);
+			try {
+				waitUtils.clickUsingJS(cancel);
+			} catch (Exception ignored) {}
 		}
 		try {
 			waitUtils.waitForInvisibility(addClusterPopup);
@@ -173,10 +165,33 @@ public class Cluster extends AbstractComponent {
 
 	public boolean isClusterPresent(String columnName, String clusterName) {
 		int columnIndex = getColumnIndex("Title");
+		if (columnIndex == -1) {
+			columnIndex = 1;
+		}
 
 		List<WebElement> rows = driver.findElements(By.xpath("//table//tbody//tr/td[" + columnIndex + "]"));
 
-		return rows.stream().map(WebElement::getText).map(String::trim)
+		boolean match = rows.stream().map(WebElement::getText).map(String::trim)
 				.anyMatch(value -> value.equalsIgnoreCase(clusterName));
+		if (match) {
+			return true;
+		}
+
+		// Fallback: check search box if entity is on another page
+		try {
+			List<WebElement> searchInputs = driver.findElements(By.xpath("//input[contains(@placeholder,'Search')]"));
+			if (!searchInputs.isEmpty() && searchInputs.get(0).isDisplayed()) {
+				WebElement search = searchInputs.get(0);
+				search.clear();
+				search.sendKeys(clusterName);
+				try { Thread.sleep(500); } catch (Exception ignored) {}
+				rows = driver.findElements(By.xpath("//table//tbody//tr/td[" + columnIndex + "]"));
+				match = rows.stream().map(WebElement::getText).map(String::trim)
+						.anyMatch(value -> value.equalsIgnoreCase(clusterName));
+				search.clear();
+			}
+		} catch (Exception ignored) {}
+
+		return match;
 	}
 }

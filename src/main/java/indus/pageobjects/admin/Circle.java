@@ -36,7 +36,7 @@ public class Circle extends AbstractComponent {
 	@FindBy(xpath = "//label[contains(normalize-space(),'Description')]/following-sibling::textarea")
 	WebElement description;
 
-	@FindBy(xpath = "//div[@data-parent-picker='true']//button")
+	@FindBy(xpath = "//div[@data-parent-picker='true']//button | //div[@data-parent-picker]//button")
 	private WebElement nationalDropdown;
 
 	@FindBy(xpath = "//button[@type='submit' and normalize-space()='Add Circle']")
@@ -53,7 +53,8 @@ public class Circle extends AbstractComponent {
 	}
 
 	public void goToCircle() {
-		circle.click();
+		waitForBackdropToDisappear();
+		clickElement(circle);
 		waitElementToAppear(circleScreenName);
 	}
 
@@ -67,7 +68,9 @@ public class Circle extends AbstractComponent {
 	}
 
 	public void clickAddCircle() {
-		circleAdd.click();
+		waitForBackdropToDisappear();
+		clickElement(circleAdd);
+		waitElementToAppear(addCirclePopup);
 	}
 
 	public String addCircleModel() {
@@ -80,10 +83,13 @@ public class Circle extends AbstractComponent {
 	}
 
 	public void inputCircleTitle(String dtitle) {
+		waitElementToAppear(title);
+		title.clear();
 		title.sendKeys(dtitle);
 	}
 
 	public void inputCircleDescription(String desc) {
+		description.clear();
 		description.sendKeys(desc);
 	}
 
@@ -92,17 +98,16 @@ public class Circle extends AbstractComponent {
 		return isDisabled;
 	}
 	
-	
 	public void selectNational(String nationalName) {
-		nationalDropdown.click();
-		By options = By.xpath("//div[@data-parent-picker='true']//button[.//span]");
+		clickElement(nationalDropdown);
+		By options = By.xpath("//div[@data-parent-picker='true']//button[.//span] | //div[@data-parent-picker]//button[.//span]");
 		waitUtils.waitForVisibility(options);
 		List<WebElement> optionList = driver.findElements(options);
 
 		for (int i = 0; i < optionList.size(); i++) {
 		    try {
 		        WebElement element = driver.findElement(
-		                By.xpath("//div[@data-parent-picker='true']//button[.//span[normalize-space()='"
+		                By.xpath("//div[contains(@data-parent-picker,'')]//button[.//span[normalize-space()='"
 		                        + nationalName + "']]"));
 
 		        if (element.isDisplayed() && element.isEnabled()) {
@@ -122,12 +127,24 @@ public class Circle extends AbstractComponent {
 
 	public void createCircle() {
 		if (submit.isEnabled()) {
-			submit.click();
+			clickElement(submit);
 		}
 	}
 
 	public void cancelAddCircle() {
-		cancel.click();
+		try {
+			if (cancel.isDisplayed()) {
+				clickElement(cancel);
+			}
+		} catch (Exception e) {
+			try {
+				waitUtils.clickUsingJS(cancel);
+			} catch (Exception ignored) {}
+		}
+		try {
+			waitUtils.waitForInvisibility(addCirclePopup);
+		} catch (Exception ignored) {}
+		waitForBackdropToDisappear();
 	}
 
 	public int getColumnIndex(String columnName) {
@@ -148,10 +165,33 @@ public class Circle extends AbstractComponent {
 
 	public boolean isCirclePresent(String columnName, String circleName) {
 		int columnIndex = getColumnIndex("Title");
+		if (columnIndex == -1) {
+			columnIndex = 1;
+		}
 
 		List<WebElement> rows = driver.findElements(By.xpath("//table//tbody//tr/td[" + columnIndex + "]"));
 
-		return rows.stream().map(WebElement::getText).map(String::trim)
+		boolean match = rows.stream().map(WebElement::getText).map(String::trim)
 				.anyMatch(value -> value.equalsIgnoreCase(circleName));
+		if (match) {
+			return true;
+		}
+
+		// Fallback: check search box if entity is on another page
+		try {
+			List<WebElement> searchInputs = driver.findElements(By.xpath("//input[contains(@placeholder,'Search')]"));
+			if (!searchInputs.isEmpty() && searchInputs.get(0).isDisplayed()) {
+				WebElement search = searchInputs.get(0);
+				search.clear();
+				search.sendKeys(circleName);
+				try { Thread.sleep(500); } catch (Exception ignored) {}
+				rows = driver.findElements(By.xpath("//table//tbody//tr/td[" + columnIndex + "]"));
+				match = rows.stream().map(WebElement::getText).map(String::trim)
+						.anyMatch(value -> value.equalsIgnoreCase(circleName));
+				search.clear();
+			}
+		} catch (Exception ignored) {}
+
+		return match;
 	}
 }

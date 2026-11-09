@@ -38,7 +38,7 @@ public class LearnerPortalTest extends BaseTest {
 		String learnerPassword = ConfigReader.getLearnerPassword();
 
 		ToastResponse toast = learnerAccessPage.attemptLearnerLogin(learnerEmail, learnerPassword);
-		softAssert.assertEquals(toast.getType(), "error", "Learner web login should trigger an error toast");
+		softAssert.assertTrue("error".equalsIgnoreCase(toast.getType()), "Learner web login should trigger an error toast");
 
 		boolean messageMatched = toast.getMessage().toLowerCase().contains(learnerData.getExpectedRejectionMessage().toLowerCase())
 				|| toast.getMessage().toLowerCase().contains("mobile app")

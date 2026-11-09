@@ -10,7 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import indus.abstractcomponent.AbstractComponent;
 
-public class National extends AbstractComponent{
+public class National extends AbstractComponent {
 
 	public National(WebDriver driver) {
 		super(driver);
@@ -42,14 +42,14 @@ public class National extends AbstractComponent{
 	@FindBy(xpath = "//table//tbody//tr/td[1]")
     List<WebElement> nationalNames;
 	
-	
 	public String nationalMenu() {
 		waitElementToAppear(national);
 		return national.getText();
 	}
 	
 	public void goToNational() {
-		national.click();
+		waitForBackdropToDisappear();
+		clickElement(national);
 		waitElementToAppear(nationalScreenName);
 	}
 	
@@ -63,7 +63,9 @@ public class National extends AbstractComponent{
 	}
 	
 	public void clickAddNational() {
-		nationalAdd.click();
+		waitForBackdropToDisappear();
+		clickElement(nationalAdd);
+		waitElementToAppear(addNationalPopup);
 	}
 	
 	public String addNationalModel() {
@@ -76,10 +78,13 @@ public class National extends AbstractComponent{
 	}
 	
 	public void inputNationalTitle(String dtitle) {
+		waitElementToAppear(title);
+		title.clear();
 		title.sendKeys(dtitle);
 	}
 	
 	public void inputNationalDescription(String desc) {
+		description.clear();
 		description.sendKeys(desc);
 	}
 	
@@ -90,12 +95,24 @@ public class National extends AbstractComponent{
 	
 	public void createNational() {
 		if(submit.isEnabled()) {
-			submit.click();
+			clickElement(submit);
 		}
 	}
 	
 	public void cancelAddNational() {
-		cancel.click();
+		try {
+			if (cancel.isDisplayed()) {
+				clickElement(cancel);
+			}
+		} catch (Exception e) {
+			try {
+				waitUtils.clickUsingJS(cancel);
+			} catch (Exception ignored) {}
+		}
+		try {
+			waitUtils.waitForInvisibility(addNationalPopup);
+		} catch (Exception ignored) {}
+		waitForBackdropToDisappear();
 	}
 	
 	public int getColumnIndex(String columnName) {
@@ -114,12 +131,35 @@ public class National extends AbstractComponent{
 		return -1;
 	}
 	
-	public boolean isNationalPresent(String columnName,String nationalName) {
+	public boolean isNationalPresent(String columnName, String nationalName) {
 		int columnIndex = getColumnIndex("Title");
+		if (columnIndex == -1) {
+			columnIndex = 1;
+		}
 		
 		List<WebElement> rows = driver.findElements(By.xpath("//table//tbody//tr/td[" + columnIndex + "]"));
 
-		return rows.stream().map(WebElement::getText).map(String::trim)
+		boolean match = rows.stream().map(WebElement::getText).map(String::trim)
 				.anyMatch(value -> value.equalsIgnoreCase(nationalName));
+		if (match) {
+			return true;
+		}
+
+		// Fallback: check search box if entity is on another page
+		try {
+			List<WebElement> searchInputs = driver.findElements(By.xpath("//input[contains(@placeholder,'Search')]"));
+			if (!searchInputs.isEmpty() && searchInputs.get(0).isDisplayed()) {
+				WebElement search = searchInputs.get(0);
+				search.clear();
+				search.sendKeys(nationalName);
+				try { Thread.sleep(500); } catch (Exception ignored) {}
+				rows = driver.findElements(By.xpath("//table//tbody//tr/td[" + columnIndex + "]"));
+				match = rows.stream().map(WebElement::getText).map(String::trim)
+						.anyMatch(value -> value.equalsIgnoreCase(nationalName));
+				search.clear();
+			}
+		} catch (Exception ignored) {}
+
+		return match;
 	}
 }

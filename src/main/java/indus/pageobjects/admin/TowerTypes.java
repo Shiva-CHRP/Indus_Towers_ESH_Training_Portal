@@ -10,7 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import indus.abstractcomponent.AbstractComponent;
 
-public class TowerTypes extends AbstractComponent{
+public class TowerTypes extends AbstractComponent {
 
 	public TowerTypes(WebDriver driver) {
 		super(driver);
@@ -49,7 +49,8 @@ public class TowerTypes extends AbstractComponent{
 	}
 	
 	public void goToTowerType() {
-		towerType.click();
+		waitForBackdropToDisappear();
+		clickElement(towerType);
 		waitElementToAppear(towerTypeScreenName);
 	}
 	
@@ -63,7 +64,9 @@ public class TowerTypes extends AbstractComponent{
 	}
 	
 	public void clickAddTowerType() {
-		towerTypeAdd.click();
+		waitForBackdropToDisappear();
+		clickElement(towerTypeAdd);
+		waitElementToAppear(addTowerTypePopup);
 	}
 	
 	public String addTowerTypeModel() {
@@ -76,10 +79,13 @@ public class TowerTypes extends AbstractComponent{
 	}
 	
 	public void inputTowerTypeTitle(String dtitle) {
+		waitElementToAppear(title);
+		title.clear();
 		title.sendKeys(dtitle);
 	}
 	
 	public void inputTowerTypeDescription(String desc) {
+		description.clear();
 		description.sendKeys(desc);
 	}
 	
@@ -90,12 +96,24 @@ public class TowerTypes extends AbstractComponent{
 	
 	public void createTowerType() {
 		if(submit.isEnabled()) {
-			submit.click();
+			clickElement(submit);
 		}
 	}
 	
 	public void cancelAddTowerType() {
-		cancel.click();
+		try {
+			if (cancel.isDisplayed()) {
+				clickElement(cancel);
+			}
+		} catch (Exception e) {
+			try {
+				waitUtils.clickUsingJS(cancel);
+			} catch (Exception ignored) {}
+		}
+		try {
+			waitUtils.waitForInvisibility(addTowerTypePopup);
+		} catch (Exception ignored) {}
+		waitForBackdropToDisappear();
 	}
 	
 	public int getColumnIndex(String columnName) {
@@ -114,12 +132,35 @@ public class TowerTypes extends AbstractComponent{
 		return -1;
 	}
 	
-	public boolean isTowerTypePresent(String columnName,String towerTypeName) {
+	public boolean isTowerTypePresent(String columnName, String towerTypeName) {
 		int columnIndex = getColumnIndex("Title");
+		if (columnIndex == -1) {
+			columnIndex = 1;
+		}
 		
 		List<WebElement> rows = driver.findElements(By.xpath("//table//tbody//tr/td[" + columnIndex + "]"));
 
-		return rows.stream().map(WebElement::getText).map(String::trim)
+		boolean match = rows.stream().map(WebElement::getText).map(String::trim)
 				.anyMatch(value -> value.equalsIgnoreCase(towerTypeName));
+		if (match) {
+			return true;
+		}
+
+		// Fallback: check search box if entity is on another page
+		try {
+			List<WebElement> searchInputs = driver.findElements(By.xpath("//input[contains(@placeholder,'Search')]"));
+			if (!searchInputs.isEmpty() && searchInputs.get(0).isDisplayed()) {
+				WebElement search = searchInputs.get(0);
+				search.clear();
+				search.sendKeys(towerTypeName);
+				try { Thread.sleep(500); } catch (Exception ignored) {}
+				rows = driver.findElements(By.xpath("//table//tbody//tr/td[" + columnIndex + "]"));
+				match = rows.stream().map(WebElement::getText).map(String::trim)
+						.anyMatch(value -> value.equalsIgnoreCase(towerTypeName));
+				search.clear();
+			}
+		} catch (Exception ignored) {}
+
+		return match;
 	}
 }

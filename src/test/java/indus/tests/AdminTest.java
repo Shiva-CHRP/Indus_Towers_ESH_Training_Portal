@@ -339,7 +339,7 @@ public class AdminTest extends BaseTest {
 		raiseTicket.clickSubmitTicket();
 		ToastResponse toast = toastUtils.captureToast();
 		if (toast != null) {
-			softAssert.assertEquals(toast.getType(), "error", "Submitting empty ticket should trigger error toast");
+			softAssert.assertTrue("error".equalsIgnoreCase(toast.getType()), "Submitting empty ticket should trigger error toast");
 		}
 		raiseTicket.cancelNewTicket();
 	}

@@ -56,8 +56,9 @@ public class Department extends AbstractComponent {
 	}
 	
 	public void goToDepartment() {
+		waitForBackdropToDisappear();
 		waitElementToBeClickable(department);
-		department.click();
+		clickElement(department);
 		waitElementToAppear(departmentScreenName);
 	}
 	
@@ -71,8 +72,9 @@ public class Department extends AbstractComponent {
 	}
 	
 	public void clickAddDepartment() {
+		waitForBackdropToDisappear();
 		waitElementToBeClickable(departmentAdd);
-		departmentAdd.click();
+		clickElement(departmentAdd);
 		waitElementToAppear(addDepartmentPopup);
 	}
 	
@@ -86,6 +88,7 @@ public class Department extends AbstractComponent {
 	
 	public void inputDepartmentTitle(String dtitle) {
 		waitForVisibility(title);
+		title.clear();
 		title.sendKeys(dtitle);
 	}
 
@@ -117,14 +120,24 @@ public class Department extends AbstractComponent {
 	
 	public void createDeaprtment() {
 		if (submit.isEnabled()) {
-			submit.click();
+			clickElement(submit);
 		}
 	}
 	
 	public void cancelAddDepartment() {
-		waitElementToBeClickable(cancel);
-		cancel.click();
-		waitForElementToDisappear(addDepartmentPopup);
+		try {
+			if (cancel.isDisplayed()) {
+				clickElement(cancel);
+			}
+		} catch (Exception e) {
+			try {
+				waitUtils.clickUsingJS(cancel);
+			} catch (Exception ignored) {}
+		}
+		try {
+			waitForElementToDisappear(addDepartmentPopup);
+		} catch (Exception ignored) {}
+		waitForBackdropToDisappear();
 	}
 
 	// ── Table & Search ───────────────────────────────────────────────────
@@ -152,8 +165,26 @@ public class Department extends AbstractComponent {
 		int columnIndex = getColumnIndex("Title");
 		if (columnIndex == -1) columnIndex = 1;
 		List<WebElement> rows = driver.findElements(By.xpath("//table//tbody//tr/td[" + columnIndex + "]"));
-		return rows.stream().map(WebElement::getText).map(String::trim)
+		boolean match = rows.stream().map(WebElement::getText).map(String::trim)
 				.anyMatch(value -> value.equalsIgnoreCase(deptName));
+		if (match) return true;
+
+		// Fallback: search box
+		try {
+			List<WebElement> searchInputs = driver.findElements(By.xpath("//input[contains(@placeholder,'Search')]"));
+			if (!searchInputs.isEmpty() && searchInputs.get(0).isDisplayed()) {
+				WebElement search = searchInputs.get(0);
+				search.clear();
+				search.sendKeys(deptName);
+				try { Thread.sleep(500); } catch (Exception ignored) {}
+				rows = driver.findElements(By.xpath("//table//tbody//tr/td[" + columnIndex + "]"));
+				match = rows.stream().map(WebElement::getText).map(String::trim)
+						.anyMatch(value -> value.equalsIgnoreCase(deptName));
+				search.clear();
+			}
+		} catch (Exception ignored) {}
+
+		return match;
 	}
 
 	// ── Deletion & In-Use Block Actions ──────────────────────────────────

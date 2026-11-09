@@ -100,28 +100,23 @@ public class Cluster extends AbstractComponent {
 
 	public void selectCircle(String circleName) {
 		clickElement(circleDropdown);
-		By options = By.xpath("//div[contains(@data-parent-picker,'')]//button[.//span] | //div[@data-parent-picker]//button[.//span]");
-		waitUtils.waitForVisibility(options);
-		List<WebElement> optionList = driver.findElements(options);
-
-		for (int i = 0; i < optionList.size(); i++) {
-		    try {
-		        WebElement element = driver.findElement(
-		                By.xpath("//div[contains(@data-parent-picker,'')]//button[.//span[normalize-space()='"
-		                        + circleName + "']]"));
-
-		        if (element.isDisplayed() && element.isEnabled()) {
-		            ((JavascriptExecutor) driver)
-		                    .executeScript("arguments[0].scrollIntoView({block:'center'});", element);
-
-		            ((JavascriptExecutor) driver)
-		                    .executeScript("arguments[0].click();", element);
-		            return;
-		        }
-		    } catch (Exception ignored) {
-		    }
+		By targetOption = By.xpath("//div[contains(@data-parent-picker,'')]//button[.//span[normalize-space()='" + circleName + "']]");
+		try {
+			WebElement element = waitUtils.waitForVisibility(targetOption);
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", element);
+			((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+			return;
+		} catch (Exception e) {
+			By options = By.xpath("//div[contains(@data-parent-picker,'')]//button[.//span] | //div[@data-parent-picker]//button[.//span]");
+			List<WebElement> optionList = driver.findElements(options);
+			for (WebElement el : optionList) {
+				if (el.getText().trim().equalsIgnoreCase(circleName)) {
+					((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", el);
+					((JavascriptExecutor) driver).executeScript("arguments[0].click();", el);
+					return;
+				}
+			}
 		}
-
 		throw new RuntimeException("Circle not found: " + circleName);
 	}
 	

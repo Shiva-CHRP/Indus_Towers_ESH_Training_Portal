@@ -100,28 +100,23 @@ public class District extends AbstractComponent {
 	
 	public void selectCluster(String clusterName) {
 		clickElement(clusterDropdown);
-		By options = By.xpath("//div[@data-parent-picker]//button[.//span] | //div[@data-parent-picker='true']//button[.//span]");
-		waitUtils.waitForVisibility(options);
-		List<WebElement> optionList = driver.findElements(options);
-
-		for (int i = 0; i < optionList.size(); i++) {
-		    try {
-		        WebElement element = driver.findElement(
-		                By.xpath("//div[contains(@data-parent-picker,'')]//button[.//span[normalize-space()='"
-		                        + clusterName + "']]"));
-
-		        if (element.isDisplayed() && element.isEnabled()) {
-		            ((JavascriptExecutor) driver)
-		                    .executeScript("arguments[0].scrollIntoView({block:'center'});", element);
-
-		            ((JavascriptExecutor) driver)
-		                    .executeScript("arguments[0].click();", element);
-		            return;
-		        }
-		    } catch (Exception ignored) {
-		    }
+		By targetOption = By.xpath("//div[contains(@data-parent-picker,'')]//button[.//span[normalize-space()='" + clusterName + "']]");
+		try {
+			WebElement element = waitUtils.waitForVisibility(targetOption);
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", element);
+			((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+			return;
+		} catch (Exception e) {
+			By options = By.xpath("//div[@data-parent-picker]//button[.//span] | //div[@data-parent-picker='true']//button[.//span]");
+			List<WebElement> optionList = driver.findElements(options);
+			for (WebElement el : optionList) {
+				if (el.getText().trim().equalsIgnoreCase(clusterName)) {
+					((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", el);
+					((JavascriptExecutor) driver).executeScript("arguments[0].click();", el);
+					return;
+				}
+			}
 		}
-
 		throw new RuntimeException("Cluster not found: " + clusterName);
 	}
 

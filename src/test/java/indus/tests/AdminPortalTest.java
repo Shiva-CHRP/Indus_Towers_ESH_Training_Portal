@@ -479,8 +479,11 @@ public class AdminPortalTest extends BaseTest {
 	@Test(priority = 35, dataProvider = "districtDataProvider",groups = {"Smoke", "Sanity", "Regression", "E2E"})
 	@TestInfo(module = "District", description = "Verify a District can be created with valid data", priority = "Critical")
 	public void district_Creation(ClusterData data) {
-		cluster.goToCluster();
 		ClusterName = data.getClusterName();
+		CircleName = findCircleForCluster(ClusterName);
+		NationalName = "India";
+
+		cluster.goToCluster();
 		ensureClusterExists(ClusterName, CircleName, NationalName);
 		for (DistrictData districtData : data.getDistricts()) {
 			district.goToDistrict();
@@ -543,8 +546,12 @@ public class AdminPortalTest extends BaseTest {
 	@Test(priority = 40, dataProvider = "siteDataProvider",groups = {"Smoke", "Sanity", "Regression", "E2E"})
 	@TestInfo(module = "Site", description = "Verify a Site can be created with valid data", priority = "Critical")
 	public void site_Creation(DistrictData data) {
-		district.goToDistrict();
 		DistrictName = data.getDistrictName();
+		ClusterName = findClusterForDistrict(DistrictName);
+		CircleName = findCircleForDistrict(DistrictName);
+		NationalName = "India";
+
+		district.goToDistrict();
 		ensureDistrictExists(DistrictName, ClusterName, CircleName, NationalName);
 		for (SiteData siteName : data.getSites()) {
 			site.goToSite();
@@ -771,6 +778,52 @@ public class AdminPortalTest extends BaseTest {
 		String path = System.getProperty("user.dir") + "/src/main/resources/testdata/geographyHierarchy.json";
 
 		return TestDataUtil.getGeographyHierarchy(path);
+	}
+
+	public String findClusterForDistrict(String districtName) {
+		List<NationalData> list = getHierarchy();
+		for (NationalData n : list) {
+			for (CircleData c : n.getCircles()) {
+				for (ClusterData cl : c.getClusters()) {
+					for (DistrictData d : cl.getDistricts()) {
+						if (d.getDistrictName().equalsIgnoreCase(districtName)) {
+							return cl.getClusterName();
+						}
+					}
+				}
+			}
+		}
+		return ClusterName != null ? ClusterName : "Andhra Pradesh";
+	}
+
+	public String findCircleForDistrict(String districtName) {
+		List<NationalData> list = getHierarchy();
+		for (NationalData n : list) {
+			for (CircleData c : n.getCircles()) {
+				for (ClusterData cl : c.getClusters()) {
+					for (DistrictData d : cl.getDistricts()) {
+						if (d.getDistrictName().equalsIgnoreCase(districtName)) {
+							return c.getCircleName();
+						}
+					}
+				}
+			}
+		}
+		return CircleName != null ? CircleName : "South East";
+	}
+
+	public String findCircleForCluster(String clusterName) {
+		List<NationalData> list = getHierarchy();
+		for (NationalData n : list) {
+			for (CircleData c : n.getCircles()) {
+				for (ClusterData cl : c.getClusters()) {
+					if (cl.getClusterName().equalsIgnoreCase(clusterName)) {
+						return c.getCircleName();
+					}
+				}
+			}
+		}
+		return CircleName != null ? CircleName : "South East";
 	}
 
 	@DataProvider(name = "nationalDataProvider")

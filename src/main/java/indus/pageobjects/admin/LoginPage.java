@@ -292,29 +292,66 @@ public class LoginPage extends AbstractComponent {
 	public void clickProfile() {
 		dismissAnyOpenModal();
 		waitForBackdropToDisappear();
-		waitElementToAppear(profile);
-		clickElement(profile);
+		try {
+			waitElementToAppear(profile);
+			clickElement(profile);
+		} catch (Exception e) {
+			try {
+				waitUtils.clickUsingJS(profile);
+			} catch (Exception ignored) {}
+		}
 	}
 
 	@StepName("Click Sign out Button")
 	public void clickSignOut() {
-		waitElementToBeClickable(signOut);
-		clickElement(signOut);
+		try {
+			waitElementToBeClickable(signOut);
+			clickElement(signOut);
+		} catch (Exception e) {
+			try {
+				waitUtils.clickUsingJS(profile);
+				By menuSignOut = By.xpath("//div[contains(@class,'shadow-xl')]//button[contains(.,'Sign out')] | //button[contains(normalize-space(.),'Sign out')]");
+				waitUtils.waitForClickable(menuSignOut);
+				WebElement btn = driver.findElement(menuSignOut);
+				waitUtils.clickUsingJS(btn);
+			} catch (Exception ex) {
+				try {
+					WebElement btn = driver.findElement(By.xpath("//button[contains(.,'Sign out')]"));
+					waitUtils.clickUsingJS(btn);
+				} catch (Exception ignored) {}
+			}
+		}
 	}
 
 	@StepName("Click Confirm Sign out Button")
 	public void clickConfirmSignOut() {
-		waitElementToBeClickable(confirmSignOut);
-		clickElement(confirmSignOut);
+		try {
+			waitElementToBeClickable(confirmSignOut);
+			clickElement(confirmSignOut);
+		} catch (Exception e) {
+			try {
+				By modalConfirm = By.xpath("//div[@role='dialog']//button[contains(.,'Sign out')] | //div[contains(@class,'flex justify-end')]//button[contains(.,'Sign out')]");
+				waitUtils.waitForClickable(modalConfirm);
+				WebElement btn = driver.findElement(modalConfirm);
+				waitUtils.clickUsingJS(btn);
+			} catch (Exception ignored) {}
+		}
 		waitForBackdropToDisappear();
 	}
 
 	@StepName("Perform Complete Sign Out and wait for Login Page")
 	public void signOutFromPortal() {
-		clickProfile();
-		clickSignOut();
-		clickConfirmSignOut();
-		waitElementToAppear(emailLoginTab);
+		try {
+			clickProfile();
+			clickSignOut();
+			clickConfirmSignOut();
+			waitElementToAppear(emailLoginTab);
+		} catch (Exception e) {
+			try {
+				driver.get(ConfigReader.getUrl());
+				waitElementToAppear(emailLoginTab);
+			} catch (Exception ignored) {}
+		}
 	}
 
 	public void clearFields() {

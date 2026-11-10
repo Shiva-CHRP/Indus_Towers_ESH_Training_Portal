@@ -22,20 +22,24 @@ public class LoginTestValidation extends BaseTest {
 		loginPage.enterPassword(TestDataUtil.getData("loginValidation.validLogin.password"));
 		loginPage.clickLogin();
 
-		// Capture toast notification if displayed
-		try {
-			ToastResponse toast = toastUtils.captureToast();
-			if ("success".equalsIgnoreCase(toast.getType())) {
-				softAssert.assertTrue(toast.getMessage().contains("Login successful") 
-						|| toast.getMessage().contains("Redirecting"), "Success toast message mismatch");
-			}
-			toastUtils.waitForToastToDisappear();
-		} catch (Exception ignored) {
-			// Toast dismissed or fast navigation to dashboard
-		}
-
 		// Evict active session if concurrent session limit is prompted
-		loginPage.handleActiveSessionsIfPresent();
+		boolean evicted = loginPage.handleActiveSessionsIfPresent();
+
+		// Capture toast notification if displayed
+		if (!evicted) {
+			try {
+				ToastResponse toast = toastUtils.captureToast();
+				if ("success".equalsIgnoreCase(toast.getType())) {
+					softAssert.assertTrue(toast.getMessage().contains("Login successful") 
+							|| toast.getMessage().contains("Redirecting"), "Success toast message mismatch");
+				}
+				toastUtils.waitForToastToDisappear();
+			} catch (Exception ignored) {
+				// Toast dismissed or fast navigation to dashboard
+			}
+		} else {
+			toastUtils.waitForToastToDisappear();
+		}
 
 		String actualText = loginPage.adminOverallCompliance();
 		AssertUtils.assertEquals(actualText, "OVERALL COMPLIANCE", "Admin Overview Dashboard Loaded Successfully");

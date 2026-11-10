@@ -110,4 +110,10 @@ public class ManagerPortalTest extends BaseTest {
 		boolean blockedFromAdmin = !driver.getCurrentUrl().contains("/admin/users");
 		softAssert.assertTrue(blockedFromAdmin, "Manager should be blocked by AdminRoute guard");
 	}
+
+	@Test(priority = 8, groups = {"Smoke", "Sanity", "Regression"}, dependsOnMethods = {"manager_Login_Success"})
+	@TestInfo(author = "Shiva", module = "Logout", description = "Verify clean sign out after Manager tests", priority = "P1")
+	public void manager_SignOut() {
+		loginPage.signOutFromPortal();
+	}
 }

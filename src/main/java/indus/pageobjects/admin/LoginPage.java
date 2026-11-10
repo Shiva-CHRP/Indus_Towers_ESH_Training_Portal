@@ -191,15 +191,44 @@ public class LoginPage extends AbstractComponent {
 	public boolean handleActiveSessionsIfPresent() {
 		try {
 			By modalBy = By.xpath("//h3[normalize-space()='Active Session Limit Reached']");
+			By otpBy = By.xpath("//input[@inputmode='numeric']");
+			By errorBannerBy = By.xpath("//p[contains(@class,'text-status-fail') or contains(@class,'bg-red-50')]");
+			By forceLogoutBy = By.xpath("//button[contains(.,'Force Logout')]");
+
+			waitUtils.waitUntil(d -> {
+				if (!d.getCurrentUrl().contains("/login")) {
+					return true;
+				}
+				List<WebElement> modals = d.findElements(modalBy);
+				if (!modals.isEmpty() && modals.get(0).isDisplayed()) {
+					return true;
+				}
+				List<WebElement> otps = d.findElements(otpBy);
+				if (!otps.isEmpty() && otps.get(0).isDisplayed()) {
+					return true;
+				}
+				List<WebElement> errs = d.findElements(errorBannerBy);
+				if (!errs.isEmpty() && errs.get(0).isDisplayed()) {
+					return true;
+				}
+				return null;
+			});
+
 			List<WebElement> titles = driver.findElements(modalBy);
 			if (!titles.isEmpty() && titles.get(0).isDisplayed()) {
-				waitElementToBeClickable(forceLogoutButton);
-				clickElement(forceLogoutButton);
+				waitUtils.waitForClickable(forceLogoutBy);
+				List<WebElement> btns = driver.findElements(forceLogoutBy);
+				if (!btns.isEmpty()) {
+					waitUtils.clickUsingJS(btns.get(0));
+				}
 				waitForBackdropToDisappear();
+				waitUtils.waitUntil(d -> !d.getCurrentUrl().contains("/login")
+						|| (!d.findElements(otpBy).isEmpty() && d.findElements(otpBy).get(0).isDisplayed())
+						|| (!d.findElements(errorBannerBy).isEmpty() && d.findElements(errorBannerBy).get(0).isDisplayed()));
 				return true;
 			}
 		} catch (Exception ignored) {
-			// Modal did not appear, proceed normally
+			// Modal did not appear or login proceeded normally
 		}
 		return false;
 	}

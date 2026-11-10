@@ -31,7 +31,9 @@ public class ManagerAssessmentViewPage extends AbstractComponent {
     public void navigateToAssessment(String assessmentId) {
         String base = driver.getCurrentUrl().split("#")[0].replaceAll("/(admin|super-admin|manager).*", "");
         driver.get(base + "/manager/assessments/" + assessmentId);
-        waitUtils.waitForVisibility(assessmentTitle);
+        waitUtils.waitUntil(d ->
+                !d.findElements(By.xpath("//h1[contains(@class,'font-bold')] | //p[contains(.,'Page not found')] | //button[contains(.,'Go back')]")).isEmpty()
+                || !d.getCurrentUrl().contains("/assessments/"));
     }
 
     public String getAssessmentTitle() {

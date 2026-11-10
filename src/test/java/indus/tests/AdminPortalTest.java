@@ -41,17 +41,19 @@ public class AdminPortalTest extends BaseTest {
 		loginPage.enterUserEmail(TestDataUtil.getData("loginValidation.validLogin.useremail"));
 		loginPage.enterPassword(TestDataUtil.getData("loginValidation.validLogin.password"));
 		loginPage.clickLogin();
-		ToastResponse toast = toastUtils.captureToast();
-		String toastType = toast.getType();
-		String toastMessage = toast.getMessage();
-		if ("success".equalsIgnoreCase(toastType)) {
-			softAssert.assertTrue(toastMessage.toLowerCase().contains("login successful"),
-					"Success toast mismatch: " + toastMessage);
-		} else if ("error".equalsIgnoreCase(toastType)) {
-			softAssert.fail("Toast not displayed or locator not matching UI");
+		boolean evicted = loginPage.handleActiveSessionsIfPresent();
+		if (!evicted) {
+			ToastResponse toast = toastUtils.captureToast();
+			String toastType = toast.getType();
+			String toastMessage = toast.getMessage();
+			if ("success".equalsIgnoreCase(toastType)) {
+				softAssert.assertTrue(toastMessage.toLowerCase().contains("login successful"),
+						"Success toast mismatch: " + toastMessage);
+			} else if ("error".equalsIgnoreCase(toastType)) {
+				softAssert.fail("Toast not displayed or locator not matching UI");
+			}
 		}
 		toastUtils.waitForToastToDisappear();
-		loginPage.handleActiveSessionsIfPresent();
 		String actualText = loginPage.adminOverallCompliance();
 		softAssert.assertEquals(actualText, "OVERALL COMPLIANCE", "Overview Loaded Successfully");
 	}
